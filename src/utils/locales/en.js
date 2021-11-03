@@ -14,6 +14,15 @@ export default {
     signin: 'Sign In',
     close: 'Close',
   },
+  onboard: {
+    skip: 'Skip',
+    title1: 'Currency rate',
+    title2: 'Notification',
+    title3: 'Calm',
+    text1: 'Биржүүдийн ханшын мэдээллийг нэг дороос харах боломж',
+    text2: 'Хүссэн үнийн дүн дээрээ сонордуулга тохируулах',
+    text3: '',
+  },
   login: {
     phone: 'Please enter phone number',
     password: 'Please enter password',

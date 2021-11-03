@@ -5,6 +5,7 @@ import I18n from '../utils/i18n';
 import {useTheme} from '../theme/ThemeProvider';
 
 import Login from '../screens/auth/LoginScreen';
+import Onboard from '../screens/auth/OnboardScreen';
 
 const AuthStack = props => {
   const {t} = I18n;
@@ -12,7 +13,17 @@ const AuthStack = props => {
 
   const Stack = createStackNavigator();
   return (
-    <Stack.Navigator initialRouteName={'Login'}>
+    <Stack.Navigator initialRouteName={'Onboard'}>
+      <Stack.Screen
+        name="Onboard"
+        component={Onboard}
+        options={{
+          title: 'Onboard',
+          animationTypeForReplace: 'pop',
+          headerShown: false,
+          cardStyle: {backgroundColor: colors.background.primary},
+        }}
+      />
       <Stack.Screen
         name="Login"
         component={Login}
