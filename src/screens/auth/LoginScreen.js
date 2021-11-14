@@ -12,9 +12,11 @@ import {
   Pressable,
   FlatList,
   StatusBar,
+  Vibration,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import {BarIndicator} from 'react-native-indicators';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 import I18n from '../../utils/i18n';
 import {useTheme} from '../../theme/ThemeProvider';
@@ -103,6 +105,10 @@ const LoginScreen = ({navigation}) => {
   };
 
   const keyOnPress = item => {
+    ReactNativeHapticFeedback.trigger('impactLight', {
+      enableVibrateFallback: true,
+      ignoreAndroidSystemSettings: false,
+    });
     if (item.label === '<') {
       if (isPhone) {
         setAuth({...auth, phone: auth.phone.slice(0, auth.phone.length - 1)});
@@ -141,6 +147,10 @@ const LoginScreen = ({navigation}) => {
   };
 
   const next = () => {
+    ReactNativeHapticFeedback.trigger('impactLight', {
+      enableVibrateFallback: true,
+      ignoreAndroidSystemSettings: false,
+    });
     LayoutAnimation.configureNext(
       LayoutAnimation.create(
         250,

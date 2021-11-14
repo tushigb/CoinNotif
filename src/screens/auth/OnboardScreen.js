@@ -10,6 +10,7 @@ import {
   StatusBar,
   Image,
 } from 'react-native';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 
 import I18n from '../../utils/i18n';
@@ -133,6 +134,10 @@ const OnboardScreen = ({navigation}) => {
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('Login', {});
+              ReactNativeHapticFeedback.trigger('impactLight', {
+                enableVibrateFallback: true,
+                ignoreAndroidSystemSettings: false,
+              });
             }}
             style={styles.skipButton}
           >
@@ -142,6 +147,10 @@ const OnboardScreen = ({navigation}) => {
             style={{}}
             onPress={() => {
               onPressTouch(true);
+              ReactNativeHapticFeedback.trigger('impactLight', {
+                enableVibrateFallback: true,
+                ignoreAndroidSystemSettings: false,
+              });
             }}
           >
             <Icon
