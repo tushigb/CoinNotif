@@ -26,6 +26,12 @@ export const Light = {
   login: {
     background: '#F6F6F5',
   },
+  onboard: {
+    button: {
+      background: '#43475C',
+      icon: '#FFFFFF',
+    },
+  },
   loginKeyPad: {
     background: '#FFFFFF',
     label: '#43475C',
@@ -76,6 +82,12 @@ export const Dark = {
   },
   login: {
     background: '#212940',
+  },
+  onboard: {
+    button: {
+      background: '#FFFFFF',
+      icon: '#43475C',
+    },
   },
   loginKeyPad: {
     background: '#252e48',

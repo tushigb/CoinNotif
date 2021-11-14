@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext, useRef} from 'react';
 import {
+  UIManager,
   Platform,
   Dimensions,
   SafeAreaView,
@@ -87,7 +88,7 @@ const LoginScreen = ({navigation}) => {
     if (auth.password.length === 4) _signIn();
   }, [auth.password]);
 
-  _signIn = async () => {
+  const _signIn = async () => {
     LayoutAnimation.configureNext(
       LayoutAnimation.create(
         250,
@@ -169,7 +170,7 @@ const LoginScreen = ({navigation}) => {
       <View
         key={i}
         style={{
-          backgroundColor: '#FFF',
+          backgroundColor: colors.loginKeyPad.background,
           borderRadius: 50,
           height: width / 8,
           width: width / 8,
@@ -179,9 +180,11 @@ const LoginScreen = ({navigation}) => {
           marginLeft: 5,
           borderWidth: auth.password.length === i ? 2 : 0,
           borderColor: colors.text.primary,
-        }}>
+        }}
+      >
         <IText>
-          {auth.password.length > i ? auth.password.substring(i, i + 1) : ''}
+          {/* {auth.password.length > i ? auth.password.substring(i, i + 1) : ''} */}
+          {/* {auth.password.length > i ? '*' : ''} */}
         </IText>
       </View>,
     );
@@ -194,7 +197,8 @@ const LoginScreen = ({navigation}) => {
   }
   return (
     <SafeAreaView
-      style={[styles.container, {backgroundColor: colors.login.background}]}>
+      style={[styles.container, {backgroundColor: colors.login.background}]}
+    >
       {/* <StatusBar hidden /> */}
       <View style={[styles.headerContainer]}>
         <IText>{t('common.signin')}</IText>
@@ -210,17 +214,28 @@ const LoginScreen = ({navigation}) => {
               alignItems: 'center',
               justifyContent: 'center',
               flexDirection: 'row',
-            }}>
-            <View style={[styles.phoneInputContainer]}>{phoneView}</View>
+            }}
+          >
+            <View
+              style={[
+                styles.phoneInputContainer,
+                {
+                  backgroundColor: colors.loginKeyPad.background,
+                },
+              ]}
+            >
+              {phoneView}
+            </View>
             {showButton && (
               <TouchableOpacity
                 onPress={next}
                 style={{
                   marginLeft: 10,
-                  backgroundColor: '#FFF',
+                  backgroundColor: colors.loginKeyPad.background,
                   padding: 15,
                   borderRadius: 15,
-                }}>
+                }}
+              >
                 <Icon
                   name={isPhone ? 'arrow-forward' : 'repeat'}
                   size={25}
@@ -237,7 +252,7 @@ const LoginScreen = ({navigation}) => {
                 <IText style={{textAlign: 'center', marginBottom: 10}}>
                   {t('login.password')}
                 </IText>
-                <View style={[styles.passwordInputContainer, {}]}>
+                <View style={[styles.passwordInputContainer]}>
                   {passwordView}
                 </View>
               </>
@@ -249,7 +264,8 @@ const LoginScreen = ({navigation}) => {
           style={[
             {backgroundColor: colors.loginKeyPad.background},
             styles.keyPad,
-          ]}>
+          ]}
+        >
           <FlatList
             scrollEnabled={false}
             contentContainerStyle={{}}
@@ -271,7 +287,8 @@ const LoginScreen = ({navigation}) => {
                       height: width / 3 - 50,
                     },
                     styles.key,
-                  ]}>
+                  ]}
+                >
                   {item.label === '<' ? (
                     <Icon
                       name={'backspace-outline'}
@@ -283,7 +300,8 @@ const LoginScreen = ({navigation}) => {
                   ) : (
                     <IText
                       regular
-                      style={{color: colors.keyPad.label, fontSize: 24}}>
+                      style={{color: colors.keyPad.label, fontSize: 24}}
+                    >
                       {item.label}
                     </IText>
                   )}
@@ -317,7 +335,6 @@ const styles = StyleSheet.create({
   inputContainer: {},
   phoneInputContainer: {
     flexDirection: 'row',
-    backgroundColor: '#FFF',
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 15,
