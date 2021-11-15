@@ -8,10 +8,12 @@ export default {
       profile: 'Profile',
       terminal: 'Terminal',
       invoice: 'Invoice',
+      assets: 'Assets',
     },
   },
   common: {
     signin: 'Sign In',
+    register: 'Register',
     close: 'Close',
   },
   onboard: {
@@ -26,6 +28,7 @@ export default {
   login: {
     phone: 'Please enter phone number',
     password: 'Please enter password',
+    register: 'Register?',
   },
   payment: {
     create_invoice: 'Create invoice',

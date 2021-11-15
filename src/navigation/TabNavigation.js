@@ -3,6 +3,7 @@ import {useRoute} from '@react-navigation/native';
 import {StyleSheet, Animated, LayoutAnimation, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 import {useTheme} from '../theme/ThemeProvider';
 
@@ -41,7 +42,8 @@ const TabNavigation = ({route}) => {
               icon = focused ? 'wallet' : 'wallet-outline';
               break;
             case 'QR':
-              icon = focused ? 'qr-code' : 'qr-code-outline';
+              // icon = focused ? 'qr-code' : 'qr-code-outline';
+              icon = focused ? 'ios-flash' : 'ios-flash-outline';
               break;
             case 'Chart':
               icon = focused ? 'pie-chart' : 'pie-chart-outline';
@@ -71,11 +73,15 @@ const TabNavigation = ({route}) => {
             </View>
           );
         },
-      })}>
+      })}
+    >
       <Tab.Screen
         listeners={({navigation, route}) => ({
           tabPress: e => {
-            // _handleMenu(route.name.toLowerCase());
+            ReactNativeHapticFeedback.trigger('impactLight', {
+              enableVibrateFallback: true,
+              ignoreAndroidSystemSettings: false,
+            });
           },
         })}
         name="Home"
@@ -84,7 +90,10 @@ const TabNavigation = ({route}) => {
       <Tab.Screen
         listeners={({navigation, route}) => ({
           tabPress: e => {
-            // _handleMenu(route.name.toLowerCase());
+            ReactNativeHapticFeedback.trigger('impactLight', {
+              enableVibrateFallback: true,
+              ignoreAndroidSystemSettings: false,
+            });
           },
         })}
         name="Wallet"
@@ -93,7 +102,10 @@ const TabNavigation = ({route}) => {
       <Tab.Screen
         listeners={({navigation, route}) => ({
           tabPress: e => {
-            // _handleMenu(route.name.toLowerCase());
+            ReactNativeHapticFeedback.trigger('impactLight', {
+              enableVibrateFallback: true,
+              ignoreAndroidSystemSettings: false,
+            });
           },
         })}
         name="QR"
@@ -102,7 +114,10 @@ const TabNavigation = ({route}) => {
       <Tab.Screen
         listeners={({navigation, route}) => ({
           tabPress: e => {
-            // _handleMenu(route.name.toLowerCase());
+            ReactNativeHapticFeedback.trigger('impactLight', {
+              enableVibrateFallback: true,
+              ignoreAndroidSystemSettings: false,
+            });
           },
         })}
         name="Chart"
@@ -111,7 +126,10 @@ const TabNavigation = ({route}) => {
       <Tab.Screen
         listeners={({navigation, route}) => ({
           tabPress: e => {
-            // _handleMenu(route.name.toLowerCase());
+            ReactNativeHapticFeedback.trigger('impactLight', {
+              enableVibrateFallback: true,
+              ignoreAndroidSystemSettings: false,
+            });
           },
         })}
         name="Profile"

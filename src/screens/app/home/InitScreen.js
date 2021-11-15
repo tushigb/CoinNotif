@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   StatusBar,
   Dimensions,
@@ -12,6 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import Modal from 'react-native-modal';
 import QRCode from 'react-native-qrcode-svg';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 import I18n from '../../../utils/i18n';
 import {useTheme} from '../../../theme/ThemeProvider';
@@ -21,6 +22,13 @@ import IText from '../../../components/IText';
 import PrimaryButton from '../../../components/PrimaryButton';
 import InvoiceTypeCard from '../../../components/InvoiceTypeCard';
 import InvoiceCard from '../../../components/InvoiceCard';
+import CoinCard from '../../../components/CoinCard';
+
+import {
+  fetchCounhubPairs,
+  fetchTradePairs,
+  fetchDaxPairs,
+} from '../../../service/Service';
 
 const InitScreen = ({navigation}) => {
   const {colors, setScheme, isDark} = useTheme();
@@ -28,12 +36,55 @@ const InitScreen = ({navigation}) => {
   const {state, setLoading} = useContext(AuthContext);
 
   const [show, setShow] = useState(false);
-  const [type, setType] = useState(t('invoice.success'));
+  const [type, setType] = useState('Coinhub');
+  const [coinhubAssets, setCoinhubAssets] = useState([]);
+  const [tradeAssets, setTradeAssets] = useState([]);
+  const [daxAssets, setDaxAssets] = useState([]);
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
   });
+
+  useEffect(() => {
+    fetchCounhubPairs()
+      .then(response => {
+        let data = response.data;
+        let arr = [];
+        arr.push(data['ADA/MNT']);
+        arr.push(data['ARDX/MNT']);
+        arr.push(data['BNB/MNT']);
+        arr.push(data['BTC/MNT']);
+        arr.push(data['CHB/MNT']);
+        arr.push(data['DOGE/MNT']);
+        arr.push(data['ETH/MNT']);
+        arr.push(data['FTM/MNT']);
+        arr.push(data['IHC/MNT']);
+        arr.push(data['LTC/MNT']);
+        arr.push(data['LUNA/MNT']);
+        arr.push(data['MANA/MNT']);
+        arr.push(data['MATIC/MNT']);
+        arr.push(data['PAXG/MNT']);
+        arr.push(data['SHIB/MNT']);
+        arr.push(data['SPC/MNT']);
+        arr.push(data['USDT/MNT']);
+        arr.push(data['XRP/MNT']);
+        setCoinhubAssets(arr);
+      })
+      .catch(error => {});
+
+    fetchTradePairs()
+      .then(response => {
+        setTradeAssets(response.pairName);
+      })
+      .catch(error => {});
+
+    fetchDaxPairs()
+      .then(response => {
+        setDaxAssets(response.data.sys_pair);
+      })
+      .catch(error => {});
+  }, []);
 
   let width = Dimensions.get('window').width;
   let height = Dimensions.get('window').height;
@@ -45,173 +96,134 @@ const InitScreen = ({navigation}) => {
           padding: 20,
           borderBottomLeftRadius: 40,
           borderBottomRightRadius: 40,
-        }}>
-        <View style={{alignItems: 'center'}}>
-          <IText color="#A3A5BA">{t('payment.total_balance')}</IText>
-          <IText style={{fontSize: 30, marginTop: 10}}>
-            {formatter.format(10000).replace('$', '₮')}
-          </IText>
-        </View>
-
+        }}
+      >
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-evenly',
-            paddingTop: 20,
-          }}>
-          <InvoiceTypeCard
-            onPress={label => {
-              setType(label);
-            }}
-            color={colors.invoiceType.success}
-            icon="checkmark-outline"
-            label={t('invoice.success')}
-          />
-          <InvoiceTypeCard
-            onPress={label => {
-              setType(label);
-            }}
-            color={colors.invoiceType.pending}
-            icon="repeat"
-            label={t('invoice.pending')}
-          />
-          <InvoiceTypeCard
-            onPress={label => {
-              setType(label);
-            }}
-            color={colors.invoiceType.settlemented}
-            icon="sync"
-            label={t('invoice.settlemented')}
-          />
-          <InvoiceTypeCard
+          }}
+        >
+          <View style={{alignItems: 'center'}}>
+            <InvoiceTypeCard
+              onPress={label => {
+                setType(label);
+                ReactNativeHapticFeedback.trigger('impactLight', {
+                  enableVibrateFallback: true,
+                  ignoreAndroidSystemSettings: false,
+                });
+              }}
+              color={'#081628'}
+              icon="analytics"
+              label={'Coinhub'}
+            />
+            <IText style={{marginTop: 10}}>CHB</IText>
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <InvoiceTypeCard
+              onPress={label => {
+                setType(label);
+                ReactNativeHapticFeedback.trigger('impactLight', {
+                  enableVibrateFallback: true,
+                  ignoreAndroidSystemSettings: false,
+                });
+              }}
+              color={'#25d56f'}
+              icon="analytics"
+              label={'Trade'}
+            />
+            <IText style={{marginTop: 10}}>TRD</IText>
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <InvoiceTypeCard
+              onPress={label => {
+                setType(label);
+                ReactNativeHapticFeedback.trigger('impactLight', {
+                  enableVibrateFallback: true,
+                  ignoreAndroidSystemSettings: false,
+                });
+              }}
+              color={'#181a20'}
+              icon="analytics"
+              label={'DAX'}
+            />
+            <IText style={{marginTop: 10}}>DAX</IText>
+          </View>
+          {/* <InvoiceTypeCard
             onPress={label => {
               setType(label);
             }}
             color={colors.invoiceType.canceled}
             icon="close"
-            label={t('invoice.canceled')}
-          />
+            label={'Complex'}
+          /> */}
         </View>
       </View>
+
       <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
         <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
         <IText style={{marginTop: 10, fontSize: 24}}>{type}</IText>
-        <InvoiceCard
-          onPress={() => {
-            setLoading(true);
-            setShow(true);
-          }}
-          label={type}
-          amount={formatter.format(10000).replace('$', '₮')}
-          invoiceNumber={'123123123123'}
-        />
-        <InvoiceCard
-          label={type}
-          amount={formatter.format(10000).replace('$', '₮')}
-          invoiceNumber={'123123123123'}
-        />
-        <InvoiceCard
-          label={type}
-          amount={formatter.format(10000).replace('$', '₮')}
-          invoiceNumber={'123123123123'}
-        />
-        <InvoiceCard
-          label={type}
-          amount={formatter.format(10000).replace('$', '₮')}
-          invoiceNumber={'123123123123'}
-        />
-        <InvoiceCard
-          label={type}
-          amount={formatter.format(10000).replace('$', '₮')}
-          invoiceNumber={'123123123123'}
-        />
-        <InvoiceCard
-          label={type}
-          amount={formatter.format(10000).replace('$', '₮')}
-          invoiceNumber={'123123123123'}
-        />
-        <InvoiceCard
-          label={type}
-          amount={formatter.format(10000).replace('$', '₮')}
-          invoiceNumber={'123123123123'}
-        />
-        <InvoiceCard
-          label={type}
-          amount={formatter.format(10000).replace('$', '₮')}
-          invoiceNumber={'123123123123'}
-        />
+        {type === 'Coinhub' &&
+          coinhubAssets.map((item, idx) => {
+            return (
+              <CoinCard
+                key={idx}
+                onPress={() => {
+                  // setLoading(true);
+                  // setShow(true);
+                }}
+                name={item.market}
+                change={item.change}
+                price={item.open}
+                volume={item.volume}
+                high={item.high}
+                low={item.low}
+              />
+            );
+          })}
+        {type === 'Trade' &&
+          tradeAssets.map((item, idx) => {
+            return (
+              item.lastPrice !== null && (
+                <CoinCard
+                  key={idx}
+                  onPress={() => {
+                    // setLoading(true);
+                    // setShow(true);
+                  }}
+                  name={item.name}
+                  fullname={item.nameC}
+                  change={item.diff}
+                  price={item.lastPrice}
+                  volume={item.volume}
+                  high={item.high}
+                  low={item.low}
+                />
+              )
+            );
+          })}
+        {type === 'DAX' &&
+          daxAssets.map((item, idx) => {
+            return (
+              item.lastPrice !== null && (
+                <CoinCard
+                  key={idx}
+                  onPress={() => {
+                    // setLoading(true);
+                    // setShow(true);
+                  }}
+                  name={item.baseAsset.code + '/' + item.quoteAsset.code}
+                  fullname={item.baseAsset.name}
+                  change={item.stats24.change24h}
+                  price={item.price.last_price / 100}
+                  volume={item.volume}
+                  high={item.high}
+                  low={item.low}
+                />
+              )
+            );
+          })}
       </ScrollView>
-
-      <Modal
-        isVisible={show}
-        backdropOpacity={0.1}
-        onBackdropPress={() => {
-          if (state.loading) setLoading(false);
-          setShow(false);
-        }}>
-        <View style={styles.modal}>
-          <View
-            style={[
-              styles.iconContainer,
-              {
-                backgroundColor: colors.invoiceType.success,
-                position: 'absolute',
-                top: -30,
-                zIndex: 999,
-              },
-            ]}>
-            <Icon
-              name={'checkmark-outline'}
-              size={25}
-              style={{color: '#FFF'}}
-            />
-          </View>
-          <View
-            style={[
-              {backgroundColor: colors.background.primary},
-              styles.modalContainer,
-            ]}>
-            <IText
-              lines={1}
-              adjustsFontSizeToFit
-              regular
-              style={{
-                color: colors.keyPad.label,
-                fontSize: 40,
-                marginTop: 20,
-                textAlign: 'center',
-              }}>
-              {formatter.format(10000).replace('$', '₮')}
-            </IText>
-
-            <View style={[styles.row]}>
-              <IText light color={colors.text.gray}>
-                {t('payment.invoice_number')}
-              </IText>
-              <IText light color={colors.text.gray}>
-                123123123123
-              </IText>
-            </View>
-            <View style={[styles.row]}>
-              <IText light color={colors.text.gray}>
-                {t('payment.card_number')}
-              </IText>
-              <IText light color={colors.text.gray}>
-                4444********4444
-              </IText>
-            </View>
-
-            <PrimaryButton
-              style={{marginTop: 20, width: width - 100}}
-              onPress={() => {
-                if (state.loading) setLoading(false);
-                setShow(false);
-              }}
-              label={t('common.close')}
-            />
-          </View>
-        </View>
-      </Modal>
     </>
   );
 };
@@ -223,7 +235,6 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     padding: 20,
-    // alignItems: 'center',
     borderRadius: 10,
   },
   iconContainer: {

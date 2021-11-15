@@ -85,6 +85,7 @@ const OnboardScreen = ({navigation}) => {
         {items.map((item, idx) => {
           return (
             <View
+              key={idx}
               style={{
                 width: width,
               }}
@@ -107,6 +108,7 @@ const OnboardScreen = ({navigation}) => {
         {items.map((item, idx) => {
           return (
             <View
+              key={idx}
               style={[
                 styles.dot,
                 {

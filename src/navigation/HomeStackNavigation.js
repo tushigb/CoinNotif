@@ -20,7 +20,7 @@ const HomeStack = props => {
         name="Init"
         component={Init}
         options={{
-          title: t('menu.title.invoice'),
+          title: t('menu.title.assets'),
           headerTitleStyle: {
             color: colors.header.title,
             fontFamily: 'Rubik-Light',

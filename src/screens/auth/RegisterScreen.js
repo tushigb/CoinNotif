@@ -25,7 +25,7 @@ import {Context as AuthContext} from '../../context/AuthContext';
 import IText from '../../components/IText';
 import PrimaryButton from '../../components/PrimaryButton';
 
-const LoginScreen = ({navigation}) => {
+const RegisterScreen = ({navigation}) => {
   const {t} = I18n;
   const {colors, setScheme, isDark} = useTheme();
   const {signin} = useContext(AuthContext);
@@ -211,7 +211,7 @@ const LoginScreen = ({navigation}) => {
     >
       {/* <StatusBar hidden /> */}
       <View style={[styles.headerContainer]}>
-        <IText>{t('common.signin')}</IText>
+        <IText>{t('common.register')}</IText>
       </View>
       <View style={styles.keyPadContainer}>
         <View style={{marginBottom: 20}}>
@@ -387,4 +387,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default RegisterScreen;

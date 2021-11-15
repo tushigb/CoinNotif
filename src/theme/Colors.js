@@ -12,7 +12,7 @@ export const Light = {
   },
   menu: {
     bottom: {
-      icon: '#004c8b',
+      icon: '#43475C',
     },
   },
   header: {
@@ -52,6 +52,10 @@ export const Light = {
     pending: '#ff6908',
     settlemented: '#79ceb8',
     canceled: '#ff4c4c',
+  },
+  change: {
+    positive: '#34bf49',
+    negative: '#ff4c4c',
   },
 };
 
@@ -109,5 +113,9 @@ export const Dark = {
     pending: '#ff6908',
     settlemented: '#79ceb8',
     canceled: '#ff4c4c',
+  },
+  change: {
+    positive: '#34bf49',
+    negative: '#ff4c4c',
   },
 };

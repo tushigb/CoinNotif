@@ -8,10 +8,12 @@ export default {
       profile: 'Хувийн мэдээлэл',
       terminal: 'Терминал',
       invoice: 'Нэхэмжлэх',
+      assets: 'Ханш',
     },
   },
   common: {
     signin: 'Нэвтрэх',
+    register: 'Бүртгүүлэх',
     close: 'Хаах',
   },
   onboard: {
@@ -26,6 +28,7 @@ export default {
   login: {
     phone: 'Утасны дугаараа оруулна уу',
     password: 'Нууц код оруулна уу',
+    register: 'Бүртгүүлэх?',
   },
   payment: {
     create_invoice: 'Нэхэмжлэх үүсгэх',
