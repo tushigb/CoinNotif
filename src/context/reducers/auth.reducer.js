@@ -1,3 +1,5 @@
+import {LayoutAnimation} from 'react-native';
+
 const authReducer = (state, action) => {
   switch (action.type) {
     case 'signout':

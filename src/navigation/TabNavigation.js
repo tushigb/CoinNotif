@@ -36,7 +36,7 @@ const TabNavigation = ({route}) => {
           let icon = 'home';
           switch (route.name) {
             case 'Home':
-              icon = focused ? 'home' : 'home-outline';
+              icon = focused ? 'analytics' : 'analytics-outline';
               break;
             case 'Wallet':
               icon = focused ? 'wallet' : 'wallet-outline';

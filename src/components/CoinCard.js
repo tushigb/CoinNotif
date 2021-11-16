@@ -18,12 +18,6 @@ const InvoiceCard = props => {
     currency: 'USD',
   });
 
-  const frmr = (num, decimals) =>
-    num.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-
   return (
     <TouchableOpacity
       onPress={props.onPress}

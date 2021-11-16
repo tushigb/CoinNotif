@@ -16,7 +16,8 @@ const Loader = props => {
       style={[styles.container]}
       blurType="light"
       blurAmount={10}
-      reducedTransparencyFallbackColor="#FFFFFF">
+      reducedTransparencyFallbackColor="#FFFFFF"
+    >
       {/* <View style={styles.indicator}>
                 {Platform.OS === 'ios' ? <BallIndicator size={50} color={colors.primary} /> : null}
             </View> */}

@@ -41,14 +41,21 @@ const InitScreen = ({navigation}) => {
   const [tradeAssets, setTradeAssets] = useState([]);
   const [daxAssets, setDaxAssets] = useState([]);
 
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
+  // const formatter = new Intl.NumberFormat('en-US', {
+  //   style: 'currency',
+  //   currency: 'USD',
+  // });
+
+  const formatter = (num, decimals) =>
+    num.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
 
   useEffect(() => {
     fetchCounhubPairs()
       .then(response => {
+        console.log(response.data);
         let data = response.data;
         let arr = [];
         arr.push(data['ADA/MNT']);
@@ -173,8 +180,8 @@ const InitScreen = ({navigation}) => {
                   // setShow(true);
                 }}
                 name={item.market}
-                change={item.change}
-                price={item.open}
+                change={formatter(item.change * 100)}
+                price={item.close}
                 volume={item.volume}
                 high={item.high}
                 low={item.low}
