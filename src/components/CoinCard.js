@@ -13,10 +13,11 @@ const InvoiceCard = props => {
   const {colors} = useTheme();
   const {t} = I18n;
 
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
+  const formatter = (num, decimals) =>
+    num.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
 
   return (
     <TouchableOpacity
@@ -46,7 +47,7 @@ const InvoiceCard = props => {
         }}
       >
         <IText light style={{fontSize: 16}}>
-          {formatter.format(props.price).replace('$', '₮')}
+          {formatter(props.price).replace('$', '₮')}
         </IText>
         <IText
           light
