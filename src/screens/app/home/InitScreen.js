@@ -221,7 +221,7 @@ const InitScreen = ({navigation}) => {
                   }}
                   name={item.baseAsset.code + '/' + item.quoteAsset.code}
                   fullname={item.baseAsset.name}
-                  change={item.stats24.change24h}
+                  change={formatter(item.stats24.change24h)}
                   price={item.price.last_price / 100}
                   volume={item.volume}
                   high={item.high}

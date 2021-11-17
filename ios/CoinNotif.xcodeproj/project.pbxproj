@@ -16,18 +16,18 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		40903464B21B4666A5A149C6 /* Rubik-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17CDCF1CDD944BFBBC4C699A /* Rubik-LightItalic.ttf */; };
 		64A6746D83594F45B1B12C92 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDF33935E48D4527BF2B6208 /* Rubik-Medium.ttf */; };
-		6F945B64B2F4C83818C4FC97 /* libPods-CoinNotif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9027101849E1B9911C680AB4 /* libPods-CoinNotif.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8697591847771824A809C5DE /* libPods-CoinNotif.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF675A234CFB83A35F60D061 /* libPods-CoinNotif.a */; };
 		88DF773A33904441AE44ACCB /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD8AC37AB19443D5983F8C69 /* Rubik-Italic.ttf */; };
 		8C07C24AFB2D4248BB0DCAED /* Rubik-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3DBE81989531444E89B71C9C /* Rubik-BlackItalic.ttf */; };
 		911A7A9FBAC748C59115A0E3 /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1554315AC67C4B9CA2962431 /* Rubik-Light.ttf */; };
 		936C6EDC5F9943EA89F0DD85 /* Rubik-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64C47AEBD2D946DBB6A9F654 /* Rubik-SemiBoldItalic.ttf */; };
 		ABD9EC4CC81D4E2B8E7846F4 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2FC0EA00328407D96C52C27 /* Rubik-Regular.ttf */; };
 		AC74228884FA4721A87D1924 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8400B28B626D4A4C8D89B8EF /* Rubik-Bold.ttf */; };
+		AC8567D1F3569CCBF2132E97 /* libPods-CoinNotif-CoinNotifTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7CE5F537830FE991E308B35 /* libPods-CoinNotif-CoinNotifTests.a */; };
 		ADF964F9AD264FF796DB0C00 /* Rubik-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B10540F7C43048EFB126590D /* Rubik-MediumItalic.ttf */; };
 		B30C300DDBF44B00B3E1A311 /* Rubik-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A24EC4A1993A49D1B82B1372 /* Rubik-Black.ttf */; };
 		CA118AB4935B4096A8215AC0 /* Rubik-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 322B744F84BE467EA37E099B /* Rubik-SemiBold.ttf */; };
-		FB83612DBB2CF2F746FD70A3 /* libPods-CoinNotif-CoinNotifTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26F49EAF0EA72B1EDD907D09 /* libPods-CoinNotif-CoinNotifTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +46,6 @@
 		00E356F21AD99517003FC87E /* CoinNotifTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoinNotifTests.m; sourceTree = "<group>"; };
 		04483AA038E042258DACE1A7 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		0BF604E3E2354C83B7B7C715 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		0F9EC732ED906B1E003DED95 /* Pods-CoinNotif-CoinNotifTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoinNotif-CoinNotifTests.release.xcconfig"; path = "Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* CoinNotif.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinNotif.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = CoinNotif/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = CoinNotif/AppDelegate.m; sourceTree = "<group>"; };
@@ -56,14 +55,14 @@
 		1554315AC67C4B9CA2962431 /* Rubik-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Light.ttf"; path = "../src/assets/fonts/Rubik-Light.ttf"; sourceTree = "<group>"; };
 		156C79880E0A4E8193DE1CC5 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		17CDCF1CDD944BFBBC4C699A /* Rubik-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-LightItalic.ttf"; path = "../src/assets/fonts/Rubik-LightItalic.ttf"; sourceTree = "<group>"; };
-		1BEC7220CCEED3380A79D23F /* Pods-CoinNotif.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoinNotif.debug.xcconfig"; path = "Target Support Files/Pods-CoinNotif/Pods-CoinNotif.debug.xcconfig"; sourceTree = "<group>"; };
 		26391615D2E241E8A7A67913 /* Rubik-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-ExtraBold.ttf"; path = "../src/assets/fonts/Rubik-ExtraBold.ttf"; sourceTree = "<group>"; };
-		26F49EAF0EA72B1EDD907D09 /* libPods-CoinNotif-CoinNotifTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CoinNotif-CoinNotifTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		322B744F84BE467EA37E099B /* Rubik-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-SemiBold.ttf"; path = "../src/assets/fonts/Rubik-SemiBold.ttf"; sourceTree = "<group>"; };
 		3DBE81989531444E89B71C9C /* Rubik-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-BlackItalic.ttf"; path = "../src/assets/fonts/Rubik-BlackItalic.ttf"; sourceTree = "<group>"; };
+		4DF0AB3FC8FBEF51B1F2F750 /* Pods-CoinNotif-CoinNotifTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoinNotif-CoinNotifTests.debug.xcconfig"; path = "Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A88DB37893743C49CFEE5C8 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		64C47AEBD2D946DBB6A9F654 /* Rubik-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-SemiBoldItalic.ttf"; path = "../src/assets/fonts/Rubik-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		68A7DEAE65B5493B9C250D23 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		6E6D15F1038D58DD50ACCB68 /* Pods-CoinNotif.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoinNotif.debug.xcconfig"; path = "Target Support Files/Pods-CoinNotif/Pods-CoinNotif.debug.xcconfig"; sourceTree = "<group>"; };
 		6FC95FA226164268A107E960 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		762B793FAE1F41C08158E269 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		78F261D5BA674C6DA599E7C6 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -71,7 +70,6 @@
 		7E44A0CB7BFA4D229834C2CA /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CoinNotif/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8400B28B626D4A4C8D89B8EF /* Rubik-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Bold.ttf"; path = "../src/assets/fonts/Rubik-Bold.ttf"; sourceTree = "<group>"; };
-		9027101849E1B9911C680AB4 /* libPods-CoinNotif.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CoinNotif.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		964C82DA252D4C5494E978BC /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		9D9684A8079549C39C17251C /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		A24EC4A1993A49D1B82B1372 /* Rubik-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Black.ttf"; path = "../src/assets/fonts/Rubik-Black.ttf"; sourceTree = "<group>"; };
@@ -85,9 +83,11 @@
 		D00390D9A3764C62A717FFAE /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		D18A61F86D144B21953DBC32 /* Rubik-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-BoldItalic.ttf"; path = "../src/assets/fonts/Rubik-BoldItalic.ttf"; sourceTree = "<group>"; };
 		D2FC0EA00328407D96C52C27 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Regular.ttf"; path = "../src/assets/fonts/Rubik-Regular.ttf"; sourceTree = "<group>"; };
-		EC63E48206D5F64309EFC2B7 /* Pods-CoinNotif-CoinNotifTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoinNotif-CoinNotifTests.debug.xcconfig"; path = "Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DF675A234CFB83A35F60D061 /* libPods-CoinNotif.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CoinNotif.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E46CB48A035AB0C5D1BEFA02 /* Pods-CoinNotif.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoinNotif.release.xcconfig"; path = "Target Support Files/Pods-CoinNotif/Pods-CoinNotif.release.xcconfig"; sourceTree = "<group>"; };
+		EB74E3482B6CC479635D96DB /* Pods-CoinNotif-CoinNotifTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoinNotif-CoinNotifTests.release.xcconfig"; path = "Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FFA2C0F5C9B8188FDFB37C62 /* Pods-CoinNotif.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoinNotif.release.xcconfig"; path = "Target Support Files/Pods-CoinNotif/Pods-CoinNotif.release.xcconfig"; sourceTree = "<group>"; };
+		F7CE5F537830FE991E308B35 /* libPods-CoinNotif-CoinNotifTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CoinNotif-CoinNotifTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB83612DBB2CF2F746FD70A3 /* libPods-CoinNotif-CoinNotifTests.a in Frameworks */,
+				AC8567D1F3569CCBF2132E97 /* libPods-CoinNotif-CoinNotifTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,7 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F945B64B2F4C83818C4FC97 /* libPods-CoinNotif.a in Frameworks */,
+				8697591847771824A809C5DE /* libPods-CoinNotif.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,8 +181,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				9027101849E1B9911C680AB4 /* libPods-CoinNotif.a */,
-				26F49EAF0EA72B1EDD907D09 /* libPods-CoinNotif-CoinNotifTests.a */,
+				DF675A234CFB83A35F60D061 /* libPods-CoinNotif.a */,
+				F7CE5F537830FE991E308B35 /* libPods-CoinNotif-CoinNotifTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -222,10 +222,10 @@
 		E0C5CD528DBE9143199B2E2B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1BEC7220CCEED3380A79D23F /* Pods-CoinNotif.debug.xcconfig */,
-				FFA2C0F5C9B8188FDFB37C62 /* Pods-CoinNotif.release.xcconfig */,
-				EC63E48206D5F64309EFC2B7 /* Pods-CoinNotif-CoinNotifTests.debug.xcconfig */,
-				0F9EC732ED906B1E003DED95 /* Pods-CoinNotif-CoinNotifTests.release.xcconfig */,
+				6E6D15F1038D58DD50ACCB68 /* Pods-CoinNotif.debug.xcconfig */,
+				E46CB48A035AB0C5D1BEFA02 /* Pods-CoinNotif.release.xcconfig */,
+				4DF0AB3FC8FBEF51B1F2F750 /* Pods-CoinNotif-CoinNotifTests.debug.xcconfig */,
+				EB74E3482B6CC479635D96DB /* Pods-CoinNotif-CoinNotifTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -237,12 +237,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "CoinNotifTests" */;
 			buildPhases = (
-				1581612732E93F3E6AE21D99 /* [CP] Check Pods Manifest.lock */,
+				EEC3AAAC32A98954E1716863 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				827F347D1DE2A726DE7BD84F /* [CP] Embed Pods Frameworks */,
-				702B48E02A674CFC7C6C9C11 /* [CP] Copy Pods Resources */,
+				40DEA2050D29ACC4F562F33E /* [CP] Embed Pods Frameworks */,
+				601E4F865622BAB9F5030836 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -258,14 +258,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "CoinNotif" */;
 			buildPhases = (
-				00C1857E5F6EEC28EA7FBDCB /* [CP] Check Pods Manifest.lock */,
+				11F24D3D993A29002AE36424 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				86DDA48BE4F1DB48D96ECDFB /* [CP] Embed Pods Frameworks */,
-				545CEE1EE5C9037B4E27E380 /* [CP] Copy Pods Resources */,
+				E83EAB1931891423CA0CF124 /* [CP] Embed Pods Frameworks */,
+				E62925ADACB67C0BB1D99395 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -346,7 +346,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		00C1857E5F6EEC28EA7FBDCB /* [CP] Check Pods Manifest.lock */ = {
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		11F24D3D993A29002AE36424 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -368,21 +382,75 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+		40DEA2050D29ACC4F562F33E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "Bundle React Native code and images";
-			outputPaths = (
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
-		1581612732E93F3E6AE21D99 /* [CP] Check Pods Manifest.lock */ = {
+		601E4F865622BAB9F5030836 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E62925ADACB67C0BB1D99395 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif/Pods-CoinNotif-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif/Pods-CoinNotif-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoinNotif/Pods-CoinNotif-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E83EAB1931891423CA0CF124 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif/Pods-CoinNotif-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif/Pods-CoinNotif-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoinNotif/Pods-CoinNotif-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EEC3AAAC32A98954E1716863 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -402,74 +470,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		545CEE1EE5C9037B4E27E380 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif/Pods-CoinNotif-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif/Pods-CoinNotif-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoinNotif/Pods-CoinNotif-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		702B48E02A674CFC7C6C9C11 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		827F347D1DE2A726DE7BD84F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoinNotif-CoinNotifTests/Pods-CoinNotif-CoinNotifTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		86DDA48BE4F1DB48D96ECDFB /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif/Pods-CoinNotif-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CoinNotif/Pods-CoinNotif-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoinNotif/Pods-CoinNotif-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -524,7 +524,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC63E48206D5F64309EFC2B7 /* Pods-CoinNotif-CoinNotifTests.debug.xcconfig */;
+			baseConfigurationReference = 4DF0AB3FC8FBEF51B1F2F750 /* Pods-CoinNotif-CoinNotifTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -551,7 +551,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F9EC732ED906B1E003DED95 /* Pods-CoinNotif-CoinNotifTests.release.xcconfig */;
+			baseConfigurationReference = EB74E3482B6CC479635D96DB /* Pods-CoinNotif-CoinNotifTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -575,7 +575,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1BEC7220CCEED3380A79D23F /* Pods-CoinNotif.debug.xcconfig */;
+			baseConfigurationReference = 6E6D15F1038D58DD50ACCB68 /* Pods-CoinNotif.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -602,7 +602,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FFA2C0F5C9B8188FDFB37C62 /* Pods-CoinNotif.release.xcconfig */;
+			baseConfigurationReference = E46CB48A035AB0C5D1BEFA02 /* Pods-CoinNotif.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
