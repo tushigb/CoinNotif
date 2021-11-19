@@ -17,6 +17,7 @@ import {
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import {BarIndicator} from 'react-native-indicators';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import auth from '@react-native-firebase/auth';
 
 import I18n from '../../utils/i18n';
 import {useTheme} from '../../theme/ThemeProvider';
@@ -33,7 +34,9 @@ const RegisterScreen = ({navigation}) => {
   const [loading, setLoading] = useState(false);
   const [isPhone, setIsPhone] = useState(true);
   const [showButton, setButton] = useState(false);
-  const [auth, setAuth] = useState({phone: '', password: ''});
+  const [user, setUser] = useState({phone: '', password: ''});
+  const [confirm, setConfirm] = useState(null);
+  const [code, setCode] = useState('');
 
   const [data, setData] = useState([
     {
@@ -87,8 +90,8 @@ const RegisterScreen = ({navigation}) => {
   ]);
 
   useEffect(() => {
-    if (auth.password.length === 4) _signIn();
-  }, [auth.password]);
+    if (user.password.length === 4) _signIn();
+  }, [user.password]);
 
   const _signIn = async () => {
     LayoutAnimation.configureNext(
@@ -111,26 +114,26 @@ const RegisterScreen = ({navigation}) => {
     });
     if (item.label === '<') {
       if (isPhone) {
-        setAuth({...auth, phone: auth.phone.slice(0, auth.phone.length - 1)});
-        if (auth.phone.length === 8) {
+        setUser({...user, phone: user.phone.slice(0, user.phone.length - 1)});
+        if (user.phone.length === 8) {
           changeButton(false);
         }
       } else {
-        setAuth({
-          ...auth,
-          password: auth.password.slice(0, auth.password.length - 1),
+        setUser({
+          ...user,
+          password: user.password.slice(0, user.password.length - 1),
         });
       }
     } else {
       if (isPhone) {
-        if ((auth.phone + item.label).length <= 8) {
-          if ((auth.phone + item.label).length === 8) {
+        if ((user.phone + item.label).length <= 8) {
+          if ((user.phone + item.label).length === 8) {
             changeButton(true);
           }
-          setAuth({...auth, phone: auth.phone + item.label});
+          setUser({...user, phone: user.phone + item.label});
         }
-      } else if ((auth.password + item.label).length <= 4) {
-        setAuth({...auth, password: auth.password + item.label});
+      } else if ((user.password + item.label).length <= 4) {
+        setUser({...user, password: user.password + item.label});
       }
     }
   };
@@ -159,7 +162,7 @@ const RegisterScreen = ({navigation}) => {
       ),
     );
     setIsPhone(!isPhone);
-    if (isPhone) setAuth({...auth, password: ''});
+    if (isPhone) setUser({...user, password: ''});
   };
 
   let width = Dimensions.get('window').width;
@@ -170,7 +173,7 @@ const RegisterScreen = ({navigation}) => {
     phoneView.push(
       <View key={i} style={{marginHorizontal: 2.5}}>
         <IText style={{fontSize: 24}}>
-          {auth.phone.length > i ? auth.phone.substring(i, i + 1) : '-'}
+          {user.phone.length > i ? user.phone.substring(i, i + 1) : '-'}
         </IText>
       </View>,
     );
@@ -188,13 +191,13 @@ const RegisterScreen = ({navigation}) => {
           justifyContent: 'center',
           marginRight: 5,
           marginLeft: 5,
-          borderWidth: auth.password.length === i ? 2 : 0,
+          borderWidth: user.password.length === i ? 2 : 0,
           borderColor: colors.text.primary,
         }}
       >
         <IText>
-          {/* {auth.password.length > i ? auth.password.substring(i, i + 1) : ''} */}
-          {/* {auth.password.length > i ? '*' : ''} */}
+          {/* {user.password.length > i ? user.password.substring(i, i + 1) : ''} */}
+          {/* {user.password.length > i ? '*' : ''} */}
         </IText>
       </View>,
     );
@@ -211,7 +214,7 @@ const RegisterScreen = ({navigation}) => {
     >
       {/* <StatusBar hidden /> */}
       <View style={[styles.headerContainer]}>
-        <IText>{t('common.register')}</IText>
+        <IText>{t('common.signin')}</IText>
       </View>
       <View style={styles.keyPadContainer}>
         <View style={{marginBottom: 20}}>

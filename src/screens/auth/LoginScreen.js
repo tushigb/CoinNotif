@@ -107,11 +107,6 @@ const LoginScreen = ({navigation}) => {
     }, 5000);
   };
 
-  async function signInWithPhoneNumber(phoneNumber) {
-    const confirmation = await auth().signInWithPhoneNumber(phoneNumber, true);
-    setConfirm(confirmation);
-  }
-
   const keyOnPress = item => {
     ReactNativeHapticFeedback.trigger('impactLight', {
       enableVibrateFallback: true,
@@ -246,9 +241,7 @@ const LoginScreen = ({navigation}) => {
             </View>
             {showButton && (
               <TouchableOpacity
-                onPress={() => {
-                  signInWithPhoneNumber('+16412332392');
-                }}
+                onPress={next}
                 style={{
                   marginLeft: 10,
                   backgroundColor: colors.loginKeyPad.background,
