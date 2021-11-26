@@ -13,10 +13,12 @@ import {
   FlatList,
   StatusBar,
   Vibration,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import {BarIndicator} from 'react-native-indicators';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import Modal from 'react-native-modal';
 import auth from '@react-native-firebase/auth';
 
 import I18n from '../../utils/i18n';
@@ -26,12 +28,16 @@ import {Context as AuthContext} from '../../context/AuthContext';
 import IText from '../../components/IText';
 import PrimaryButton from '../../components/PrimaryButton';
 
+import {codes} from '../../constants/phones';
+
 const RegisterScreen = ({navigation}) => {
   const {t} = I18n;
   const {colors, setScheme, isDark} = useTheme();
   const {signin} = useContext(AuthContext);
 
+  const [scrollOffset, setScrollOffset] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showCodes, setCodes] = useState(false);
   const [isPhone, setIsPhone] = useState(true);
   const [showButton, setButton] = useState(false);
   const [user, setUser] = useState({phone: '', password: ''});
@@ -165,6 +171,17 @@ const RegisterScreen = ({navigation}) => {
     if (isPhone) setUser({...user, password: ''});
   };
 
+  const scrollRef = useRef();
+
+  const handleOnScroll = event => {
+    setScrollOffset(event.nativeEvent.contentOffset.y);
+  };
+  const handleScrollTo = p => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo(p);
+    }
+  };
+
   let width = Dimensions.get('window').width;
   let height = Dimensions.get('window').height;
   const phoneView = [];
@@ -172,7 +189,7 @@ const RegisterScreen = ({navigation}) => {
   for (let i = 0; i < 8; i++) {
     phoneView.push(
       <View key={i} style={{marginHorizontal: 2.5}}>
-        <IText style={{fontSize: 24}}>
+        <IText style={{fontSize: 14}}>
           {user.phone.length > i ? user.phone.substring(i, i + 1) : '-'}
         </IText>
       </View>,
@@ -214,7 +231,7 @@ const RegisterScreen = ({navigation}) => {
     >
       {/* <StatusBar hidden /> */}
       <View style={[styles.headerContainer]}>
-        <IText>{t('common.signin')}</IText>
+        <IText>{t('common.register')}</IText>
       </View>
       <View style={styles.keyPadContainer}>
         <View style={{marginBottom: 20}}>
@@ -229,6 +246,27 @@ const RegisterScreen = ({navigation}) => {
               flexDirection: 'row',
             }}
           >
+            <TouchableOpacity
+              onPress={() => {
+                LayoutAnimation.configureNext(
+                  LayoutAnimation.create(
+                    250,
+                    LayoutAnimation.Types.linear,
+                    LayoutAnimation.Properties.opacity,
+                  ),
+                );
+                // setLoading(true);
+                setCodes(!showCodes);
+              }}
+              style={{
+                marginRight: 10,
+                backgroundColor: colors.loginKeyPad.background,
+                padding: 15,
+                borderRadius: 15,
+              }}
+            >
+              <IText style={{fontSize: 14}}>+976</IText>
+            </TouchableOpacity>
             <View
               style={[
                 styles.phoneInputContainer,
@@ -251,7 +289,7 @@ const RegisterScreen = ({navigation}) => {
               >
                 <Icon
                   name={isPhone ? 'arrow-forward' : 'repeat'}
-                  size={25}
+                  size={14}
                   style={{
                     color: colors.loginKeyPad.label,
                   }}
@@ -259,22 +297,6 @@ const RegisterScreen = ({navigation}) => {
               </TouchableOpacity>
             )}
           </View>
-          {isPhone && (
-            <TouchableOpacity
-              onPress={() => {
-                ReactNativeHapticFeedback.trigger('impactLight', {
-                  enableVibrateFallback: true,
-                  ignoreAndroidSystemSettings: false,
-                });
-                navigation.navigate('Register', {});
-              }}
-              style={{paddingVertical: 10}}
-            >
-              <IText medium style={{textAlign: 'center'}}>
-                {t('login.register')}
-              </IText>
-            </TouchableOpacity>
-          )}
           {!isPhone &&
             (!loading ? (
               <>
@@ -350,6 +372,77 @@ const RegisterScreen = ({navigation}) => {
           />
         </View>
       </View>
+      <Modal
+        isVisible={showCodes}
+        backdropOpacity={0.5}
+        swipeDirection={['down']}
+        onSwipeComplete={() => {
+          setCodes(!showCodes);
+        }}
+        onBackdropPress={() => {
+          setCodes(!showCodes);
+        }}
+        backdropTransitionInTiming={500}
+        backdropTransitionOutTiming={500}
+        scrollOffsetMax={400 - 300}
+        scrollTo={handleScrollTo}
+        scrollOffset={scrollOffset}
+        useNativeDriverForBackdrop
+        // scrollEnabled
+        propagateSwipe
+        style={{
+          justifyContent: 'flex-end',
+          margin: 0,
+        }}
+      >
+        <View
+          style={[
+            {
+              backgroundColor: colors.background.primary,
+              height: height / 1.5,
+              borderRadius: 25,
+              paddingHorizontal: 20,
+              paddingVertical: 30,
+            },
+          ]}
+        >
+          <ScrollView
+            ref={scrollRef}
+            onScroll={handleOnScroll}
+            scrollEventThrottle={16}
+            showsVerticalScrollIndicator={false}
+          >
+            {codes.map((item, idx) => {
+              return (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <IText
+                    regular
+                    style={{color: colors.keyPad.label, fontSize: 24}}
+                  >
+                    {item.code}
+                  </IText>
+                  <IText
+                    regular
+                    style={{
+                      color: colors.keyPad.label,
+                      fontSize: 24,
+                      textAlign: 'right',
+                    }}
+                  >
+                    {item.name}
+                  </IText>
+                </View>
+              );
+            })}
+          </ScrollView>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -387,6 +480,26 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  scrollableModalContent1: {
+    height: 200,
+    backgroundColor: '#87BBE0',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scrollableModalText1: {
+    fontSize: 20,
+    color: 'white',
+  },
+  scrollableModalContent2: {
+    height: 200,
+    backgroundColor: '#A9DCD3',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scrollableModalText2: {
+    fontSize: 20,
+    color: 'white',
   },
 });
 

@@ -43,7 +43,8 @@ const IText = props => {
           color: props.color ? props.color : colors.text.primary,
         },
         props.style,
-      ]}>
+      ]}
+    >
       {props.children}
     </Text>
   );

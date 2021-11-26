@@ -120,12 +120,14 @@ const InitScreen = ({navigation}) => {
             style={{
               color: colors.keyPad.label,
               fontSize: 150,
-            }}>
+            }}
+          >
             {formatter.format(amount).replace('$', '₮')}
           </IText>
         </View>
         <View
-          style={[{backgroundColor: colors.keyPad.background}, styles.keyPad]}>
+          style={[{backgroundColor: colors.keyPad.background}, styles.keyPad]}
+        >
           <FlatList
             scrollEnabled={false}
             contentContainerStyle={{}}
@@ -146,11 +148,13 @@ const InitScreen = ({navigation}) => {
                     backgroundColor: colors.keyPad.key,
                   },
                   styles.key,
-                ]}>
+                ]}
+              >
                 {item.label !== '<' ? (
                   <IText
                     regular
-                    style={{color: colors.keyPad.label, fontSize: 24}}>
+                    style={{color: colors.keyPad.label, fontSize: 24}}
+                  >
                     {item.label}
                   </IText>
                 ) : (
@@ -181,13 +185,15 @@ const InitScreen = ({navigation}) => {
         onBackdropPress={() => {
           setShow(!show);
           setLoading(false);
-        }}>
+        }}
+      >
         <View style={styles.modal}>
           <View
             style={[
               {backgroundColor: colors.background.primary},
               styles.modalContainer,
-            ]}>
+            ]}
+          >
             <IText
               lines={1}
               adjustsFontSizeToFit
@@ -196,7 +202,8 @@ const InitScreen = ({navigation}) => {
                 color: colors.keyPad.label,
                 fontSize: 150,
                 marginBottom: 20,
-              }}>
+              }}
+            >
               {formatter.format(amount).replace('$', '₮')}
             </IText>
 

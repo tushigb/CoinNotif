@@ -113,3 +113,16 @@ export const fetchDaxPairs = () => {
       });
   });
 };
+
+export const fetchPhoneCodes = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get('http://country.io/phone.json')
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+};
