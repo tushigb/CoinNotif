@@ -42,7 +42,7 @@ const RegisterScreen = ({navigation}) => {
   const [showButton, setButton] = useState(false);
   const [user, setUser] = useState({phone: '', password: ''});
   const [confirm, setConfirm] = useState(null);
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState('+976');
 
   const [data, setData] = useState([
     {
@@ -132,8 +132,8 @@ const RegisterScreen = ({navigation}) => {
       }
     } else {
       if (isPhone) {
-        if ((user.phone + item.label).length <= 8) {
-          if ((user.phone + item.label).length === 8) {
+        if ((user.phone + item.label).length <= 14) {
+          if ((user.phone + item.label).length > 4) {
             changeButton(true);
           }
           setUser({...user, phone: user.phone + item.label});
@@ -155,7 +155,12 @@ const RegisterScreen = ({navigation}) => {
     setButton(show);
   };
 
-  const next = () => {
+  const next = async () => {
+    if (isPhone) {
+      const confirmation = await auth().signInWithPhoneNumber(
+        code + user.phone,
+      );
+    }
     ReactNativeHapticFeedback.trigger('impactLight', {
       enableVibrateFallback: true,
       ignoreAndroidSystemSettings: false,
@@ -186,11 +191,11 @@ const RegisterScreen = ({navigation}) => {
   let height = Dimensions.get('window').height;
   const phoneView = [];
   const passwordView = [];
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 14; i++) {
     phoneView.push(
-      <View key={i} style={{marginHorizontal: 2.5}}>
+      <View key={i} style={{marginHorizontal: 0.5}}>
         <IText style={{fontSize: 14}}>
-          {user.phone.length > i ? user.phone.substring(i, i + 1) : '-'}
+          {user.phone.length > i ? user.phone.substring(i, i + 1) : ''}
         </IText>
       </View>,
     );
@@ -265,7 +270,7 @@ const RegisterScreen = ({navigation}) => {
                 borderRadius: 15,
               }}
             >
-              <IText style={{fontSize: 14}}>+976</IText>
+              <IText style={{fontSize: 14}}>{code}</IText>
             </TouchableOpacity>
             <View
               style={[
@@ -411,33 +416,25 @@ const RegisterScreen = ({navigation}) => {
             onScroll={handleOnScroll}
             scrollEventThrottle={16}
             showsVerticalScrollIndicator={false}
+            bounces={false}
           >
             {codes.map((item, idx) => {
               return (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
+                <TouchableOpacity
+                  key={idx}
+                  onPress={() => {
+                    setCode(item.dial_code);
+                    setCodes(!showCodes);
                   }}
+                  style={{marginVertical: 5}}
                 >
                   <IText
                     regular
                     style={{color: colors.keyPad.label, fontSize: 24}}
                   >
-                    {item.code}
+                    {item.code} - {item.name}
                   </IText>
-                  <IText
-                    regular
-                    style={{
-                      color: colors.keyPad.label,
-                      fontSize: 24,
-                      textAlign: 'right',
-                    }}
-                  >
-                    {item.name}
-                  </IText>
-                </View>
+                </TouchableOpacity>
               );
             })}
           </ScrollView>

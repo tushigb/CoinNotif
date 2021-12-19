@@ -47,7 +47,7 @@ const InvoiceCard = props => {
         }}
       >
         <IText light style={{fontSize: 16}}>
-          {formatter(props.price).replace('$', '₮')}
+          {props.price ? formatter(props.price).replace('$', '₮') : 0}
         </IText>
         <IText
           light

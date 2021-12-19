@@ -21,7 +21,6 @@ import {Context as AuthContext} from '../../../context/AuthContext';
 import IText from '../../../components/IText';
 import PrimaryButton from '../../../components/PrimaryButton';
 import InvoiceTypeCard from '../../../components/InvoiceTypeCard';
-import InvoiceCard from '../../../components/InvoiceCard';
 import CoinCard from '../../../components/CoinCard';
 
 import {
@@ -167,7 +166,7 @@ const InitScreen = ({navigation}) => {
         </View>
       </View>
 
-      <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
+      <ScrollView style={{flex: 1, paddingHorizontal: 20, marginTop: 10}}>
         <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
         <IText style={{marginTop: 10, fontSize: 24}}>{type}</IText>
         {type === 'Coinhub' &&
@@ -191,13 +190,13 @@ const InitScreen = ({navigation}) => {
         {type === 'Trade' &&
           tradeAssets.map((item, idx) => {
             return (
-              item.lastPrice !== null && (
+              item.lastPrice && (
                 <CoinCard
                   key={idx}
-                  onPress={() => {
-                    // setLoading(true);
-                    // setShow(true);
-                  }}
+                  // onPress={() => {
+                  //   setLoading(true);
+                  //   setShow(true);
+                  // }}
                   name={item.name}
                   fullname={item.nameC}
                   change={item.diff}
