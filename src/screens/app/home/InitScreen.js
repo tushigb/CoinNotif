@@ -13,6 +13,8 @@ import Icon from 'react-native-vector-icons/dist/Ionicons';
 import Modal from 'react-native-modal';
 import QRCode from 'react-native-qrcode-svg';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {Skeleton} from 'moti/skeleton';
+import {MotiView} from 'moti';
 
 import I18n from '../../../utils/i18n';
 import {useTheme} from '../../../theme/ThemeProvider';
@@ -96,6 +98,7 @@ const InitScreen = ({navigation}) => {
   let height = Dimensions.get('window').height;
   return (
     <>
+      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
       <View
         style={{
           backgroundColor: colors.background.primary,
@@ -165,12 +168,38 @@ const InitScreen = ({navigation}) => {
           /> */}
         </View>
       </View>
+      <ScrollView
+        style={{flex: 1}}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+      >
+        <ScrollView
+          style={{flex: 1, paddingHorizontal: 20, marginTop: 10, width: width}}
+          showsVerticalScrollIndicator={false}
+        >
+          <IText style={{marginTop: 10, fontSize: 24}}>Coinhub</IText>
+          <MotiView
+            transition={{
+              type: 'timing',
+            }}
+            style={[styles.container, styles.padded]}
+            animate={{backgroundColor: '#ffffff'}}
+          >
+            {/* <Skeleton
+              colorMode={'light'}
+              radius="round"
+              height={75}
+              width={75}
+            />
 
-      <ScrollView style={{flex: 1, paddingHorizontal: 20, marginTop: 10}}>
-        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
-        <IText style={{marginTop: 10, fontSize: 24}}>{type}</IText>
-        {type === 'Coinhub' &&
-          coinhubAssets.map((item, idx) => {
+            <Skeleton colorMode={'light'} width={250} />
+
+            <Skeleton colorMode={'light'} width={'100%'} />
+
+            <Skeleton colorMode={'light'} width={'100%'} /> */}
+          </MotiView>
+          {coinhubAssets.map((item, idx) => {
             return (
               <CoinCard
                 key={idx}
@@ -187,8 +216,13 @@ const InitScreen = ({navigation}) => {
               />
             );
           })}
-        {type === 'Trade' &&
-          tradeAssets.map((item, idx) => {
+        </ScrollView>
+        <ScrollView
+          style={{flex: 1, paddingHorizontal: 20, marginTop: 10, width: width}}
+          showsVerticalScrollIndicator={false}
+        >
+          <IText style={{marginTop: 10, fontSize: 24}}>Trade</IText>
+          {tradeAssets.map((item, idx) => {
             return (
               item.lastPrice && (
                 <CoinCard
@@ -208,8 +242,13 @@ const InitScreen = ({navigation}) => {
               )
             );
           })}
-        {type === 'DAX' &&
-          daxAssets.map((item, idx) => {
+        </ScrollView>
+        <ScrollView
+          style={{flex: 1, paddingHorizontal: 20, marginTop: 10, width: width}}
+          showsVerticalScrollIndicator={false}
+        >
+          <IText style={{marginTop: 10, fontSize: 24}}>DAX</IText>
+          {daxAssets.map((item, idx) => {
             return (
               item.lastPrice !== null && (
                 <CoinCard
@@ -229,6 +268,7 @@ const InitScreen = ({navigation}) => {
               )
             );
           })}
+        </ScrollView>
       </ScrollView>
     </>
   );

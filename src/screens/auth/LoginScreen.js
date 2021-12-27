@@ -90,7 +90,7 @@ const LoginScreen = ({navigation}) => {
   ]);
 
   useEffect(() => {
-    if (user.password.length === 4) _signIn();
+    if (user.password.length === 6) _signIn();
   }, [user.password]);
 
   const _signIn = async () => {
@@ -132,7 +132,7 @@ const LoginScreen = ({navigation}) => {
           }
           setUser({...user, phone: user.phone + item.label});
         }
-      } else if ((user.password + item.label).length <= 4) {
+      } else if ((user.password + item.label).length <= 6) {
         setUser({...user, password: user.password + item.label});
       }
     }
@@ -178,15 +178,15 @@ const LoginScreen = ({navigation}) => {
       </View>,
     );
   }
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 6; i++) {
     passwordView.push(
       <View
         key={i}
         style={{
           backgroundColor: colors.loginKeyPad.background,
           borderRadius: 50,
-          height: width / 8,
-          width: width / 8,
+          height: width / 12,
+          width: width / 12,
           alignItems: 'center',
           justifyContent: 'center',
           marginRight: 5,

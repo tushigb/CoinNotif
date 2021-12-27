@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import 'react-native-reanimated';
 import {LogBox} from 'react-native';
 import {enableScreens} from 'react-native-screens';
 enableScreens();
