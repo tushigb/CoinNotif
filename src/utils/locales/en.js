@@ -25,6 +25,9 @@ export default {
     text2: 'Хүссэн үнийн дүн дээрээ сонордуулга тохируулах',
     text3: '',
   },
+  wallet: {
+    available_balance: 'Available Balance',
+  },
   login: {
     phone: 'Please enter phone number',
     password: 'Please enter password',

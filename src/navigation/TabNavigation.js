@@ -99,7 +99,7 @@ const TabNavigation = ({route}) => {
         name="Wallet"
         component={WalletStack}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         listeners={({navigation, route}) => ({
           tabPress: e => {
             ReactNativeHapticFeedback.trigger('impactLight', {
@@ -122,7 +122,7 @@ const TabNavigation = ({route}) => {
         })}
         name="Chart"
         component={ChartStack}
-      />
+      /> */}
       <Tab.Screen
         listeners={({navigation, route}) => ({
           tabPress: e => {

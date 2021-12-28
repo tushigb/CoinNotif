@@ -7,4 +7,5 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'off', // <--- THIS IS THE NEW RULE
   },
+  curly: [2, 'multi-line'],
 };

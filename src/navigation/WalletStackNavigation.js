@@ -20,7 +20,7 @@ const WalletStack = props => {
         name="Init"
         component={Init}
         options={{
-          title: t('menu.title.terminal'),
+          title: t('menu.title.wallet'),
           headerTitleStyle: {
             color: colors.header.title,
             fontFamily: 'Rubik-Light',

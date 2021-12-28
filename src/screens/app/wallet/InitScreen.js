@@ -25,6 +25,11 @@ const InitScreen = ({navigation}) => {
   const [terminals, setTerminals] = useState([{}, {}, {}]);
   const [selected, setSelected] = useState(0);
 
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
   const selectTerminal = idx => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setSelected(idx === selected ? -1 : idx);
@@ -33,7 +38,24 @@ const InitScreen = ({navigation}) => {
   return (
     <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
       <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
-      {terminals.map((item, idx) => {
+
+      <View style={styles.amount}>
+        <IText style={{color: '#fb8a2e'}}>
+          {t('wallet.available_balance')}
+        </IText>
+        <IText
+          lines={1}
+          adjustsFontSizeToFit
+          regular
+          style={{
+            color: colors.keyPad.label,
+            fontSize: 150,
+          }}
+        >
+          {formatter.format(28600).replace('$', '')}
+        </IText>
+      </View>
+      {/* {terminals.map((item, idx) => {
         return (
           <TerminalCard
             key={idx}
@@ -46,11 +68,17 @@ const InitScreen = ({navigation}) => {
             }}
           />
         );
-      })}
+      })} */}
     </ScrollView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  amount: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    alignItems: 'center',
+  },
+});
 
 export default InitScreen;

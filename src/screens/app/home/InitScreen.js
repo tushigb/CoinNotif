@@ -130,7 +130,7 @@ const InitScreen = ({navigation}) => {
         >
           {exchanges.map((item, idx) => {
             return (
-              <View style={{alignItems: 'center'}}>
+              <View key={idx} style={{alignItems: 'center'}}>
                 <InvoiceTypeCard
                   onPress={label => {
                     // setSelected(idx);
