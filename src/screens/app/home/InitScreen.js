@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useReducer} from 'react';
 import {
   StatusBar,
   Dimensions,
@@ -8,6 +8,7 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import Modal from 'react-native-modal';
@@ -41,6 +42,7 @@ const InitScreen = ({navigation}) => {
   const [coinhubAssets, setCoinhubAssets] = useState([]);
   const [tradeAssets, setTradeAssets] = useState([]);
   const [daxAssets, setDaxAssets] = useState([]);
+  const [visible, toggle] = useReducer(s => !s, true);
 
   // const formatter = new Intl.NumberFormat('en-US', {
   //   style: 'currency',
@@ -56,7 +58,6 @@ const InitScreen = ({navigation}) => {
   useEffect(() => {
     fetchCounhubPairs()
       .then(response => {
-        console.log(response.data);
         let data = response.data;
         let arr = [];
         arr.push(data['ADA/MNT']);
@@ -158,14 +159,6 @@ const InitScreen = ({navigation}) => {
             />
             <IText style={{marginTop: 10}}>DAX</IText>
           </View>
-          {/* <InvoiceTypeCard
-            onPress={label => {
-              setType(label);
-            }}
-            color={colors.invoiceType.canceled}
-            icon="close"
-            label={'Complex'}
-          /> */}
         </View>
       </View>
       <ScrollView
@@ -186,14 +179,14 @@ const InitScreen = ({navigation}) => {
             style={[styles.container, styles.padded]}
             animate={{backgroundColor: '#ffffff'}}
           >
-            {/* <Skeleton
+            <Skeleton
               colorMode={'light'}
               radius="round"
               height={75}
               width={75}
             />
 
-            <Skeleton colorMode={'light'} width={250} />
+            {/* <Skeleton colorMode={'light'} width={250} />
 
             <Skeleton colorMode={'light'} width={'100%'} />
 
@@ -292,6 +285,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginVertical: 5,
+  },
+  shape: {
+    justifyContent: 'center',
+    height: 250,
+    width: 250,
+    borderRadius: 25,
+    marginRight: 10,
+    backgroundColor: 'white',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    backgroundColor: '#9c1aff',
   },
 });
 
