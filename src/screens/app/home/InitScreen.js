@@ -16,6 +16,7 @@ import QRCode from 'react-native-qrcode-svg';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {Skeleton} from 'moti/skeleton';
 import {MotiView} from 'moti';
+import {LinearGradient} from 'expo-linear-gradient';
 
 import I18n from '../../../utils/i18n';
 import {useTheme} from '../../../theme/ThemeProvider';
@@ -172,26 +173,6 @@ const InitScreen = ({navigation}) => {
           showsVerticalScrollIndicator={false}
         >
           <IText style={{marginTop: 10, fontSize: 24}}>Coinhub</IText>
-          <MotiView
-            transition={{
-              type: 'timing',
-            }}
-            style={[styles.container, styles.padded]}
-            animate={{backgroundColor: '#ffffff'}}
-          >
-            <Skeleton
-              colorMode={'light'}
-              radius="round"
-              height={75}
-              width={75}
-            />
-
-            {/* <Skeleton colorMode={'light'} width={250} />
-
-            <Skeleton colorMode={'light'} width={'100%'} />
-
-            <Skeleton colorMode={'light'} width={'100%'} /> */}
-          </MotiView>
           {coinhubAssets.map((item, idx) => {
             return (
               <CoinCard
@@ -286,20 +267,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: 5,
   },
-  shape: {
-    justifyContent: 'center',
-    height: 250,
-    width: 250,
-    borderRadius: 25,
-    marginRight: 10,
-    backgroundColor: 'white',
-  },
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#9c1aff',
+  },
+  padded: {
+    padding: 16,
   },
 });
 
