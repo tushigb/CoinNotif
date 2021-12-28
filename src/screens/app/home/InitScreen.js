@@ -98,7 +98,6 @@ const InitScreen = ({navigation}) => {
   }, []);
 
   const handleScroll = e => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     let contentOffset = e.nativeEvent.contentOffset;
     let viewSize = e.nativeEvent.layoutMeasurement;
 
