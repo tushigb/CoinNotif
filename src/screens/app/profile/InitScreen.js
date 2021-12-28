@@ -19,11 +19,13 @@ const InitScreen = ({navigation}) => {
           style={[
             {backgroundColor: colors.darkMode.background},
             styles.darkModeBoxBackground,
-          ]}>
+          ]}
+        >
           <TouchableOpacity
             onPress={() => {
               setScheme('light');
-            }}>
+            }}
+          >
             <Icon
               name={'sunny-outline'}
               size={30}
@@ -33,7 +35,8 @@ const InitScreen = ({navigation}) => {
           <TouchableOpacity
             onPress={() => {
               setScheme('dark');
-            }}>
+            }}
+          >
             <Icon
               name={'moon-outline'}
               size={25}

@@ -39,11 +39,11 @@ const InitScreen = ({navigation}) => {
   const {state, setLoading} = useContext(AuthContext);
 
   const [show, setShow] = useState(false);
-  const [type, setType] = useState('Coinhub');
+  const [selected, setSelected] = useState(0);
+  const [exchanges] = useState(['CHB', 'TRD', 'DAX']);
   const [coinhubAssets, setCoinhubAssets] = useState([]);
   const [tradeAssets, setTradeAssets] = useState([]);
   const [daxAssets, setDaxAssets] = useState([]);
-  const [visible, toggle] = useReducer(s => !s, true);
 
   // const formatter = new Intl.NumberFormat('en-US', {
   //   style: 'currency',
@@ -115,51 +115,26 @@ const InitScreen = ({navigation}) => {
             justifyContent: 'space-evenly',
           }}
         >
-          <View style={{alignItems: 'center'}}>
-            <InvoiceTypeCard
-              onPress={label => {
-                setType(label);
-                ReactNativeHapticFeedback.trigger('impactLight', {
-                  enableVibrateFallback: true,
-                  ignoreAndroidSystemSettings: false,
-                });
-              }}
-              color={'#081628'}
-              icon="analytics"
-              label={'Coinhub'}
-            />
-            <IText style={{marginTop: 10}}>CHB</IText>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <InvoiceTypeCard
-              onPress={label => {
-                setType(label);
-                ReactNativeHapticFeedback.trigger('impactLight', {
-                  enableVibrateFallback: true,
-                  ignoreAndroidSystemSettings: false,
-                });
-              }}
-              color={'#25d56f'}
-              icon="analytics"
-              label={'Trade'}
-            />
-            <IText style={{marginTop: 10}}>TRD</IText>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <InvoiceTypeCard
-              onPress={label => {
-                setType(label);
-                ReactNativeHapticFeedback.trigger('impactLight', {
-                  enableVibrateFallback: true,
-                  ignoreAndroidSystemSettings: false,
-                });
-              }}
-              color={'#181a20'}
-              icon="analytics"
-              label={'DAX'}
-            />
-            <IText style={{marginTop: 10}}>DAX</IText>
-          </View>
+          {exchanges.map((item, idx) => {
+            return (
+              <View style={{alignItems: 'center'}}>
+                <InvoiceTypeCard
+                  onPress={label => {
+                    setSelected(idx);
+                    ReactNativeHapticFeedback.trigger('impactLight', {
+                      enableVibrateFallback: true,
+                      ignoreAndroidSystemSettings: false,
+                    });
+                  }}
+                  color={colors.darkMode.background}
+                  icon="analytics"
+                  label={'Coinhub'}
+                  selected={idx === selected}
+                />
+                <IText style={{marginTop: 10}}>{item}</IText>
+              </View>
+            );
+          })}
         </View>
       </View>
       <ScrollView

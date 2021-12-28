@@ -15,8 +15,22 @@ const InvoiceTypeCard = props => {
       onPress={() => {
         props.onPress(props.label);
       }}
-      style={[styles.container, {backgroundColor: props.color}]}>
-      <Icon name={props.icon} size={25} style={{color: '#FFF'}} />
+      style={[
+        styles.container,
+        {
+          backgroundColor: props.color,
+          borderWidth: 1.5,
+          borderColor: props.selected
+            ? colors.darkMode.label
+            : colors.background.primary,
+        },
+      ]}
+    >
+      <Icon
+        name={props.icon}
+        size={25}
+        style={{color: colors.darkMode.label}}
+      />
     </TouchableOpacity>
   );
 };
