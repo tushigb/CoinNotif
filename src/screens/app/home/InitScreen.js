@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext, useReducer} from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import {
   StatusBar,
   Dimensions,
@@ -37,6 +37,7 @@ const InitScreen = ({navigation}) => {
   const {colors, setScheme, isDark} = useTheme();
   const {t} = I18n;
   const {state, setLoading} = useContext(AuthContext);
+  const scrollRef = useRef();
 
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState(0);
@@ -96,6 +97,19 @@ const InitScreen = ({navigation}) => {
       .catch(error => {});
   }, []);
 
+  const handleScroll = e => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    let contentOffset = e.nativeEvent.contentOffset;
+    let viewSize = e.nativeEvent.layoutMeasurement;
+
+    let num = Math.floor(contentOffset.x / viewSize.width);
+    ReactNativeHapticFeedback.trigger('impactLight', {
+      enableVibrateFallback: true,
+      ignoreAndroidSystemSettings: false,
+    });
+    setSelected(num);
+  };
+
   let width = Dimensions.get('window').width;
   let height = Dimensions.get('window').height;
   return (
@@ -120,11 +134,11 @@ const InitScreen = ({navigation}) => {
               <View style={{alignItems: 'center'}}>
                 <InvoiceTypeCard
                   onPress={label => {
-                    setSelected(idx);
-                    ReactNativeHapticFeedback.trigger('impactLight', {
-                      enableVibrateFallback: true,
-                      ignoreAndroidSystemSettings: false,
-                    });
+                    // setSelected(idx);
+                    // ReactNativeHapticFeedback.trigger('impactLight', {
+                    //   enableVibrateFallback: true,
+                    //   ignoreAndroidSystemSettings: false,
+                    // });
                   }}
                   color={colors.darkMode.background}
                   icon="analytics"
@@ -142,6 +156,8 @@ const InitScreen = ({navigation}) => {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
+        ref={scrollRef}
+        onMomentumScrollEnd={handleScroll}
       >
         <ScrollView
           style={{flex: 1, paddingHorizontal: 20, marginTop: 10, width: width}}
