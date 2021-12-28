@@ -22,7 +22,7 @@ const AppLayout = props => {
     <ThemeProvider>
       <NavigationContainer>
         {state.loading && <Loader />}
-        {state.token !== null ? <AuthStack /> : <TabNavigation />}
+        {state.token === null ? <AuthStack /> : <TabNavigation />}
       </NavigationContainer>
     </ThemeProvider>
     // </AppearanceProvider>
