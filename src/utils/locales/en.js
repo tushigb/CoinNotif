@@ -27,6 +27,9 @@ export default {
   },
   wallet: {
     available_balance: 'Available Balance',
+    send: 'Send',
+    receive: 'Receive',
+    pad: 'Pad',
   },
   login: {
     phone: 'Please enter phone number',

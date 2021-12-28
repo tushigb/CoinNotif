@@ -27,6 +27,9 @@ export default {
   },
   wallet: {
     available_balance: 'Боломжит үлдэгдэл',
+    send: 'Илгээсэн',
+    receive: 'Авсан',
+    pad: 'Товч',
   },
   login: {
     phone: 'Утасны дугаараа оруулна уу',
