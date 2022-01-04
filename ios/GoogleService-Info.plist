@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>180686853491-046rddjec1djgcb1akr83ecd66660nma.apps.googleusercontent.com</string>
+	<string>548928341778-4r7lh618f1m0j8bon0n5chp0s6f2b6g4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.180686853491-046rddjec1djgcb1akr83ecd66660nma</string>
+	<string>com.googleusercontent.apps.548928341778-4r7lh618f1m0j8bon0n5chp0s6f2b6g4</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBPCmqdz-XB4DehQCkuvAkCpHcXf7zL23E</string>
+	<string>AIzaSyCMmBs7SkYOnq8kHJUlIJIMcx3PVxc_XrY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>180686853491</string>
+	<string>548928341778</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>org.reactjs.native.example.CoinNotif</string>
 	<key>PROJECT_ID</key>
-	<string>coinnotif</string>
+	<string>coinbell-b8866</string>
 	<key>STORAGE_BUCKET</key>
-	<string>coinnotif.appspot.com</string>
+	<string>coinbell-b8866.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:180686853491:ios:b5ced5799983241ce72106</string>
+	<string>1:548928341778:ios:ad13595e325b6641cc15cb</string>
 </dict>
 </plist>
