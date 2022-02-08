@@ -1,7 +1,5 @@
 export const signup = dispatch => {
-  return ({email, password}) => {
-    console.log('Signup');
-  };
+  return ({email, password}) => {};
 };
 
 export const signin = dispatch => {

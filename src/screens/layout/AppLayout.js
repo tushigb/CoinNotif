@@ -3,6 +3,7 @@ import {StatusBar, Appearance} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {AppearanceProvider} from 'react-native-appearance';
 import {ThemeProvider} from '../../theme/ThemeProvider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {Context as AuthContext} from '../../context/AuthContext';
 import {Context as LoaderContext} from '../../context/LoaderContext';
@@ -13,9 +14,15 @@ import TabNavigation from '../../navigation/TabNavigation';
 import Loader from '../../components/Loader';
 
 const AppLayout = props => {
-  const {state} = useContext(AuthContext);
+  const {state, signin} = useContext(AuthContext);
+  const [token, setToken] = useState(null);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    AsyncStorage.getItem('accessToken').then(result => {
+      signin({token: result});
+      setToken(result);
+    });
+  }, []);
 
   return (
     // <AppearanceProvider>

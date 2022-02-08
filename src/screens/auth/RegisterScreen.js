@@ -20,6 +20,7 @@ import {BarIndicator} from 'react-native-indicators';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import Modal from 'react-native-modal';
 import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import I18n from '../../utils/i18n';
 import {useTheme} from '../../theme/ThemeProvider';
@@ -29,6 +30,8 @@ import IText from '../../components/IText';
 import PrimaryButton from '../../components/PrimaryButton';
 
 import {codes} from '../../constants/phones';
+
+import {postRequest} from '../../service/Service';
 
 const RegisterScreen = ({navigation}) => {
   const {t} = I18n;
@@ -96,7 +99,22 @@ const RegisterScreen = ({navigation}) => {
   ]);
 
   useEffect(() => {
-    if (user.password.length === 4) _signIn();
+    if (user.password.length === 6) {
+      confirm
+        .confirm(user.password)
+        .then(result => {
+          postRequest('auth/register', {
+            number: user.phone,
+            extension: code.replace('+', ''),
+          }).then(response => {
+            AsyncStorage.setItem('accessToken', response.data.accessToken);
+            _signIn();
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }, [user.password]);
 
   const _signIn = async () => {
@@ -108,9 +126,10 @@ const RegisterScreen = ({navigation}) => {
       ),
     );
     setLoading(true);
-    setTimeout(() => {
-      signin({});
-    }, 5000);
+    signin({});
+    // setTimeout(() => {
+    //   signin({});
+    // }, 5000);
   };
 
   const keyOnPress = item => {
@@ -138,7 +157,7 @@ const RegisterScreen = ({navigation}) => {
           }
           setUser({...user, phone: user.phone + item.label});
         }
-      } else if ((user.password + item.label).length <= 4) {
+      } else if ((user.password + item.label).length <= 6) {
         setUser({...user, password: user.password + item.label});
       }
     }
@@ -155,25 +174,37 @@ const RegisterScreen = ({navigation}) => {
     setButton(show);
   };
 
-  const next = async () => {
-    if (isPhone) {
-      const confirmation = await auth().signInWithPhoneNumber(
-        code + user.phone,
-      );
-    }
-    ReactNativeHapticFeedback.trigger('impactLight', {
-      enableVibrateFallback: true,
-      ignoreAndroidSystemSettings: false,
+  const checkPhone = async () => {
+    postRequest('auth/exist', {
+      number: user.phone,
+      extension: code.replace('+', ''),
+    }).then(response => {
+      if (!response.data.exists) next();
     });
-    LayoutAnimation.configureNext(
-      LayoutAnimation.create(
-        250,
-        isPhone ? LayoutAnimation.Types.easeOut : LayoutAnimation.Types.easeIn,
-        LayoutAnimation.Properties.opacity,
-      ),
-    );
-    setIsPhone(!isPhone);
-    if (isPhone) setUser({...user, password: ''});
+  };
+
+  const next = async () => {
+    isPhone &&
+      auth()
+        .signInWithPhoneNumber(code + user.phone)
+        .then(result => {
+          setConfirm(result);
+          ReactNativeHapticFeedback.trigger('impactLight', {
+            enableVibrateFallback: true,
+            ignoreAndroidSystemSettings: false,
+          });
+          LayoutAnimation.configureNext(
+            LayoutAnimation.create(
+              250,
+              isPhone
+                ? LayoutAnimation.Types.easeOut
+                : LayoutAnimation.Types.easeIn,
+              LayoutAnimation.Properties.opacity,
+            ),
+          );
+          setIsPhone(!isPhone);
+          setUser({...user, password: ''});
+        });
   };
 
   const scrollRef = useRef();
@@ -284,7 +315,7 @@ const RegisterScreen = ({navigation}) => {
             </View>
             {showButton && (
               <TouchableOpacity
-                onPress={next}
+                onPress={checkPhone}
                 style={{
                   marginLeft: 10,
                   backgroundColor: colors.loginKeyPad.background,

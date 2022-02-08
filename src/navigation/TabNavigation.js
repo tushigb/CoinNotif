@@ -4,6 +4,7 @@ import {StyleSheet, Animated, LayoutAnimation, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {useTheme} from '../theme/ThemeProvider';
 

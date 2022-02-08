@@ -1,11 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-// export const URL = 'http://103.50.205.151:9000/'
-// export const API = 'http://103.50.205.151:9000/api/'
-
-export const URL = 'https://ardnam.mn/';
-export const API = 'https://ardnam.mn/api/';
+export const API = 'https://coinbell.tech/api/';
 
 axios.interceptors.request.use(
   async config => {
