@@ -1,11 +1,18 @@
 import React, {useState, useContext} from 'react';
-import {StyleSheet, View, Text, SafeAreaView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 
 import I18n from '../../../utils/i18n';
 import {useTheme} from '../../../theme/ThemeProvider';
 import {Context as AuthContext} from '../../../context/AuthContext';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+
+import IText from '../../../components/IText';
 
 const InitScreen = ({navigation}) => {
   const {colors, setScheme, isDark} = useTheme();
@@ -45,6 +52,13 @@ const InitScreen = ({navigation}) => {
           </TouchableOpacity>
         </View>
       </View>
+      <TouchableOpacity
+        onPress={() => {
+          signout();
+        }}
+      >
+        <IText>LOGOUT</IText>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };

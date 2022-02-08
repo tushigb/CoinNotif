@@ -5,7 +5,6 @@ import {
   StyleSheet,
   LayoutAnimation,
   View,
-  Text,
   ScrollView,
   TouchableOpacity,
   Pressable,
