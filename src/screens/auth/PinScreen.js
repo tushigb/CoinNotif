@@ -27,14 +27,13 @@ import {useTheme} from '../../theme/ThemeProvider';
 import {Context as AuthContext} from '../../context/AuthContext';
 
 import IText from '../../components/IText';
-import KeyPad from '../../components/KeyPad';
 import PrimaryButton from '../../components/PrimaryButton';
 
 import {codes} from '../../constants/phones';
 
 import {postRequest} from '../../service/Service';
 
-const RegisterScreen = ({navigation}) => {
+const PinScreen = ({navigation}) => {
   const {t} = I18n;
   const {colors, setScheme, isDark} = useTheme();
   const {signin} = useContext(AuthContext);
@@ -47,7 +46,57 @@ const RegisterScreen = ({navigation}) => {
   const [user, setUser] = useState({phone: '', password: ''});
   const [confirm, setConfirm] = useState(null);
   const [code, setCode] = useState('+976');
-  const [length, setLength] = useState(8);
+
+  const [data, setData] = useState([
+    {
+      label: '1',
+      value: 1,
+    },
+    {
+      label: '2',
+      value: 2,
+    },
+    {
+      label: '3',
+      value: 3,
+    },
+    {
+      label: '4',
+      value: 4,
+    },
+    {
+      label: '5',
+      value: 5,
+    },
+    {
+      label: '6',
+      value: 6,
+    },
+    {
+      label: '7',
+      value: 7,
+    },
+    {
+      label: '8',
+      value: 8,
+    },
+    {
+      label: '9',
+      value: 9,
+    },
+    {
+      label: '>',
+      value: 9,
+    },
+    {
+      label: '0',
+      value: 0,
+    },
+    {
+      label: '<',
+      value: 9,
+    },
+  ]);
 
   useEffect(() => {
     if (user.password.length === 6) {
@@ -91,7 +140,7 @@ const RegisterScreen = ({navigation}) => {
     if (item.label === '<') {
       if (isPhone) {
         setUser({...user, phone: user.phone.slice(0, user.phone.length - 1)});
-        if (user.phone.length === length) {
+        if (user.phone.length === 8) {
           changeButton(false);
         }
       } else {
@@ -103,7 +152,7 @@ const RegisterScreen = ({navigation}) => {
     } else {
       if (isPhone) {
         if ((user.phone + item.label).length <= 14) {
-          if ((user.phone + item.label).length >= length) {
+          if ((user.phone + item.label).length > 4) {
             changeButton(true);
           }
           setUser({...user, phone: user.phone + item.label});
@@ -298,7 +347,66 @@ const RegisterScreen = ({navigation}) => {
               <BarIndicator color={colors.text.primary} count={3} size={50} />
             ))}
         </View>
-        <KeyPad keyOnPress={keyOnPress} />
+        <View
+          style={[
+            {backgroundColor: colors.loginKeyPad.background},
+            styles.keyPad,
+          ]}
+        >
+          <FlatList
+            scrollEnabled={false}
+            contentContainerStyle={{}}
+            columnWrapperStyle={{
+              justifyContent: 'space-between',
+            }}
+            data={data}
+            numColumns={3}
+            keyExtractor={(item, index) => index}
+            renderItem={({item, index}) =>
+              item.label !== '>' ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    keyOnPress(item);
+                  }}
+                  style={[
+                    {
+                      width: width / 3 - 30,
+                      height: width / 3 - 50,
+                    },
+                    styles.key,
+                  ]}
+                >
+                  {item.label === '<' ? (
+                    <Icon
+                      name={'backspace-outline'}
+                      size={25}
+                      style={{
+                        color: colors.loginKeyPad.label,
+                      }}
+                    />
+                  ) : (
+                    <IText
+                      regular
+                      style={{color: colors.keyPad.label, fontSize: 24}}
+                    >
+                      {item.label}
+                    </IText>
+                  )}
+                </TouchableOpacity>
+              ) : (
+                <View
+                  style={[
+                    {
+                      width: width / 3 - 30,
+                      height: width / 3 - 50,
+                    },
+                    styles.key,
+                  ]}
+                />
+              )
+            }
+          />
+        </View>
       </View>
       <Modal
         isVisible={showCodes}
@@ -347,7 +455,6 @@ const RegisterScreen = ({navigation}) => {
                   key={idx}
                   onPress={() => {
                     setCode(item.dial_code);
-                    setLength(item.length ? item.length : 14);
                     setCodes(!showCodes);
                   }}
                   style={{marginVertical: 5}}
@@ -393,6 +500,15 @@ const styles = StyleSheet.create({
     right: 1,
     left: 1,
   },
+  keyPad: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
+  key: {
+    marginBottom: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   scrollableModalContent1: {
     height: 200,
     backgroundColor: '#87BBE0',
@@ -415,4 +531,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default PinScreen;

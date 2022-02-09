@@ -713,6 +713,7 @@ export const codes = [
     name: 'Mongolia',
     dial_code: '+976',
     code: 'MN',
+    length: 8,
   },
   {
     name: 'Montenegro',
@@ -1153,6 +1154,7 @@ export const codes = [
     name: 'United States',
     dial_code: '+1',
     code: 'US',
+    length: 10,
   },
   {
     name: 'Uruguay',

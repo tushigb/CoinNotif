@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import I18n from '../../../utils/i18n';
 import {useTheme} from '../../../theme/ThemeProvider';
@@ -54,6 +55,7 @@ const InitScreen = ({navigation}) => {
       </View>
       <TouchableOpacity
         onPress={() => {
+          AsyncStorage.removeItem('accessToken');
           signout();
         }}
       >
