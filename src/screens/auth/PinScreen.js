@@ -28,7 +28,7 @@ import {postRequest} from '../../service/Service';
 const PinScreen = ({navigation, route}) => {
   const {t} = I18n;
   const {colors, setScheme, isDark} = useTheme();
-  const {signin} = useContext(AuthContext);
+  const {signin, setLoading} = useContext(AuthContext);
 
   const [code, setCode] = useState('');
   const [phone, setPhone] = useState('');
@@ -50,12 +50,14 @@ const PinScreen = ({navigation, route}) => {
       setIsConfirm(true);
     } else if (isConfirm && pin.length === 4) {
       if (confirm === pin) {
+        setLoading(true);
         postRequest('auth/register', {
           number: phone,
           extension: code.replace('+', ''),
           pin: pin,
         }).then(response => {
           if (response.data.accessToken) {
+            setLoading(false);
             AsyncStorage.setItem('accessToken', response.data.accessToken);
             signin({
               token: response.data.accessToken,
