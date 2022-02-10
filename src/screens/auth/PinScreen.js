@@ -74,6 +74,7 @@ const PinScreen = ({navigation, route}) => {
         setConfirm('');
         setPin('');
         setIsConfirm(false);
+        alert(t('register.pin_wrong'));
       }
     }
   }, [pin]);
