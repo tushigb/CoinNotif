@@ -48,7 +48,7 @@ const RegisterScreen = ({navigation}) => {
       confirm
         .confirm(user.password)
         .then(result => {
-          navigation.navigate('Pin', {user: user});
+          navigation.navigate('Pin', {phone: user.phone, code: code});
         })
         .catch(err => {
           setUser({...user, password: ''});

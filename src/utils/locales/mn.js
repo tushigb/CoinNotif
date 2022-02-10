@@ -15,6 +15,7 @@ export default {
     signin: 'Нэвтрэх',
     register: 'Бүртгүүлэх',
     close: 'Хаах',
+    pin: 'Пин Код',
   },
   onboard: {
     skip: 'Алгасах',
@@ -39,6 +40,8 @@ export default {
   register: {
     already_registered: 'Уучлаарай энэ утасны дугаар системд бүртгэлтэй байна',
     opt_wrong: 'Уучлаарай нэг удаагийн нууц үг таарахгүй байна',
+    enter_pin: 'Цаашид нэвтрэх пин кодоо оруулна уу',
+    enter_confirm: 'Пин кодоо дахин оруулж баталгаажуулна уу',
   },
   payment: {
     create_invoice: 'Нэхэмжлэх үүсгэх',

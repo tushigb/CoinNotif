@@ -15,6 +15,7 @@ export default {
     signin: 'Sign In',
     register: 'Register',
     close: 'Close',
+    pin: 'Pin Code',
   },
   onboard: {
     skip: 'Skip',
@@ -38,6 +39,9 @@ export default {
   },
   register: {
     already_registered: 'Sorry, this phone number already registered',
+    opt_wrong: 'Sorry, one time password doesnt match',
+    enter_pin: 'Please enter your pin code to sign in',
+    enter_confirm: 'Please verify your pin code',
   },
   payment: {
     create_invoice: 'Create invoice',

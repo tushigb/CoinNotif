@@ -25,36 +25,82 @@ import KeyPad from '../../components/KeyPad';
 
 import {postRequest} from '../../service/Service';
 
-const PinScreen = ({navigation}) => {
+const PinScreen = ({navigation, route}) => {
   const {t} = I18n;
   const {colors, setScheme, isDark} = useTheme();
   const {signin} = useContext(AuthContext);
 
-  const [user, setUser] = useState({phone: '', password: ''});
+  const [code, setCode] = useState('');
+  const [phone, setPhone] = useState('');
+  const [pin, setPin] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [isConfirm, setIsConfirm] = useState(false);
 
-  useEffect(() => {}, [user.password]);
+  useEffect(() => {
+    if (route.params && route.params.code && route.params.phone) {
+      setCode(route.params.code);
+      setPhone(route.params.phone);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isConfirm && pin.length === 4) {
+      setConfirm(pin);
+      setPin('');
+      setIsConfirm(true);
+    } else if (isConfirm && pin.length === 4) {
+      if (confirm === pin) {
+        postRequest('auth/register', {
+          number: phone,
+          extension: code.replace('+', ''),
+          pin: pin,
+        }).then(response => {
+          if (response.data.accessToken) {
+            AsyncStorage.setItem('accessToken', response.data.accessToken);
+            signin({
+              token: response.data.accessToken,
+              user: {
+                phone: {
+                  extension: code.replace('+', ''),
+                  number: phone,
+                },
+              },
+            });
+          }
+        });
+      } else {
+        setConfirm('');
+        setPin('');
+        setIsConfirm(false);
+      }
+    }
+  }, [pin]);
 
   const keyOnPress = item => {
-    console.log(item);
+    if (item.label === '<') {
+      setPin(pin.slice(0, pin.length - 1));
+    } else if (pin.length < 4) {
+      setPin(pin + item.label);
+    }
   };
 
   let width = Dimensions.get('window').width;
   let height = Dimensions.get('window').height;
   const passwordView = [];
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 4; i++) {
     passwordView.push(
       <View
         key={i}
         style={{
           backgroundColor: colors.loginKeyPad.background,
           borderRadius: 50,
-          height: width / 8,
-          width: width / 8,
+          height: width / 12,
+          width: width / 12,
           alignItems: 'center',
           justifyContent: 'center',
           marginRight: 5,
           marginLeft: 5,
-          borderWidth: user.password.length === i ? 2 : 0,
+          borderWidth: pin.length === i ? 2 : 0,
           borderColor: colors.text.primary,
         }}
       />,
@@ -71,9 +117,21 @@ const PinScreen = ({navigation}) => {
       style={[styles.container, {backgroundColor: colors.login.background}]}
     >
       <View style={[styles.headerContainer]}>
-        <IText>{t('common.register')}</IText>
+        <IText>{t('common.pin')}</IText>
       </View>
       <View style={styles.keyPadContainer}>
+        <View style={{marginBottom: 20, alignItems: 'center'}}>
+          <IText>{code + ' ' + phone}</IText>
+        </View>
+        <View style={{marginBottom: 20}}>
+          <View style={[styles.passwordInputContainer]}>{passwordView}</View>
+
+          <View style={{marginTop: 10, alignItems: 'center'}}>
+            <IText style={{fontSize: 14}}>
+              {t(isConfirm ? 'register.enter_confirm' : 'register.enter_pin')}
+            </IText>
+          </View>
+        </View>
         <KeyPad keyOnPress={keyOnPress} />
       </View>
     </SafeAreaView>
@@ -87,13 +145,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     alignItems: 'center',
   },
-  inputContainer: {},
-  phoneInputContainer: {
-    flexDirection: 'row',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 15,
-  },
   passwordInputContainer: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -104,35 +155,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 1,
     left: 1,
-  },
-  keyPad: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-  },
-  key: {
-    marginBottom: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  scrollableModalContent1: {
-    height: 200,
-    backgroundColor: '#87BBE0',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  scrollableModalText1: {
-    fontSize: 20,
-    color: 'white',
-  },
-  scrollableModalContent2: {
-    height: 200,
-    backgroundColor: '#A9DCD3',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  scrollableModalText2: {
-    fontSize: 20,
-    color: 'white',
   },
 });
 
