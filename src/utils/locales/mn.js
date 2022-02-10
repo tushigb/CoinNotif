@@ -36,6 +36,10 @@ export default {
     password: 'Нууц код оруулна уу',
     register: 'Бүртгүүлэх?',
   },
+  register: {
+    already_registered: 'Уучлаарай энэ утасны дугаар системд бүртгэлтэй байна',
+    opt_wrong: 'Уучлаарай нэг удаагийн нууц үг таарахгүй байна',
+  },
   payment: {
     create_invoice: 'Нэхэмжлэх үүсгэх',
     total_balance: 'Нийт үлдэгдэл',

@@ -13,7 +13,7 @@ import IText from './IText';
 
 import {useTheme} from '../theme/ThemeProvider';
 
-const KeyPad = props => {
+const WarningAlert = props => {
   const {colors} = useTheme();
 
   const [data, setData] = useState([
@@ -134,22 +134,6 @@ const KeyPad = props => {
   );
 };
 
-const styles = StyleSheet.create({
-  keyPadContainer: {
-    position: 'absolute',
-    bottom: 0,
-    right: 1,
-    left: 1,
-  },
-  keyPad: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-  },
-  key: {
-    marginBottom: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});
 
-export default KeyPad;
+export default WarningAlert;

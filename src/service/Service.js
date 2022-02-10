@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-export const API = 'https://coinbell.tech/api/';
+export const API = 'http://139.59.225.83:3000/api/';
 
 axios.interceptors.request.use(
   async config => {
@@ -36,7 +36,7 @@ export const postRequest = (uri, body) => {
         resolve(response);
       })
       .catch(error => {
-        reject(error.response);
+        reject(error);
       });
   });
 };

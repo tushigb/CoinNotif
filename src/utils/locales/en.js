@@ -36,6 +36,9 @@ export default {
     password: 'Please enter password',
     register: 'Register?',
   },
+  register: {
+    already_registered: 'Sorry, this phone number already registered',
+  },
   payment: {
     create_invoice: 'Create invoice',
     total_balance: 'Total balance',

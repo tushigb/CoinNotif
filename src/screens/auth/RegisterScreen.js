@@ -6,13 +6,8 @@ import {
   SafeAreaView,
   LayoutAnimation,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
-  Pressable,
-  FlatList,
-  StatusBar,
-  Vibration,
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
@@ -28,7 +23,6 @@ import {Context as AuthContext} from '../../context/AuthContext';
 
 import IText from '../../components/IText';
 import KeyPad from '../../components/KeyPad';
-import PrimaryButton from '../../components/PrimaryButton';
 
 import {codes} from '../../constants/phones';
 
@@ -38,56 +32,31 @@ const RegisterScreen = ({navigation}) => {
   const {t} = I18n;
   const {colors, setScheme, isDark} = useTheme();
   const {signin} = useContext(AuthContext);
+  const {state, setLoading} = useContext(AuthContext);
 
   const [scrollOffset, setScrollOffset] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [showCodes, setCodes] = useState(false);
   const [isPhone, setIsPhone] = useState(true);
   const [showButton, setButton] = useState(false);
   const [user, setUser] = useState({phone: '', password: ''});
   const [confirm, setConfirm] = useState(null);
-  const [code, setCode] = useState('+976');
-  const [length, setLength] = useState(8);
+  const [code, setCode] = useState('+1');
+  const [length, setLength] = useState(10);
 
   useEffect(() => {
-    if (user.password.length === 6) {
+    user.password.length === 6 &&
       confirm
         .confirm(user.password)
         .then(result => {
-          postRequest('auth/register', {
-            number: user.phone,
-            extension: code.replace('+', ''),
-          }).then(response => {
-            AsyncStorage.setItem('accessToken', response.data.accessToken);
-            _signIn(response.data.accessToken);
-          });
+          navigation.navigate('Pin', {user: user});
         })
         .catch(err => {
-          console.log(err);
+          setUser({...user, password: ''});
+          alert(t('register.opt_wrong'));
         });
-    }
   }, [user.password]);
 
-  const _signIn = async token => {
-    LayoutAnimation.configureNext(
-      LayoutAnimation.create(
-        250,
-        LayoutAnimation.Types.linear,
-        LayoutAnimation.Properties.opacity,
-      ),
-    );
-    setLoading(true);
-    signin({token: token});
-    // setTimeout(() => {
-    //   signin({});
-    // }, 5000);
-  };
-
   const keyOnPress = item => {
-    ReactNativeHapticFeedback.trigger('impactLight', {
-      enableVibrateFallback: true,
-      ignoreAndroidSystemSettings: false,
-    });
     if (item.label === '<') {
       if (isPhone) {
         setUser({...user, phone: user.phone.slice(0, user.phone.length - 1)});
@@ -102,7 +71,7 @@ const RegisterScreen = ({navigation}) => {
       }
     } else {
       if (isPhone) {
-        if ((user.phone + item.label).length <= 14) {
+        if ((user.phone + item.label).length <= length) {
           if ((user.phone + item.label).length >= length) {
             changeButton(true);
           }
@@ -125,16 +94,26 @@ const RegisterScreen = ({navigation}) => {
     setButton(show);
   };
 
-  const checkPhone = async () => {
+  const checkIsExists = async () => {
+    setLoading(true);
     postRequest('auth/exist', {
       number: user.phone,
       extension: code.replace('+', ''),
-    }).then(response => {
-      if (!response.data.exists) next();
-    });
+    })
+      .then(response => {
+        if (!response.data.exists) sendOTP();
+        else {
+          setLoading(false);
+          alert(t('register.already_registered'));
+        }
+      })
+      .catch(err => {
+        setLoading(false);
+        alert('Something went wrong');
+      });
   };
 
-  const next = async () => {
+  const sendOTP = async () => {
     isPhone &&
       auth()
         .signInWithPhoneNumber(code + user.phone)
@@ -155,7 +134,20 @@ const RegisterScreen = ({navigation}) => {
           );
           setIsPhone(!isPhone);
           setUser({...user, password: ''});
+          setLoading(false);
         });
+  };
+
+  const reset = () => {
+    LayoutAnimation.configureNext(
+      LayoutAnimation.create(
+        250,
+        isPhone ? LayoutAnimation.Types.easeOut : LayoutAnimation.Types.easeIn,
+        LayoutAnimation.Properties.opacity,
+      ),
+    );
+    setIsPhone(true);
+    setUser({...user, password: ''});
   };
 
   const scrollRef = useRef();
@@ -189,8 +181,8 @@ const RegisterScreen = ({navigation}) => {
         style={{
           backgroundColor: colors.loginKeyPad.background,
           borderRadius: 50,
-          height: width / 8,
-          width: width / 8,
+          height: width / 12,
+          width: width / 12,
           alignItems: 'center',
           justifyContent: 'center',
           marginRight: 5,
@@ -198,12 +190,7 @@ const RegisterScreen = ({navigation}) => {
           borderWidth: user.password.length === i ? 2 : 0,
           borderColor: colors.text.primary,
         }}
-      >
-        <IText>
-          {/* {user.password.length > i ? user.password.substring(i, i + 1) : ''} */}
-          {/* {user.password.length > i ? '*' : ''} */}
-        </IText>
-      </View>,
+      />,
     );
   }
   if (
@@ -242,7 +229,6 @@ const RegisterScreen = ({navigation}) => {
                     LayoutAnimation.Properties.opacity,
                   ),
                 );
-                // setLoading(true);
                 setCodes(!showCodes);
               }}
               style={{
@@ -266,7 +252,7 @@ const RegisterScreen = ({navigation}) => {
             </View>
             {showButton && (
               <TouchableOpacity
-                onPress={checkPhone}
+                onPress={isPhone ? checkIsExists : reset}
                 style={{
                   marginLeft: 10,
                   backgroundColor: colors.loginKeyPad.background,
@@ -284,19 +270,16 @@ const RegisterScreen = ({navigation}) => {
               </TouchableOpacity>
             )}
           </View>
-          {!isPhone &&
-            (!loading ? (
-              <>
-                <IText style={{textAlign: 'center', marginBottom: 10}}>
-                  {t('login.password')}
-                </IText>
-                <View style={[styles.passwordInputContainer]}>
-                  {passwordView}
-                </View>
-              </>
-            ) : (
-              <BarIndicator color={colors.text.primary} count={3} size={50} />
-            ))}
+          {!isPhone && (
+            <>
+              <IText style={{textAlign: 'center', marginBottom: 10}}>
+                {t('login.password')}
+              </IText>
+              <View style={[styles.passwordInputContainer]}>
+                {passwordView}
+              </View>
+            </>
+          )}
         </View>
         <KeyPad keyOnPress={keyOnPress} />
       </View>

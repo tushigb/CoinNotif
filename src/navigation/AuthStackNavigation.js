@@ -7,6 +7,7 @@ import {useTheme} from '../theme/ThemeProvider';
 import Onboard from '../screens/auth/OnboardScreen';
 import Login from '../screens/auth/LoginScreen';
 import Register from '../screens/auth/RegisterScreen';
+import Pin from '../screens/auth/PinScreen';
 
 const AuthStack = props => {
   const {t} = I18n;
@@ -40,6 +41,16 @@ const AuthStack = props => {
         component={Register}
         options={{
           title: 'Register',
+          animationTypeForReplace: 'pop',
+          headerShown: false,
+          cardStyle: {backgroundColor: colors.background.primary},
+        }}
+      />
+      <Stack.Screen
+        name="Pin"
+        component={Pin}
+        options={{
+          title: 'Pin',
           animationTypeForReplace: 'pop',
           headerShown: false,
           cardStyle: {backgroundColor: colors.background.primary},
