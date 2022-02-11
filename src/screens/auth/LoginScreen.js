@@ -70,7 +70,8 @@ const LoginScreen = ({navigation}) => {
         .catch(err => {
           setLoading(false);
           setUser({...user, password: ''});
-          alert(err.response.data.message);
+          if (err.response.data && err.response.data.message)
+            alert(err.response.data.message);
         });
     }
   }, [user.password]);
