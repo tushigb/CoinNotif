@@ -22,9 +22,9 @@ export default {
     title1: 'Currency rate',
     title2: 'Notification',
     title3: 'Calm',
-    text1: 'Биржүүдийн ханшын мэдээллийг нэг дороос харах боломж',
-    text2: 'Хүссэн үнийн дүн дээрээ сонордуулга тохируулах',
-    text3: '',
+    text1: 'Ability to view stock exchange information',
+    text2: 'Set an alert for the desired value',
+    text3: 'Sleep in peace of mind (joke)',
   },
   wallet: {
     available_balance: 'Available Balance',

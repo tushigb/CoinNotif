@@ -11,6 +11,8 @@ import {Context as LoaderContext} from '../../context/LoaderContext';
 import AuthStack from '../../navigation/AuthStackNavigation';
 import TabNavigation from '../../navigation/TabNavigation';
 
+import I18n from '../../utils/i18n';
+
 import Loader from '../../components/Loader';
 
 const AppLayout = props => {
@@ -21,6 +23,9 @@ const AppLayout = props => {
     AsyncStorage.getItem('accessToken').then(result => {
       signin({token: result});
       setToken(result);
+    });
+    AsyncStorage.getItem('language').then(result => {
+      I18n.locale = result;
     });
   }, []);
 
