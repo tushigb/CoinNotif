@@ -36,6 +36,7 @@ export default {
     phone: 'Please enter phone number',
     password: 'Please enter password',
     register: 'Register?',
+    no_user: 'Sorry, there is no user registered with this phone',
   },
   register: {
     already_registered: 'Sorry, this phone number already registered',

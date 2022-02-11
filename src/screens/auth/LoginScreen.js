@@ -6,116 +6,74 @@ import {
   SafeAreaView,
   LayoutAnimation,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
-  Pressable,
-  FlatList,
-  StatusBar,
-  Vibration,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import {BarIndicator} from 'react-native-indicators';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import Modal from 'react-native-modal';
 import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import I18n from '../../utils/i18n';
 import {useTheme} from '../../theme/ThemeProvider';
 import {Context as AuthContext} from '../../context/AuthContext';
 
 import IText from '../../components/IText';
-import PrimaryButton from '../../components/PrimaryButton';
+import KeyPad from '../../components/KeyPad';
+
+import {codes} from '../../constants/phones';
+
+import {postRequest} from '../../service/Service';
 
 const LoginScreen = ({navigation}) => {
   const {t} = I18n;
   const {colors, setScheme, isDark} = useTheme();
   const {signin} = useContext(AuthContext);
+  const {state, setLoading} = useContext(AuthContext);
 
-  const [loading, setLoading] = useState(false);
+  const [scrollOffset, setScrollOffset] = useState(null);
+  const [showCodes, setCodes] = useState(false);
   const [isPhone, setIsPhone] = useState(true);
   const [showButton, setButton] = useState(false);
   const [user, setUser] = useState({phone: '', password: ''});
   const [confirm, setConfirm] = useState(null);
-  const [code, setCode] = useState('');
-
-  const [data, setData] = useState([
-    {
-      label: '1',
-      value: 1,
-    },
-    {
-      label: '2',
-      value: 2,
-    },
-    {
-      label: '3',
-      value: 3,
-    },
-    {
-      label: '4',
-      value: 4,
-    },
-    {
-      label: '5',
-      value: 5,
-    },
-    {
-      label: '6',
-      value: 6,
-    },
-    {
-      label: '7',
-      value: 7,
-    },
-    {
-      label: '8',
-      value: 8,
-    },
-    {
-      label: '9',
-      value: 9,
-    },
-    {
-      label: '>',
-      value: 9,
-    },
-    {
-      label: '0',
-      value: 0,
-    },
-    {
-      label: '<',
-      value: 9,
-    },
-  ]);
+  const [code, setCode] = useState('+1');
+  const [length, setLength] = useState(10);
 
   useEffect(() => {
-    if (user.password.length === 6) _signIn();
+    if (user.password.length === 4) {
+      setLoading(true);
+      postRequest('auth/signin', {
+        number: user.phone,
+        extension: code.replace('+', ''),
+        pin: user.password,
+      }).then(response => {
+        if (response.data.accessToken) {
+          setLoading(false);
+          AsyncStorage.setItem('accessToken', response.data.accessToken);
+          signin({
+            token: response.data.accessToken,
+            user: {
+              phone: {
+                extension: code.replace('+', ''),
+                number: user.phone,
+              },
+            },
+          });
+          setLoading(false);
+        }
+      });
+    }
   }, [user.password]);
 
-  const _signIn = async () => {
-    LayoutAnimation.configureNext(
-      LayoutAnimation.create(
-        250,
-        LayoutAnimation.Types.linear,
-        LayoutAnimation.Properties.opacity,
-      ),
-    );
-    setLoading(true);
-    setTimeout(() => {
-      signin({});
-    }, 5000);
-  };
-
   const keyOnPress = item => {
-    ReactNativeHapticFeedback.trigger('impactLight', {
-      enableVibrateFallback: true,
-      ignoreAndroidSystemSettings: false,
-    });
     if (item.label === '<') {
       if (isPhone) {
         setUser({...user, phone: user.phone.slice(0, user.phone.length - 1)});
-        if (user.phone.length === 8) {
+        if (user.phone.length === length) {
           changeButton(false);
         }
       } else {
@@ -126,8 +84,8 @@ const LoginScreen = ({navigation}) => {
       }
     } else {
       if (isPhone) {
-        if ((user.phone + item.label).length <= 8) {
-          if ((user.phone + item.label).length === 8) {
+        if ((user.phone + item.label).length <= length) {
+          if ((user.phone + item.label).length >= length) {
             changeButton(true);
           }
           setUser({...user, phone: user.phone + item.label});
@@ -149,11 +107,38 @@ const LoginScreen = ({navigation}) => {
     setButton(show);
   };
 
-  const next = () => {
-    ReactNativeHapticFeedback.trigger('impactLight', {
-      enableVibrateFallback: true,
-      ignoreAndroidSystemSettings: false,
-    });
+  const checkIsExists = async () => {
+    setLoading(true);
+    postRequest('auth/exist', {
+      number: user.phone,
+      extension: code.replace('+', ''),
+    })
+      .then(response => {
+        if (response.data.exists) {
+          LayoutAnimation.configureNext(
+            LayoutAnimation.create(
+              250,
+              isPhone
+                ? LayoutAnimation.Types.easeOut
+                : LayoutAnimation.Types.easeIn,
+              LayoutAnimation.Properties.opacity,
+            ),
+          );
+          setIsPhone(!isPhone);
+          setUser({...user, password: ''});
+          setLoading(false);
+        } else {
+          setLoading(false);
+          alert(t('login.no_user'));
+        }
+      })
+      .catch(err => {
+        setLoading(false);
+        alert('Something went wrong');
+      });
+  };
+
+  const reset = () => {
     LayoutAnimation.configureNext(
       LayoutAnimation.create(
         250,
@@ -161,24 +146,35 @@ const LoginScreen = ({navigation}) => {
         LayoutAnimation.Properties.opacity,
       ),
     );
-    setIsPhone(!isPhone);
-    if (isPhone) setUser({...user, password: ''});
+    setIsPhone(true);
+    setUser({...user, password: ''});
+  };
+
+  const scrollRef = useRef();
+
+  const handleOnScroll = event => {
+    setScrollOffset(event.nativeEvent.contentOffset.y);
+  };
+  const handleScrollTo = p => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo(p);
+    }
   };
 
   let width = Dimensions.get('window').width;
   let height = Dimensions.get('window').height;
   const phoneView = [];
   const passwordView = [];
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 14; i++) {
     phoneView.push(
-      <View key={i} style={{marginHorizontal: 2.5}}>
-        <IText style={{fontSize: 24}}>
-          {user.phone.length > i ? user.phone.substring(i, i + 1) : '-'}
+      <View key={i} style={{marginHorizontal: 0.5}}>
+        <IText style={{fontSize: 14}}>
+          {user.phone.length > i ? user.phone.substring(i, i + 1) : ''}
         </IText>
       </View>,
     );
   }
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 4; i++) {
     passwordView.push(
       <View
         key={i}
@@ -194,12 +190,7 @@ const LoginScreen = ({navigation}) => {
           borderWidth: user.password.length === i ? 2 : 0,
           borderColor: colors.text.primary,
         }}
-      >
-        <IText>
-          {/* {user.password.length > i ? user.password.substring(i, i + 1) : ''} */}
-          {/* {user.password.length > i ? '*' : ''} */}
-        </IText>
-      </View>,
+      />,
     );
   }
   if (
@@ -229,6 +220,26 @@ const LoginScreen = ({navigation}) => {
               flexDirection: 'row',
             }}
           >
+            <TouchableOpacity
+              onPress={() => {
+                LayoutAnimation.configureNext(
+                  LayoutAnimation.create(
+                    250,
+                    LayoutAnimation.Types.linear,
+                    LayoutAnimation.Properties.opacity,
+                  ),
+                );
+                setCodes(!showCodes);
+              }}
+              style={{
+                marginRight: 10,
+                backgroundColor: colors.loginKeyPad.background,
+                padding: 15,
+                borderRadius: 15,
+              }}
+            >
+              <IText style={{fontSize: 14}}>{code}</IText>
+            </TouchableOpacity>
             <View
               style={[
                 styles.phoneInputContainer,
@@ -241,7 +252,7 @@ const LoginScreen = ({navigation}) => {
             </View>
             {showButton && (
               <TouchableOpacity
-                onPress={next}
+                onPress={isPhone ? checkIsExists : reset}
                 style={{
                   marginLeft: 10,
                   backgroundColor: colors.loginKeyPad.background,
@@ -251,7 +262,7 @@ const LoginScreen = ({navigation}) => {
               >
                 <Icon
                   name={isPhone ? 'arrow-forward' : 'repeat'}
-                  size={25}
+                  size={14}
                   style={{
                     color: colors.loginKeyPad.label,
                   }}
@@ -268,88 +279,89 @@ const LoginScreen = ({navigation}) => {
                 });
                 navigation.navigate('Register', {});
               }}
-              style={{paddingVertical: 10}}
             >
               <IText medium style={{textAlign: 'center'}}>
                 {t('login.register')}
               </IText>
             </TouchableOpacity>
           )}
-          {!isPhone &&
-            (!loading ? (
-              <>
-                <IText style={{textAlign: 'center', marginBottom: 10}}>
-                  {t('login.password')}
-                </IText>
-                <View style={[styles.passwordInputContainer]}>
-                  {passwordView}
-                </View>
-              </>
-            ) : (
-              <BarIndicator color={colors.text.primary} count={3} size={50} />
-            ))}
+          {!isPhone && (
+            <>
+              <IText style={{textAlign: 'center', marginBottom: 10}}>
+                {t('login.password')}
+              </IText>
+              <View style={[styles.passwordInputContainer]}>
+                {passwordView}
+              </View>
+            </>
+          )}
         </View>
+        <KeyPad keyOnPress={keyOnPress} />
+      </View>
+      <Modal
+        isVisible={showCodes}
+        backdropOpacity={0.5}
+        swipeDirection={['down']}
+        onSwipeComplete={() => {
+          setCodes(!showCodes);
+        }}
+        onBackdropPress={() => {
+          setCodes(!showCodes);
+        }}
+        backdropTransitionInTiming={500}
+        backdropTransitionOutTiming={500}
+        scrollOffsetMax={400 - 300}
+        scrollTo={handleScrollTo}
+        scrollOffset={scrollOffset}
+        useNativeDriverForBackdrop
+        // scrollEnabled
+        propagateSwipe
+        style={{
+          justifyContent: 'flex-end',
+          margin: 0,
+        }}
+      >
         <View
           style={[
-            {backgroundColor: colors.loginKeyPad.background},
-            styles.keyPad,
+            {
+              backgroundColor: colors.background.primary,
+              height: height / 1.5,
+              borderRadius: 25,
+              paddingHorizontal: 20,
+              paddingVertical: 30,
+            },
           ]}
         >
-          <FlatList
-            scrollEnabled={false}
-            contentContainerStyle={{}}
-            columnWrapperStyle={{
-              justifyContent: 'space-between',
-            }}
-            data={data}
-            numColumns={3}
-            keyExtractor={(item, index) => index}
-            renderItem={({item, index}) =>
-              item.label !== '>' ? (
+          <ScrollView
+            ref={scrollRef}
+            onScroll={handleOnScroll}
+            scrollEventThrottle={16}
+            showsVerticalScrollIndicator={false}
+            bounces={false}
+          >
+            {codes.map((item, idx) => {
+              return (
                 <TouchableOpacity
+                  key={idx}
                   onPress={() => {
-                    keyOnPress(item);
+                    setCode(item.dial_code);
+                    setLength(item.length ? item.length : 14);
+                    setCodes(!showCodes);
                   }}
-                  style={[
-                    {
-                      width: width / 3 - 30,
-                      height: width / 3 - 50,
-                    },
-                    styles.key,
-                  ]}
+                  style={{marginVertical: 5}}
                 >
-                  {item.label === '<' ? (
-                    <Icon
-                      name={'backspace-outline'}
-                      size={25}
-                      style={{
-                        color: colors.loginKeyPad.label,
-                      }}
-                    />
-                  ) : (
-                    <IText
-                      regular
-                      style={{color: colors.keyPad.label, fontSize: 24}}
-                    >
-                      {item.label}
-                    </IText>
-                  )}
+                  <IText
+                    regular
+                    style={{color: colors.keyPad.label, fontSize: 24}}
+                  >
+                    {item.code} - {item.name}
+                  </IText>
                 </TouchableOpacity>
-              ) : (
-                <View
-                  style={[
-                    {
-                      width: width / 3 - 30,
-                      height: width / 3 - 50,
-                    },
-                    styles.key,
-                  ]}
-                />
-              )
-            }
-          />
+              );
+            })}
+          </ScrollView>
         </View>
-      </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -379,14 +391,25 @@ const styles = StyleSheet.create({
     right: 1,
     left: 1,
   },
-  keyPad: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-  },
-  key: {
-    marginBottom: 10,
+  scrollableModalContent1: {
+    height: 200,
+    backgroundColor: '#87BBE0',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  scrollableModalText1: {
+    fontSize: 20,
+    color: 'white',
+  },
+  scrollableModalContent2: {
+    height: 200,
+    backgroundColor: '#A9DCD3',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scrollableModalText2: {
+    fontSize: 20,
+    color: 'white',
   },
 });
 
