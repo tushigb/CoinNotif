@@ -50,22 +50,28 @@ const LoginScreen = ({navigation}) => {
         number: user.phone,
         extension: code.replace('+', ''),
         pin: user.password,
-      }).then(response => {
-        if (response.data.accessToken) {
-          setLoading(false);
-          AsyncStorage.setItem('accessToken', response.data.accessToken);
-          signin({
-            token: response.data.accessToken,
-            user: {
-              phone: {
-                extension: code.replace('+', ''),
-                number: user.phone,
+      })
+        .then(response => {
+          if (response.data.accessToken) {
+            setLoading(false);
+            AsyncStorage.setItem('accessToken', response.data.accessToken);
+            signin({
+              token: response.data.accessToken,
+              user: {
+                phone: {
+                  extension: code.replace('+', ''),
+                  number: user.phone,
+                },
               },
-            },
-          });
+            });
+            setLoading(false);
+          }
+        })
+        .catch(err => {
           setLoading(false);
-        }
-      });
+          setUser({...user, password: ''});
+          alert(err.response.data.message);
+        });
     }
   }, [user.password]);
 

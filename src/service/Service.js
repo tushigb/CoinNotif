@@ -23,7 +23,7 @@ export const getRequest = uri => {
         resolve(response);
       })
       .catch(error => {
-        reject(error.response);
+        reject(error);
       });
   });
 };
