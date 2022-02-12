@@ -37,13 +37,13 @@ const InitScreen = ({navigation}) => {
       <View style={[styles.headerContainer, {}]}>
         <Image
           source={require('../../../assets/images/profile.png')}
-          style={{width: width / 5, height: width / 5}}
+          style={{height: width / 5, width: width / 5, resizeMode: 'contain'}}
         />
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={[styles.editButton, {borderColor: colors.darkMode.label}]}
         >
           <IText>{t('profile.edit')}</IText>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <View
@@ -55,15 +55,17 @@ const InitScreen = ({navigation}) => {
         ]}
       >
         <TouchableOpacity style={[styles.settingsItem, {}]}>
+          <IText>{t('common.mobile').toUpperCase()}</IText>
+          <IText style={{paddingVertical: 5}}>
+            {'+' + state.user.phone.extension + ' ' + state.user.phone.number}
+          </IText>
+        </TouchableOpacity>
+        <Separator />
+        {/* <TouchableOpacity style={[styles.settingsItem, {}]}>
           <IText>{t('common.email').toUpperCase()}</IText>
           <IText style={{paddingVertical: 5}}>EMAIL</IText>
         </TouchableOpacity>
-        <Separator />
-        <TouchableOpacity style={[styles.settingsItem, {}]}>
-          <IText>{t('common.mobile').toUpperCase()}</IText>
-          <IText style={{paddingVertical: 5}}>MOBILE NUMBER</IText>
-        </TouchableOpacity>
-        <Separator />
+        <Separator /> */}
         <View style={[styles.settingsItem, {}]}>
           <IText>{t('common.appearance').toUpperCase()}</IText>
           <View

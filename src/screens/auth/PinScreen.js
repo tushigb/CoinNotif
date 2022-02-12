@@ -63,6 +63,15 @@ const PinScreen = ({navigation, route}) => {
             if (response.data.accessToken) {
               setLoading(false);
               AsyncStorage.setItem('accessToken', response.data.accessToken);
+              AsyncStorage.setItem(
+                'user',
+                JSON.stringify({
+                  phone: {
+                    extension: code.replace('+', ''),
+                    number: phone,
+                  },
+                }),
+              );
               signin({
                 token: response.data.accessToken,
                 user: {

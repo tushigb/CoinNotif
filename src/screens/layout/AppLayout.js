@@ -21,8 +21,10 @@ const AppLayout = props => {
 
   useEffect(() => {
     AsyncStorage.getItem('accessToken').then(result => {
-      signin({token: result});
-      setToken(result);
+      AsyncStorage.getItem('user').then(res => {
+        signin({token: result, user: JSON.parse(res).user});
+        setToken(result);
+      });
     });
     AsyncStorage.getItem('language').then(result => {
       I18n.locale = result;

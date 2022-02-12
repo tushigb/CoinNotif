@@ -55,6 +55,17 @@ const LoginScreen = ({navigation}) => {
           if (response.data.accessToken) {
             setLoading(false);
             AsyncStorage.setItem('accessToken', response.data.accessToken);
+            AsyncStorage.setItem(
+              'user',
+              JSON.stringify({
+                user: {
+                  phone: {
+                    extension: code.replace('+', ''),
+                    number: user.phone,
+                  },
+                },
+              }),
+            );
             signin({
               token: response.data.accessToken,
               user: {
