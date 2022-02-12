@@ -60,4 +60,7 @@ export default {
     settlemented: 'Settlemented',
     canceled: 'Canceled',
   },
+  profile: {
+    edit: 'EDIT PROFILE',
+  },
 };

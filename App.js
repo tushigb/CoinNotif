@@ -35,7 +35,6 @@ const App = () => {
     }
 
     const token = await messaging().getToken();
-    console.log(token);
   }
 
   return (

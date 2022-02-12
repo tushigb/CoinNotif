@@ -23,11 +23,9 @@ const TabNavigation = ({route}) => {
   return (
     <Tab.Navigator
       initialRouteName={'Home'}
-      tabBarOptions={{
-        showLabel: false,
-        keyboardHidesTabBar: true,
-      }}
       screenOptions={({route}) => ({
+        tabBarShowLabel: false,
+        tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarStyle: {
           backgroundColor: colors.background.primary,

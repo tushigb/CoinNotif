@@ -1,10 +1,12 @@
 import React, {useState, useContext} from 'react';
 import {
+  Dimensions,
   StyleSheet,
   View,
   Text,
   SafeAreaView,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -20,8 +22,21 @@ const InitScreen = ({navigation}) => {
   const {t} = I18n;
   const {state, signout, test} = useContext(AuthContext);
 
+  let width = Dimensions.get('window').width;
+  let height = Dimensions.get('window').height;
   return (
     <SafeAreaView style={styles.container}>
+      <View style={[styles.headerContainer, {}]}>
+        <Image
+          source={require('../../../assets/images/profile.png')}
+          style={{width: width / 5, height: width / 5}}
+        />
+        <TouchableOpacity
+          style={[styles.editButton, {borderColor: colors.darkMode.label}]}
+        >
+          <IText>{t('profile.edit')}</IText>
+        </TouchableOpacity>
+      </View>
       <View style={styles.darkModeContainer}>
         <View
           style={[
@@ -68,6 +83,16 @@ const InitScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  headerContainer: {
+    marginTop: 50,
+    alignItems: 'center',
+  },
+  editButton: {
+    borderWidth: 1,
+    paddingVertical: 5,
+    paddingHorizontal: 30,
+    marginTop: 20,
   },
   darkModeContainer: {
     alignItems: 'center',

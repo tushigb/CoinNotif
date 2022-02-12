@@ -61,4 +61,7 @@ export default {
     settlemented: 'Нэгтгэл хийгдсэн',
     canceled: 'Буцаагдсан',
   },
+  profile: {
+    edit: 'МЭДЭЭЛЭЛ ЗАСАХ',
+  },
 };
