@@ -20,7 +20,14 @@ import IText from '../../../components/IText';
 const InitScreen = ({navigation}) => {
   const {colors, setScheme, isDark} = useTheme();
   const {t} = I18n;
-  const {state, signout, test} = useContext(AuthContext);
+  const {state, setLoading, signout, test} = useContext(AuthContext);
+
+  const changeLanguage = async language => {
+    setLoading(true);
+    await AsyncStorage.setItem('language', language);
+    I18n.locale = language;
+    setLoading(false);
+  };
 
   let width = Dimensions.get('window').width;
   let height = Dimensions.get('window').height;
@@ -37,37 +44,77 @@ const InitScreen = ({navigation}) => {
           <IText>{t('profile.edit')}</IText>
         </TouchableOpacity>
       </View>
-      <View style={styles.darkModeContainer}>
-        <View
-          style={[
-            {backgroundColor: colors.darkMode.background},
-            styles.darkModeBoxBackground,
-          ]}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              setScheme('light');
-            }}
+
+      <View style={[styles.settingsContainer, {}]}>
+        <TouchableOpacity style={[styles.settingsItem, {}]}>
+          <IText>EMAIL</IText>
+          <IText>EMAIL</IText>
+        </TouchableOpacity>
+        <View style={{borderBottomWidth: 1}} />
+        <TouchableOpacity style={[styles.settingsItem, {}]}>
+          <IText>MOBILE NUMBER</IText>
+          <IText>MOBILE NUMBER</IText>
+        </TouchableOpacity>
+        <View style={{borderBottomWidth: 1}} />
+        <View style={[styles.settingsItem, {}]}>
+          <IText>APPEARANCE</IText>
+          <View
+            style={[
+              {backgroundColor: colors.darkMode.background},
+              styles.darkModeBoxBackground,
+            ]}
           >
-            <Icon
-              name={'sunny-outline'}
-              size={30}
-              style={[{color: colors.darkMode.label}, styles.darkModeIcon]}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              setScheme('dark');
-            }}
+            <TouchableOpacity
+              onPress={() => {
+                setScheme('light');
+              }}
+            >
+              <Icon
+                name={'sunny-outline'}
+                size={30}
+                style={[{color: colors.darkMode.label}, styles.darkModeIcon]}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setScheme('dark');
+              }}
+            >
+              <Icon
+                name={'moon-outline'}
+                size={25}
+                style={[{color: colors.darkMode.label}, styles.darkModeIcon]}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{borderBottomWidth: 1}} />
+        <View style={[styles.settingsItem, {}]}>
+          <IText>LANGUAGE</IText>
+          <View
+            style={[
+              {backgroundColor: colors.darkMode.background},
+              styles.darkModeBoxBackground,
+            ]}
           >
-            <Icon
-              name={'moon-outline'}
-              size={25}
-              style={[{color: colors.darkMode.label}, styles.darkModeIcon]}
-            />
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                changeLanguage('mn');
+              }}
+            >
+              <IText style={styles.languageIcon}>MN</IText>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                changeLanguage('en');
+              }}
+            >
+              <IText style={styles.languageIcon}>EN</IText>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
+
       <TouchableOpacity
         onPress={() => {
           AsyncStorage.removeItem('accessToken');
@@ -94,7 +141,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginTop: 20,
   },
-  darkModeContainer: {
+  settingsContainer: {
+    marginTop: 20,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    paddingHorizontal: 20,
+  },
+  settingsItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 20,
     alignItems: 'center',
   },
   darkModeBoxBackground: {
@@ -105,6 +161,9 @@ const styles = StyleSheet.create({
   },
   darkModeIcon: {
     paddingHorizontal: 10,
+  },
+  languageIcon: {
+    padding: 10,
   },
 });
 
