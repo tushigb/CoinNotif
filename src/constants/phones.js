@@ -68,6 +68,7 @@ export const codes = [
     name: 'Australia',
     dial_code: '+61',
     code: 'AU',
+    length: 10,
   },
   {
     name: 'Austria',

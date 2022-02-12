@@ -344,7 +344,7 @@ const RegisterScreen = ({navigation, route}) => {
                   key={idx}
                   onPress={() => {
                     setCode(item.dial_code);
-                    setLength(item.length ? item.length : 14);
+                    setLength(item.length ? item.length : 8);
                     setCodes(!showCodes);
                   }}
                   style={{marginVertical: 5}}
