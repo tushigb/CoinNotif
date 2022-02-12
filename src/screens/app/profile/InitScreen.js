@@ -141,7 +141,7 @@ const InitScreen = ({navigation}) => {
           <Icon
             name={'exit-outline'}
             size={25}
-            style={[{color: '#fc636b'}, styles.darkModeIcon]}
+            style={[{color: colors.change.negative}, styles.darkModeIcon]}
           />
           <IText style={{color: colors.darkMode.label}}>
             {t('common.logout')}
