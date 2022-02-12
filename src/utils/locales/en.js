@@ -14,9 +14,14 @@ export default {
   common: {
     signin: 'Sign In',
     register: 'Register',
+    logout: 'Sign Out',
     close: 'Close',
     pin: 'Pin Code',
     reset_pin: 'Reset pin code',
+    language: 'language',
+    appearance: 'appearance',
+    mobile: 'mobile number',
+    email: 'email',
   },
   onboard: {
     skip: 'Skip',

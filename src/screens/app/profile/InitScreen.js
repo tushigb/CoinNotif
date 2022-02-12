@@ -16,6 +16,7 @@ import {useTheme} from '../../../theme/ThemeProvider';
 import {Context as AuthContext} from '../../../context/AuthContext';
 
 import IText from '../../../components/IText';
+import Separator from '../../../components/Separator';
 
 const InitScreen = ({navigation}) => {
   const {colors, setScheme, isDark} = useTheme();
@@ -45,19 +46,26 @@ const InitScreen = ({navigation}) => {
         </TouchableOpacity>
       </View>
 
-      <View style={[styles.settingsContainer, {}]}>
+      <View
+        style={[
+          styles.settingsContainer,
+          {
+            borderColor: colors.text.primary,
+          },
+        ]}
+      >
         <TouchableOpacity style={[styles.settingsItem, {}]}>
-          <IText>EMAIL</IText>
-          <IText>EMAIL</IText>
+          <IText>{t('common.email').toUpperCase()}</IText>
+          <IText style={{paddingVertical: 5}}>EMAIL</IText>
         </TouchableOpacity>
-        <View style={{borderBottomWidth: 1}} />
+        <Separator />
         <TouchableOpacity style={[styles.settingsItem, {}]}>
-          <IText>MOBILE NUMBER</IText>
-          <IText>MOBILE NUMBER</IText>
+          <IText>{t('common.mobile').toUpperCase()}</IText>
+          <IText style={{paddingVertical: 5}}>MOBILE NUMBER</IText>
         </TouchableOpacity>
-        <View style={{borderBottomWidth: 1}} />
+        <Separator />
         <View style={[styles.settingsItem, {}]}>
-          <IText>APPEARANCE</IText>
+          <IText>{t('common.appearance').toUpperCase()}</IText>
           <View
             style={[
               {backgroundColor: colors.darkMode.background},
@@ -88,9 +96,9 @@ const InitScreen = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{borderBottomWidth: 1}} />
+        <Separator />
         <View style={[styles.settingsItem, {}]}>
-          <IText>LANGUAGE</IText>
+          <IText>{t('common.language').toUpperCase()}</IText>
           <View
             style={[
               {backgroundColor: colors.darkMode.background},
@@ -115,14 +123,31 @@ const InitScreen = ({navigation}) => {
         </View>
       </View>
 
-      <TouchableOpacity
-        onPress={() => {
-          AsyncStorage.removeItem('accessToken');
-          signout();
-        }}
-      >
-        <IText>LOGOUT</IText>
-      </TouchableOpacity>
+      <View style={{alignItems: 'flex-end', padding: 20}}>
+        <TouchableOpacity
+          style={[
+            styles.darkModeBoxBackground,
+            {
+              backgroundColor: colors.darkMode.background,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+            },
+          ]}
+          onPress={() => {
+            AsyncStorage.removeItem('accessToken');
+            signout();
+          }}
+        >
+          <Icon
+            name={'exit-outline'}
+            size={25}
+            style={[{color: '#fc636b'}, styles.darkModeIcon]}
+          />
+          <IText style={{color: colors.darkMode.label}}>
+            {t('common.logout')}
+          </IText>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -150,7 +175,7 @@ const styles = StyleSheet.create({
   settingsItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 20,
+    paddingVertical: 25,
     alignItems: 'center',
   },
   darkModeBoxBackground: {

@@ -14,9 +14,14 @@ export default {
   common: {
     signin: 'Нэвтрэх',
     register: 'Бүртгүүлэх',
+    logout: 'Гарах',
     close: 'Хаах',
     pin: 'Пин Код',
     reset_pin: 'Пин сэргээх',
+    language: 'хэл',
+    appearance: 'харагдах байдал',
+    mobile: 'утасны дугаар',
+    email: 'имэйл',
   },
   onboard: {
     skip: 'Алгасах',
