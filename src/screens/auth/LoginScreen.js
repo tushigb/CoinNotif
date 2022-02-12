@@ -278,19 +278,34 @@ const LoginScreen = ({navigation}) => {
             )}
           </View>
           {isPhone && (
-            <TouchableOpacity
-              onPress={() => {
-                ReactNativeHapticFeedback.trigger('impactLight', {
-                  enableVibrateFallback: true,
-                  ignoreAndroidSystemSettings: false,
-                });
-                navigation.navigate('Register', {});
-              }}
-            >
-              <IText medium style={{textAlign: 'center'}}>
-                {t('login.register')}
-              </IText>
-            </TouchableOpacity>
+            <>
+              <TouchableOpacity
+                onPress={() => {
+                  ReactNativeHapticFeedback.trigger('impactLight', {
+                    enableVibrateFallback: true,
+                    ignoreAndroidSystemSettings: false,
+                  });
+                  navigation.navigate('Register', {});
+                }}
+              >
+                <IText medium style={{textAlign: 'center'}}>
+                  {t('login.register')}
+                </IText>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  ReactNativeHapticFeedback.trigger('impactLight', {
+                    enableVibrateFallback: true,
+                    ignoreAndroidSystemSettings: false,
+                  });
+                  navigation.navigate('Register', {isForgot: true});
+                }}
+              >
+                <IText light style={{textAlign: 'center', fontSize: 14}}>
+                  {t('login.forgot')}
+                </IText>
+              </TouchableOpacity>
+            </>
           )}
           {!isPhone && (
             <>

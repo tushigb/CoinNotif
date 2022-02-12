@@ -16,6 +16,7 @@ export default {
     register: 'Register',
     close: 'Close',
     pin: 'Pin Code',
+    reset_pin: 'Reset pin code',
   },
   onboard: {
     skip: 'Skip',
@@ -36,6 +37,7 @@ export default {
     phone: 'Please enter phone number',
     password: 'Please enter password',
     register: 'Register?',
+    forgot: 'Reset pin code',
     no_user: 'Sorry, there is no user registered with this phone',
   },
   register: {

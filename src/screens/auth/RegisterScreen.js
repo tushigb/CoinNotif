@@ -28,7 +28,7 @@ import {codes} from '../../constants/phones';
 
 import {postRequest} from '../../service/Service';
 
-const RegisterScreen = ({navigation}) => {
+const RegisterScreen = ({navigation, route}) => {
   const {t} = I18n;
   const {colors, setScheme, isDark} = useTheme();
   const {signin} = useContext(AuthContext);
@@ -48,7 +48,11 @@ const RegisterScreen = ({navigation}) => {
       confirm
         .confirm(user.password)
         .then(result => {
-          navigation.navigate('Pin', {phone: user.phone, code: code});
+          navigation.navigate('Pin', {
+            phone: user.phone,
+            code: code,
+            isForgot: route.params.isForgot,
+          });
         })
         .catch(err => {
           setUser({...user, password: ''});
@@ -101,10 +105,18 @@ const RegisterScreen = ({navigation}) => {
       extension: code.replace('+', ''),
     })
       .then(response => {
-        if (!response.data.exists) sendOTP();
-        else {
-          setLoading(false);
-          alert(t('register.already_registered'));
+        if (route.params.isForgot) {
+          if (response.data.exists) sendOTP();
+          else {
+            setLoading(false);
+            alert(t('login.no_user'));
+          }
+        } else {
+          if (!response.data.exists) sendOTP();
+          else {
+            setLoading(false);
+            alert(t('register.already_registered'));
+          }
         }
       })
       .catch(err => {
@@ -205,7 +217,9 @@ const RegisterScreen = ({navigation}) => {
     >
       {/* <StatusBar hidden /> */}
       <View style={[styles.headerContainer]}>
-        <IText>{t('common.register')}</IText>
+        <IText>
+          {t(route.params.isForgot ? 'common.reset_pin' : 'common.register')}
+        </IText>
       </View>
       <View style={styles.keyPadContainer}>
         <View style={{marginBottom: 20}}>

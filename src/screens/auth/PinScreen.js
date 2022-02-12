@@ -51,25 +51,33 @@ const PinScreen = ({navigation, route}) => {
     } else if (isConfirm && pin.length === 4) {
       if (confirm === pin) {
         setLoading(true);
-        postRequest('auth/register', {
-          number: phone,
-          extension: code.replace('+', ''),
-          pin: pin,
-        }).then(response => {
-          if (response.data.accessToken) {
-            setLoading(false);
-            AsyncStorage.setItem('accessToken', response.data.accessToken);
-            signin({
-              token: response.data.accessToken,
-              user: {
-                phone: {
-                  extension: code.replace('+', ''),
-                  number: phone,
+        postRequest(
+          route.params.isForgot ? 'auth/pin/reset' : 'auth/register',
+          {
+            number: phone,
+            extension: code.replace('+', ''),
+            pin: pin,
+          },
+        )
+          .then(response => {
+            if (response.data.accessToken) {
+              setLoading(false);
+              AsyncStorage.setItem('accessToken', response.data.accessToken);
+              signin({
+                token: response.data.accessToken,
+                user: {
+                  phone: {
+                    extension: code.replace('+', ''),
+                    number: phone,
+                  },
                 },
-              },
-            });
-          }
-        });
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            setLoading(false);
+          });
       } else {
         setConfirm('');
         setPin('');
