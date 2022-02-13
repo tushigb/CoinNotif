@@ -7,6 +7,9 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
+  ScrollView,
+  Linking,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -46,118 +49,195 @@ const InitScreen = ({navigation}) => {
         </TouchableOpacity> */}
       </View>
 
-      <View
-        style={[
-          styles.settingsContainer,
-          {
-            borderColor: colors.text.primary,
-          },
-        ]}
+      <ScrollView
+        style={{flex: 1}}
+        pagingEnabled
+        showsVerticalScrollIndicator={false}
+        style={{marginTop: 20}}
       >
-        <View style={[styles.box, {borderColor: colors.text.primary}]}>
-          <TouchableOpacity style={[styles.settingsItem, {}]}>
-            <IText>{t('common.mobile').toUpperCase()}</IText>
-            <IText>
-              {'+' + state.user.phone.extension + ' ' + state.user.phone.number}
-            </IText>
-          </TouchableOpacity>
-          {/* <TouchableOpacity style={[styles.settingsItem, {}]}>
+        <View
+          style={[
+            styles.settingsContainer,
+            {
+              borderColor: colors.text.primary,
+            },
+          ]}
+        >
+          <View style={[styles.box, {borderColor: colors.text.primary}]}>
+            <TouchableOpacity style={[styles.settingsItem, {}]}>
+              <IText>{t('common.mobile').toUpperCase()}</IText>
+              <IText>
+                {'+' +
+                  state.user.phone.extension +
+                  ' ' +
+                  state.user.phone.number}
+              </IText>
+            </TouchableOpacity>
+            {/* <TouchableOpacity style={[styles.settingsItem, {}]}>
             <IText>{t('common.email').toUpperCase()}</IText>
             <IText>EMAIL</IText>
           </TouchableOpacity> */}
-        </View>
+          </View>
 
-        <View
-          style={[
-            styles.box,
-            {borderColor: colors.text.primary, marginTop: 20},
-          ]}
-        >
-          <View style={[styles.settingsItem, {}]}>
-            <IText>{t('common.appearance').toUpperCase()}</IText>
-            <View
-              style={[
-                {backgroundColor: colors.darkMode.background},
-                styles.darkModeBoxBackground,
-              ]}
-            >
+          <View
+            style={[
+              styles.box,
+              {borderColor: colors.text.primary, marginTop: 20},
+            ]}
+          >
+            <View style={[styles.settingsItem, {}]}>
+              <IText>{t('common.appearance').toUpperCase()}</IText>
+              <View
+                style={[
+                  {backgroundColor: colors.darkMode.background},
+                  styles.darkModeBoxBackground,
+                ]}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    setScheme('light');
+                  }}
+                >
+                  <Icon
+                    name={'sunny-outline'}
+                    size={30}
+                    style={[
+                      {color: colors.darkMode.label},
+                      styles.darkModeIcon,
+                    ]}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    setScheme('dark');
+                  }}
+                >
+                  <Icon
+                    name={'moon-outline'}
+                    size={25}
+                    style={[
+                      {color: colors.darkMode.label},
+                      styles.darkModeIcon,
+                    ]}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={[styles.settingsItem, {}]}>
+              <IText>{t('common.language').toUpperCase()}</IText>
+              <View
+                style={[
+                  {backgroundColor: colors.darkMode.background},
+                  styles.darkModeBoxBackground,
+                ]}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    changeLanguage('mn');
+                  }}
+                >
+                  <IText style={styles.languageIcon}>MN</IText>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    changeLanguage('en');
+                  }}
+                >
+                  <IText style={styles.languageIcon}>EN</IText>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+
+          <View
+            style={[
+              styles.box,
+              {borderColor: colors.text.primary, marginTop: 20},
+            ]}
+          >
+            <View style={[styles.settingsItem, {}]}>
+              <IText>{t('profile.terms').toUpperCase()}</IText>
+              <View
+                style={[
+                  {backgroundColor: colors.darkMode.background},
+                  styles.darkModeBoxBackground,
+                ]}
+              >
+                <TouchableOpacity onPress={() => {}}>
+                  <Icon
+                    name={'chevron-forward'}
+                    size={30}
+                    style={[
+                      {color: colors.darkMode.label},
+                      styles.darkModeIcon,
+                    ]}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={[styles.settingsItem, {}]}>
+              <IText>{t('profile.fb').toUpperCase()}</IText>
               <TouchableOpacity
                 onPress={() => {
-                  setScheme('light');
+                  Linking.openURL(`http://m.me/tushighen`);
                 }}
               >
-                <Icon
-                  name={'sunny-outline'}
-                  size={30}
-                  style={[{color: colors.darkMode.label}, styles.darkModeIcon]}
+                <Image
+                  source={require('../../../assets/images/social/fb.png')}
+                  style={{
+                    height: 40,
+                    width: 40,
+                    resizeMode: 'contain',
+                  }}
                 />
               </TouchableOpacity>
+            </View>
+            <View style={[styles.settingsItem, {}]}>
+              <IText>{t('profile.ig').toUpperCase()}</IText>
               <TouchableOpacity
                 onPress={() => {
-                  setScheme('dark');
+                  Linking.openURL('instagram://user?username=tushgb');
                 }}
               >
-                <Icon
-                  name={'moon-outline'}
-                  size={25}
-                  style={[{color: colors.darkMode.label}, styles.darkModeIcon]}
+                <Image
+                  source={require('../../../assets/images/social/ig.png')}
+                  style={{
+                    height: 40,
+                    width: 40,
+                    resizeMode: 'contain',
+                  }}
                 />
               </TouchableOpacity>
             </View>
           </View>
-          {/* <Separator /> */}
-          <View style={[styles.settingsItem, {}]}>
-            <IText>{t('common.language').toUpperCase()}</IText>
-            <View
-              style={[
-                {backgroundColor: colors.darkMode.background},
-                styles.darkModeBoxBackground,
-              ]}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  changeLanguage('mn');
-                }}
-              >
-                <IText style={styles.languageIcon}>MN</IText>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  changeLanguage('en');
-                }}
-              >
-                <IText style={styles.languageIcon}>EN</IText>
-              </TouchableOpacity>
-            </View>
-          </View>
         </View>
-      </View>
 
-      <View style={{alignItems: 'flex-end', padding: 20}}>
-        <TouchableOpacity
-          style={[
-            styles.darkModeBoxBackground,
-            {
-              backgroundColor: colors.darkMode.background,
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-            },
-          ]}
-          onPress={() => {
-            AsyncStorage.removeItem('accessToken');
-            signout();
-          }}
-        >
-          <Icon
-            name={'exit-outline'}
-            size={25}
-            style={[{color: colors.change.negative}, styles.darkModeIcon]}
-          />
-          <IText style={{color: colors.darkMode.label}}>
-            {t('common.logout')}
-          </IText>
-        </TouchableOpacity>
-      </View>
+        <View style={{alignItems: 'flex-end', padding: 20}}>
+          <TouchableOpacity
+            style={[
+              styles.darkModeBoxBackground,
+              {
+                backgroundColor: colors.darkMode.background,
+                paddingHorizontal: 20,
+                paddingVertical: 10,
+              },
+            ]}
+            onPress={() => {
+              AsyncStorage.removeItem('accessToken');
+              signout();
+            }}
+          >
+            <Icon
+              name={'exit-outline'}
+              size={25}
+              style={[{color: colors.change.negative, marginRight: 5}]}
+            />
+            <IText style={{color: colors.darkMode.label}}>
+              {t('common.logout')}
+            </IText>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

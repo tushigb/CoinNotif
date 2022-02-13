@@ -67,5 +67,9 @@ export default {
   },
   profile: {
     edit: 'EDIT PROFILE',
+    terms: 'Terms & Condition',
+    about: 'About me',
+    fb: 'Facebook',
+    ig: 'Instagram',
   },
 };

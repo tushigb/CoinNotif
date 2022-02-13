@@ -68,5 +68,9 @@ export default {
   },
   profile: {
     edit: 'МЭДЭЭЛЭЛ ЗАСАХ',
+    terms: 'Үйлчилгээний нөхцөл',
+    about: 'Миний тухай',
+    fb: 'Facebook',
+    ig: 'Instagram',
   },
 };
