@@ -6,8 +6,8 @@ export const API = 'http://139.59.225.83:3000/api/';
 axios.interceptors.request.use(
   async config => {
     config.headers['Content-Type'] = 'application/json';
-    // const token = await AsyncStorage.getItem('token');
-    // if (token) config.headers = {Authorization: 'Bearer ' + token};
+    const token = await AsyncStorage.getItem('accessToken');
+    if (token) config.headers = {Authorization: 'Bearer ' + token};
     return config;
   },
   error => {

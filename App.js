@@ -11,6 +11,8 @@ import messaging from '@react-native-firebase/messaging';
 // import 'intl';
 // import 'intl/locale-data/jsonp/en';
 
+import {putRequest} from './src/service/Service';
+
 LogBox.ignoreLogs(['VirtualizedLists', 'Require cycle:']);
 
 const App = () => {
@@ -35,6 +37,11 @@ const App = () => {
     }
 
     const token = await messaging().getToken();
+    putRequest('user/token', {
+      token: token,
+    })
+      .then(response => {})
+      .catch(err => {});
   }
 
   return (
