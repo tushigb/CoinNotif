@@ -1,5 +1,7 @@
 import React, {useState, useContext} from 'react';
 import {
+  Animated,
+  Dimensions,
   StatusBar,
   StyleSheet,
   LayoutAnimation,
@@ -7,6 +9,7 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Easing,
 } from 'react-native';
 
 import I18n from '../../../utils/i18n';
@@ -17,130 +20,146 @@ import FIcon from 'react-native-vector-icons/dist/Feather';
 import IText from '../../../components/IText';
 import TerminalCard from '../../../components/TerminalCard';
 import PrimaryButton from '../../../components/PrimaryButton';
+import {useEffect} from 'react/cjs/react.development';
 
 const InitScreen = ({navigation}) => {
   const {colors, setScheme, isDark} = useTheme();
   const {t} = I18n;
   const {state, signout, test} = useContext(AuthContext);
 
-  const [terminals, setTerminals] = useState([{}, {}, {}]);
-  const [buttons] = useState([
-    {
-      color: '#6bc3dc',
-      icon: 'arrow-up-right',
-      label: t('wallet.send'),
-    },
-    {
-      color: '#8de86e',
-      icon: 'arrow-down-left',
-      label: t('wallet.receive'),
-    },
-    {
-      color: '#fabd42',
-      icon: 'activity',
-      label: t('wallet.pad'),
-    },
-  ]);
-  const [selected, setSelected] = useState(0);
+  // animation states
+  const [firstCardAnimation] = useState(new Animated.Value(0));
+  const [secondCardAnimation] = useState(new Animated.Value(0));
+  const [firstCardXAnimation] = useState(new Animated.Value(-1000));
+  const [secondCardXAnimation] = useState(new Animated.Value(1000));
+  const [mainCardXAnimation] = useState(new Animated.Value(-1000));
+
+  useEffect(() => {
+    translate(1);
+  }, []);
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
   });
 
-  const selectTerminal = idx => {
-    if (selected !== idx && idx !== 2) {
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-      setSelected(idx === selected ? -1 : idx);
-    }
+  // animation
+
+  const firstCard = firstCardAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '8deg'],
+  });
+
+  const secondCard = secondCardAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '-4deg'],
+  });
+
+  const spin = isFirst => {
+    Animated.timing(isFirst ? firstCardAnimation : secondCardAnimation, {
+      toValue: 1,
+      duration: isFirst ? 500 : 700,
+      easing: Easing.spring,
+      useNativeDriver: true,
+    }).start();
   };
 
+  const translate = num => {
+    Animated.timing(
+      num == 1
+        ? firstCardXAnimation
+        : num === 2
+        ? secondCardXAnimation
+        : mainCardXAnimation,
+      {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      },
+    ).start(animation => {
+      if (num === 1) translate(2);
+      if (num === 2) translate(3);
+      if (num === 3) {
+        spin(true);
+        spin(false);
+      }
+    });
+  };
+
+  let width = Dimensions.get('window').width;
+  let height = Dimensions.get('window').height;
   return (
     <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
       <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
 
-      <View style={styles.amount}>
-        <IText style={{color: '#fabd42'}}>
-          {t('wallet.available_balance')}
-        </IText>
-        <IText
-          lines={1}
-          adjustsFontSizeToFit
-          regular
+      <View style={{marginTop: 40, alignItems: 'center'}}>
+        <Animated.View
+          style={[{transform: [{translateX: firstCardXAnimation}]}]}
+        >
+          <Animated.View
+            style={[
+              styles.animationCard,
+              {
+                transform: [{rotate: firstCard}],
+                width: width - 40,
+                backgroundColor: '#fabd42',
+              },
+            ]}
+          />
+        </Animated.View>
+        <Animated.View
+          style={[
+            {
+              position: 'absolute',
+              transform: [{translateX: secondCardXAnimation}],
+            },
+          ]}
+        >
+          <Animated.View
+            style={[
+              styles.animationCard,
+              {
+                transform: [{rotate: secondCard}],
+                width: width - 40,
+                backgroundColor: colors.change.negative,
+              },
+            ]}
+          />
+        </Animated.View>
+        <Animated.View
           style={{
-            color: colors.keyPad.label,
-            fontSize: 150,
+            borderRadius: 25,
+            padding: 20,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            position: 'absolute',
+            width: width - 50,
+            backgroundColor: colors.background.primary,
+            transform: [{translateX: mainCardXAnimation}],
           }}
         >
-          {formatter.format(28600).replace('$', '')}
-        </IText>
-      </View>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-        }}
-      >
-        {buttons.map((item, idx) => {
-          return (
-            <View
-              key={idx}
+          <View>
+            <IText light style={{color: '#fabd42'}}>
+              {t('wallet.available_balance')}
+            </IText>
+            <IText
+              lines={1}
+              adjustsFontSizeToFit
+              medium
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                backgroundColor: item.color,
-                padding: 5,
-                borderRadius: 44,
+                color: colors.keyPad.label,
+                fontSize: 30,
               }}
             >
-              <TouchableOpacity
-                onPress={() => {
-                  selectTerminal(idx);
-                }}
-                style={{
-                  width: selected === idx ? 50 : 40,
-                  height: 50,
-                  borderRadius: 50 / 2,
-                  backgroundColor: '#FFF',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <FIcon
-                  name={item.icon}
-                  size={25}
-                  style={{color: item.color}}
-                  // style={{color: colors.menu.bottom.icon}}
-                />
-              </TouchableOpacity>
-              <IText
-                medium
-                style={{
-                  color: colors.text.primary,
-                  marginHorizontal: selected === idx ? 10 : 0,
-                }}
-              >
-                {selected === idx ? item.label : ''}
-              </IText>
-            </View>
-          );
-        })}
+              {formatter.format(28600).replace('$', '')}
+            </IText>
+          </View>
+          <View>
+            <IText>DEPOSIT</IText>
+          </View>
+        </Animated.View>
       </View>
-      {/* {terminals.map((item, idx) => {
-        return (
-          <TerminalCard
-            key={idx}
-            isExpanded={idx === selected}
-            onPress={() => {
-              selectTerminal(idx);
-            }}
-            onPressStatement={() => {
-              console.log('haha');
-            }}
-          />
-        );
-      })} */}
     </ScrollView>
   );
 };
@@ -149,6 +168,13 @@ const styles = StyleSheet.create({
   amount: {
     paddingHorizontal: 20,
     paddingVertical: 20,
+    alignItems: 'center',
+  },
+  animationCard: {
+    borderRadius: 25,
+    padding: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 });
