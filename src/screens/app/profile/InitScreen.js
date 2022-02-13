@@ -169,7 +169,7 @@ const InitScreen = ({navigation}) => {
                     size={30}
                     style={[
                       {color: colors.darkMode.label},
-                      styles.darkModeIcon,
+                      // styles.darkModeIcon,
                     ]}
                   />
                 </TouchableOpacity>
