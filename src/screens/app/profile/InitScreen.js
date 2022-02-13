@@ -54,73 +54,81 @@ const InitScreen = ({navigation}) => {
           },
         ]}
       >
-        <TouchableOpacity style={[styles.settingsItem, {}]}>
-          <IText>{t('common.mobile').toUpperCase()}</IText>
-          <IText style={{paddingVertical: 5}}>
-            {'+' + state.user.phone.extension + ' ' + state.user.phone.number}
-          </IText>
-        </TouchableOpacity>
-        <Separator />
-        {/* <TouchableOpacity style={[styles.settingsItem, {}]}>
-          <IText>{t('common.email').toUpperCase()}</IText>
-          <IText style={{paddingVertical: 5}}>EMAIL</IText>
-        </TouchableOpacity>
-        <Separator /> */}
-        <View style={[styles.settingsItem, {}]}>
-          <IText>{t('common.appearance').toUpperCase()}</IText>
-          <View
-            style={[
-              {backgroundColor: colors.darkMode.background},
-              styles.darkModeBoxBackground,
-            ]}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                setScheme('light');
-              }}
-            >
-              <Icon
-                name={'sunny-outline'}
-                size={30}
-                style={[{color: colors.darkMode.label}, styles.darkModeIcon]}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                setScheme('dark');
-              }}
-            >
-              <Icon
-                name={'moon-outline'}
-                size={25}
-                style={[{color: colors.darkMode.label}, styles.darkModeIcon]}
-              />
-            </TouchableOpacity>
-          </View>
+        <View style={[styles.box, {borderColor: colors.text.primary}]}>
+          <TouchableOpacity style={[styles.settingsItem, {}]}>
+            <IText>{t('common.mobile').toUpperCase()}</IText>
+            <IText>
+              {'+' + state.user.phone.extension + ' ' + state.user.phone.number}
+            </IText>
+          </TouchableOpacity>
+          {/* <TouchableOpacity style={[styles.settingsItem, {}]}>
+            <IText>{t('common.email').toUpperCase()}</IText>
+            <IText>EMAIL</IText>
+          </TouchableOpacity> */}
         </View>
-        <Separator />
-        <View style={[styles.settingsItem, {}]}>
-          <IText>{t('common.language').toUpperCase()}</IText>
-          <View
-            style={[
-              {backgroundColor: colors.darkMode.background},
-              styles.darkModeBoxBackground,
-            ]}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                changeLanguage('mn');
-              }}
+
+        <View
+          style={[
+            styles.box,
+            {borderColor: colors.text.primary, marginTop: 20},
+          ]}
+        >
+          <View style={[styles.settingsItem, {}]}>
+            <IText>{t('common.appearance').toUpperCase()}</IText>
+            <View
+              style={[
+                {backgroundColor: colors.darkMode.background},
+                styles.darkModeBoxBackground,
+              ]}
             >
-              <IText style={styles.languageIcon}>MN</IText>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                changeLanguage('en');
-              }}
+              <TouchableOpacity
+                onPress={() => {
+                  setScheme('light');
+                }}
+              >
+                <Icon
+                  name={'sunny-outline'}
+                  size={30}
+                  style={[{color: colors.darkMode.label}, styles.darkModeIcon]}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setScheme('dark');
+                }}
+              >
+                <Icon
+                  name={'moon-outline'}
+                  size={25}
+                  style={[{color: colors.darkMode.label}, styles.darkModeIcon]}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          {/* <Separator /> */}
+          <View style={[styles.settingsItem, {}]}>
+            <IText>{t('common.language').toUpperCase()}</IText>
+            <View
+              style={[
+                {backgroundColor: colors.darkMode.background},
+                styles.darkModeBoxBackground,
+              ]}
             >
-              <IText style={styles.languageIcon}>EN</IText>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  changeLanguage('mn');
+                }}
+              >
+                <IText style={styles.languageIcon}>MN</IText>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  changeLanguage('en');
+                }}
+              >
+                <IText style={styles.languageIcon}>EN</IText>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
@@ -170,14 +178,14 @@ const styles = StyleSheet.create({
   },
   settingsContainer: {
     marginTop: 20,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    // borderTopWidth: 1,
+    // borderBottomWidth: 1,
     paddingHorizontal: 20,
   },
   settingsItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 25,
+    paddingVertical: 5,
     alignItems: 'center',
   },
   darkModeBoxBackground: {
@@ -191,6 +199,11 @@ const styles = StyleSheet.create({
   },
   languageIcon: {
     padding: 10,
+  },
+  box: {
+    borderWidth: 1,
+    borderRadius: 25,
+    padding: 20,
   },
 });
 
