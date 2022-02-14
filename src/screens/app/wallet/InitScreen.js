@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   Easing,
 } from 'react-native';
-import {Clipboard} from '@react-native-clipboard/clipboard';
+import Clipboard from '@react-native-community/clipboard';
 import I18n from '../../../utils/i18n';
 import {useTheme} from '../../../theme/ThemeProvider';
 import {Context as AuthContext} from '../../../context/AuthContext';
@@ -248,6 +248,9 @@ const InitScreen = ({navigation}) => {
               <IText style={{fontSize: 25}}>Түшиг Баттөмөр</IText>
             </View>
             <TouchableOpacity
+              onPress={() => {
+                Clipboard.setString('Түшиг Баттөмөр');
+              }}
               style={[
                 styles.depositButton,
                 {backgroundColor: colors.darkMode.background},
@@ -264,6 +267,9 @@ const InitScreen = ({navigation}) => {
               <IText style={{fontSize: 25}}>CBL:{remarks}</IText>
             </View>
             <TouchableOpacity
+              onPress={() => {
+                Clipboard.setString('CBL:' + remarks);
+              }}
               style={[
                 styles.depositButton,
                 {backgroundColor: colors.darkMode.background},
