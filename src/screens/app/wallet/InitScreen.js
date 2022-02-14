@@ -272,12 +272,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  depositButton: {
-    padding: 5,
-    borderRadius: 15,
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
   depositItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
