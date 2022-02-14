@@ -19,6 +19,7 @@ import FIcon from 'react-native-vector-icons/dist/Feather';
 import Modal from 'react-native-modal';
 
 import IText from '../../../components/IText';
+import GreyButton from '../../../components/button/GreyButton';
 import TerminalCard from '../../../components/TerminalCard';
 import PrimaryButton from '../../../components/PrimaryButton';
 
@@ -173,17 +174,10 @@ const InitScreen = ({navigation}) => {
               {formatter.format(28600).replace('$', '')}
             </IText>
           </View>
-          <TouchableOpacity
-            style={[
-              {backgroundColor: colors.darkMode.background},
-              styles.depositButton,
-            ]}
+          <GreyButton
             onPress={getRemarks}
-          >
-            <IText style={{padding: 10}}>
-              {t('common.deposit').toUpperCase()}
-            </IText>
-          </TouchableOpacity>
+            label={t('common.deposit').toUpperCase()}
+          />
         </Animated.View>
       </View>
 
@@ -228,57 +222,36 @@ const InitScreen = ({navigation}) => {
               <IText light>{t('wallet.account').toUpperCase()}</IText>
               <IText style={{fontSize: 25}}>3250003674</IText>
             </View>
-            <TouchableOpacity
+            <GreyButton
               onPress={() => {
                 Clipboard.setString('3250003674');
               }}
-              style={[
-                styles.depositButton,
-                {backgroundColor: colors.darkMode.background},
-              ]}
-            >
-              <IText style={{padding: 5}}>
-                {t('common.copy').toUpperCase()}
-              </IText>
-            </TouchableOpacity>
+              label={t('common.copy').toUpperCase()}
+            />
           </View>
           <View style={[styles.depositItem]}>
             <View>
               <IText light>{t('wallet.name').toUpperCase()}</IText>
               <IText style={{fontSize: 25}}>Түшиг Баттөмөр</IText>
             </View>
-            <TouchableOpacity
+            <GreyButton
               onPress={() => {
                 Clipboard.setString('Түшиг Баттөмөр');
               }}
-              style={[
-                styles.depositButton,
-                {backgroundColor: colors.darkMode.background},
-              ]}
-            >
-              <IText style={{padding: 5}}>
-                {t('common.copy').toUpperCase()}
-              </IText>
-            </TouchableOpacity>
+              label={t('common.copy').toUpperCase()}
+            />
           </View>
           <View style={[styles.depositItem]}>
             <View>
               <IText light>{t('wallet.remarks').toUpperCase()}</IText>
               <IText style={{fontSize: 25}}>CBL:{remarks}</IText>
             </View>
-            <TouchableOpacity
+            <GreyButton
               onPress={() => {
                 Clipboard.setString('CBL:' + remarks);
               }}
-              style={[
-                styles.depositButton,
-                {backgroundColor: colors.darkMode.background},
-              ]}
-            >
-              <IText style={{padding: 5}}>
-                {t('common.copy').toUpperCase()}
-              </IText>
-            </TouchableOpacity>
+              label={t('common.copy').toUpperCase()}
+            />
           </View>
         </View>
       </Modal>
@@ -302,8 +275,8 @@ const styles = StyleSheet.create({
   depositButton: {
     padding: 5,
     borderRadius: 15,
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   depositItem: {
     flexDirection: 'row',
