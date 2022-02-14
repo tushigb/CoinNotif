@@ -22,6 +22,8 @@ export default {
     appearance: 'харагдах байдал',
     mobile: 'утасны дугаар',
     email: 'имэйл',
+    deposit: 'орлого',
+    copy: 'хуулах',
   },
   onboard: {
     skip: 'Алгасах',
@@ -37,6 +39,10 @@ export default {
     send: 'Илгээсэн',
     receive: 'Авсан',
     pad: 'Товч',
+    account: 'данс',
+    name: 'нэр',
+    remarks: 'гүйлгээний утга',
+    golomt: 'голомт банк',
   },
   login: {
     phone: 'Утасны дугаараа оруулна уу',

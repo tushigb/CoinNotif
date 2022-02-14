@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   Animated,
   Dimensions,
@@ -10,22 +10,25 @@ import {
   ScrollView,
   TouchableOpacity,
   Easing,
+  Clipboard,
 } from 'react-native';
 
 import I18n from '../../../utils/i18n';
 import {useTheme} from '../../../theme/ThemeProvider';
 import {Context as AuthContext} from '../../../context/AuthContext';
 import FIcon from 'react-native-vector-icons/dist/Feather';
+import Modal from 'react-native-modal';
 
 import IText from '../../../components/IText';
 import TerminalCard from '../../../components/TerminalCard';
 import PrimaryButton from '../../../components/PrimaryButton';
-import {useEffect} from 'react/cjs/react.development';
+
+import {getRequest} from '../../../service/Service';
 
 const InitScreen = ({navigation}) => {
   const {colors, setScheme, isDark} = useTheme();
   const {t} = I18n;
-  const {state, signout, test} = useContext(AuthContext);
+  const {state, signout, setLoading} = useContext(AuthContext);
 
   // animation states
   const [firstCardAnimation] = useState(new Animated.Value(0));
@@ -33,6 +36,9 @@ const InitScreen = ({navigation}) => {
   const [firstCardXAnimation] = useState(new Animated.Value(-1000));
   const [secondCardXAnimation] = useState(new Animated.Value(1000));
   const [mainCardXAnimation] = useState(new Animated.Value(-1000));
+
+  const [show, setShow] = useState(false);
+  const [remarks, setRemarks] = useState('');
 
   useEffect(() => {
     translate(1);
@@ -84,6 +90,19 @@ const InitScreen = ({navigation}) => {
         spin(false);
       }
     });
+  };
+
+  const getRemarks = () => {
+    setLoading(true);
+    getRequest('wallet/invoice')
+      .then(response => {
+        setLoading(false);
+        setShow(true);
+        setRemarks(response.data.remarks);
+      })
+      .catch(err => {
+        setLoading(false);
+      });
   };
 
   let width = Dimensions.get('window').width;
@@ -155,11 +174,109 @@ const InitScreen = ({navigation}) => {
               {formatter.format(28600).replace('$', '')}
             </IText>
           </View>
-          <View>
-            <IText>DEPOSIT</IText>
-          </View>
+          <TouchableOpacity
+            style={[
+              {backgroundColor: colors.darkMode.background},
+              styles.depositButton,
+            ]}
+            onPress={getRemarks}
+          >
+            <IText style={{padding: 10}}>
+              {t('common.deposit').toUpperCase()}
+            </IText>
+          </TouchableOpacity>
         </Animated.View>
       </View>
+
+      <Modal
+        isVisible={show}
+        backdropOpacity={0.5}
+        swipeDirection={['down']}
+        onSwipeComplete={() => {
+          setShow(!show);
+        }}
+        onBackdropPress={() => {
+          setShow(!show);
+        }}
+        backdropTransitionInTiming={500}
+        backdropTransitionOutTiming={500}
+        scrollOffsetMax={400 - 300}
+        useNativeDriverForBackdrop
+        propagateSwipe
+        style={{
+          justifyContent: 'flex-end',
+          margin: 0,
+        }}
+      >
+        <View
+          style={[
+            {
+              backgroundColor: colors.background.primary,
+              height: height / 2,
+              borderRadius: 25,
+              paddingHorizontal: 20,
+              paddingVertical: 30,
+            },
+          ]}
+        >
+          <View style={[{marginBottom: 20}]}>
+            <IText style={{fontSize: 25}}>
+              {t('wallet.golomt').toUpperCase()}
+            </IText>
+          </View>
+          <View style={[styles.depositItem]}>
+            <View>
+              <IText light>{t('wallet.account').toUpperCase()}</IText>
+              <IText style={{fontSize: 25}}>3250003674</IText>
+            </View>
+            <TouchableOpacity
+              onPress={() => {
+                Clipboard.setString('3250003674');
+              }}
+              style={[
+                styles.depositButton,
+                {backgroundColor: colors.darkMode.background},
+              ]}
+            >
+              <IText style={{padding: 5}}>
+                {t('common.copy').toUpperCase()}
+              </IText>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.depositItem]}>
+            <View>
+              <IText light>{t('wallet.name').toUpperCase()}</IText>
+              <IText style={{fontSize: 25}}>Түшиг Баттөмөр</IText>
+            </View>
+            <TouchableOpacity
+              style={[
+                styles.depositButton,
+                {backgroundColor: colors.darkMode.background},
+              ]}
+            >
+              <IText style={{padding: 5}}>
+                {t('common.copy').toUpperCase()}
+              </IText>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.depositItem]}>
+            <View>
+              <IText light>{t('wallet.remarks').toUpperCase()}</IText>
+              <IText style={{fontSize: 25}}>CBL:{remarks}</IText>
+            </View>
+            <TouchableOpacity
+              style={[
+                styles.depositButton,
+                {backgroundColor: colors.darkMode.background},
+              ]}
+            >
+              <IText style={{padding: 5}}>
+                {t('common.copy').toUpperCase()}
+              </IText>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
@@ -176,6 +293,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  depositButton: {
+    padding: 5,
+    borderRadius: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  depositItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
   },
 });
 

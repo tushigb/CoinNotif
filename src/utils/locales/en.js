@@ -22,6 +22,8 @@ export default {
     appearance: 'appearance',
     mobile: 'mobile number',
     email: 'email',
+    deposit: 'deposit',
+    copy: 'copy',
   },
   onboard: {
     skip: 'Skip',
@@ -37,6 +39,10 @@ export default {
     send: 'Send',
     receive: 'Receive',
     pad: 'Pad',
+    account: 'account',
+    name: 'name',
+    remarks: 'remarks',
+    golomt: 'golomt bank',
   },
   login: {
     phone: 'Please enter phone number',
