@@ -10,9 +10,8 @@ import {
   ScrollView,
   TouchableOpacity,
   Easing,
-  Clipboard,
 } from 'react-native';
-
+import {Clipboard} from '@react-native-clipboard/clipboard';
 import I18n from '../../../utils/i18n';
 import {useTheme} from '../../../theme/ThemeProvider';
 import {Context as AuthContext} from '../../../context/AuthContext';
