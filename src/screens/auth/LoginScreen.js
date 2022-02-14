@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import I18n from '../../utils/i18n';
 import {useTheme} from '../../theme/ThemeProvider';
 import {Context as AuthContext} from '../../context/AuthContext';
+import {Context as WalletContext} from '../../context/WalletContext';
 
 import IText from '../../components/IText';
 import KeyPad from '../../components/KeyPad';
@@ -33,6 +34,7 @@ const LoginScreen = ({navigation}) => {
   const {colors, setScheme, isDark} = useTheme();
   const {signin} = useContext(AuthContext);
   const {state, setLoading} = useContext(AuthContext);
+  const {updateBalance} = useContext(WalletContext);
 
   const [scrollOffset, setScrollOffset] = useState(null);
   const [showCodes, setCodes] = useState(false);
@@ -75,6 +77,7 @@ const LoginScreen = ({navigation}) => {
                 },
               },
             });
+            updateBalance({balance: response.data.balance});
             setLoading(false);
           }
         })

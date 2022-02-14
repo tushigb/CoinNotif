@@ -1,8 +1,8 @@
 import createStore from './Store';
-import authReducer from './reducers/auth.reducer';
-import authActions from './actions/auth.action';
+import reducer from './reducers/auth.reducer';
+import actions from './actions/auth.action';
 
-export const {Provider, Context} = createStore(authReducer, authActions, {
+export const {Provider, Context} = createStore(reducer, actions, {
   token: null,
   user: {},
   loading: false,

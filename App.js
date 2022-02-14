@@ -6,6 +6,7 @@ import {enableScreens} from 'react-native-screens';
 enableScreens();
 import AppLayout from './src/screens/layout/AppLayout';
 import {Provider as AuthProvider} from './src/context/AuthContext';
+import {Provider as WalletProvider} from './src/context/WalletContext';
 import messaging from '@react-native-firebase/messaging';
 
 // import 'intl';
@@ -46,7 +47,9 @@ const App = () => {
 
   return (
     <AuthProvider>
-      <AppLayout />
+      <WalletProvider>
+        <AppLayout />
+      </WalletProvider>
     </AuthProvider>
   );
 };

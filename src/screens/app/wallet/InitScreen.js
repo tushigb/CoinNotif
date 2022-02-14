@@ -15,6 +15,7 @@ import Clipboard from '@react-native-community/clipboard';
 import I18n from '../../../utils/i18n';
 import {useTheme} from '../../../theme/ThemeProvider';
 import {Context as AuthContext} from '../../../context/AuthContext';
+import {Context as WalletContext} from '../../../context/WalletContext';
 import FIcon from 'react-native-vector-icons/dist/Feather';
 import Modal from 'react-native-modal';
 
@@ -29,6 +30,7 @@ const InitScreen = ({navigation}) => {
   const {colors, setScheme, isDark} = useTheme();
   const {t} = I18n;
   const {state, signout, setLoading} = useContext(AuthContext);
+  const walletContext = useContext(WalletContext);
 
   // animation states
   const [firstCardAnimation] = useState(new Animated.Value(0));
@@ -41,6 +43,7 @@ const InitScreen = ({navigation}) => {
   const [remarks, setRemarks] = useState('');
 
   useEffect(() => {
+    console.log();
     translate(1);
   }, []);
 
@@ -171,7 +174,7 @@ const InitScreen = ({navigation}) => {
                 fontSize: 30,
               }}
             >
-              {formatter.format(28600).replace('$', '')}
+              {formatter.format(walletContext.state.balance).replace('$', '')}
             </IText>
           </View>
           <GreyButton
