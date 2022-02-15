@@ -117,7 +117,10 @@ const InitScreen = ({navigation}) => {
     getRequest('wallet/deposits')
       .then(response => {
         setDeposits(response.data.deposits);
-        walletContext.updateBalance({balance: response.data.balance});
+        walletContext.updateBalance({
+          balance: response.data.balance,
+          check: false,
+        });
         setDepLoading(false);
       })
       .catch(err => {

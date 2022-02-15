@@ -23,9 +23,10 @@ const AppLayout = props => {
 
   useEffect(() => {
     messaging().onMessage(async remoteMessage => {
-      walletContext.updateBalance({
-        balance: parseInt(remoteMessage.notification.body),
-      });
+      // walletContext.updateBalance({
+      //   balance: parseInt(remoteMessage.notification.body),
+      // });
+      walletContext.setCheck(true);
     });
   }, []);
 

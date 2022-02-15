@@ -7,6 +7,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {useTheme} from '../theme/ThemeProvider';
+import {Context as WalletContext} from '../context/WalletContext';
 
 import HomeStack from './HomeStackNavigation';
 import WalletStack from './WalletStackNavigation';
@@ -16,8 +17,11 @@ import ProfileStack from './ProfileStackNavigation';
 
 const TabNavigation = ({route}) => {
   const {colors} = useTheme();
+  const {state} = useContext(WalletContext);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(state);
+  }, []);
 
   const Tab = createBottomTabNavigator();
   return (
@@ -62,12 +66,18 @@ const TabNavigation = ({route}) => {
                 style={{color: focused ? colors.menu.bottom.icon : '#A3A5BA'}}
                 // style={{color: colors.menu.bottom.icon}}
               />
-              <Animated.View
-                style={[
-                  {
-                    backgroundColor: colors.menu.bottom.icon,
-                  },
-                ]}
+              <View
+                style={{
+                  width: 3.5,
+                  height: 3.5,
+                  backgroundColor:
+                    route.name === 'Wallet' && state.check
+                      ? colors.change.negative
+                      : colors.background.primary,
+                  borderRadius: 50,
+                  position: 'absolute',
+                  bottom: -5,
+                }}
               />
             </View>
           );

@@ -4,4 +4,5 @@ import actions from './actions/wallet.action';
 
 export const {Provider, Context} = createStore(reducer, actions, {
   balance: 0,
+  check: false,
 });

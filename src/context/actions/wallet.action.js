@@ -9,4 +9,15 @@ export const updateBalance = dispatch => {
   };
 };
 
-export default {updateBalance};
+export const setCheck = dispatch => {
+  return payload => {
+    dispatch({
+      type: 'setCheck',
+      payload: {
+        check: payload,
+      },
+    });
+  };
+};
+
+export default {updateBalance, setCheck};
