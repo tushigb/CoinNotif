@@ -69,7 +69,7 @@ const PinScreen = ({navigation, route}) => {
                   user: {
                     phone: {
                       extension: code.replace('+', ''),
-                      number: user.phone,
+                      number: phone,
                     },
                   },
                 }),
