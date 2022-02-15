@@ -189,6 +189,7 @@ export const codes = [
     name: 'Canada',
     dial_code: '+1',
     code: 'CA',
+    length: 10,
   },
   {
     name: 'Cape Verde',

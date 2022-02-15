@@ -48,7 +48,6 @@ const InitScreen = ({navigation}) => {
 
   useEffect(() => {
     translate(1);
-    getDeposits();
   }, []);
 
   const formatter = new Intl.NumberFormat('en-US', {
@@ -95,6 +94,7 @@ const InitScreen = ({navigation}) => {
       if (num === 3) {
         spin(true);
         spin(false);
+        getDeposits();
       }
     });
   };
