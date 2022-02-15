@@ -4,9 +4,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {AppearanceProvider} from 'react-native-appearance';
 import {ThemeProvider} from '../../theme/ThemeProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import messaging from '@react-native-firebase/messaging';
 
 import {Context as AuthContext} from '../../context/AuthContext';
-import {Context as LoaderContext} from '../../context/LoaderContext';
+import {Context as WalletContext} from '../../context/WalletContext';
 
 import AuthStack from '../../navigation/AuthStackNavigation';
 import TabNavigation from '../../navigation/TabNavigation';
@@ -17,12 +18,22 @@ import Loader from '../../components/Loader';
 
 const AppLayout = props => {
   const {state, signin} = useContext(AuthContext);
+  const walletContext = useContext(WalletContext);
   const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    messaging().onMessage(async remoteMessage => {
+      walletContext.updateBalance({
+        balance: parseInt(remoteMessage.notification.body),
+      });
+    });
+  }, []);
 
   useEffect(() => {
     AsyncStorage.getItem('accessToken').then(result => {
       AsyncStorage.getItem('user').then(res => {
         if (res) {
+          console.log(res);
           signin({token: result, user: JSON.parse(res).user});
           setToken(result);
         }

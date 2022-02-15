@@ -66,9 +66,11 @@ const PinScreen = ({navigation, route}) => {
               AsyncStorage.setItem(
                 'user',
                 JSON.stringify({
-                  phone: {
-                    extension: code.replace('+', ''),
-                    number: phone,
+                  user: {
+                    phone: {
+                      extension: code.replace('+', ''),
+                      number: user.phone,
+                    },
                   },
                 }),
               );

@@ -1,11 +1,11 @@
-const walletReducer = (walletState, action) => {
+const walletReducer = (state, action) => {
   switch (action.type) {
     case 'updateBalance':
       return {
-        balance: action.payload.balance,
+        balance: state.balance + action.payload.balance,
       };
     default:
-      return walletState;
+      return state;
   }
 };
 
