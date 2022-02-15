@@ -30,9 +30,7 @@ const WalletStack = props => {
           headerTitleAlign: 'left',
           animationTypeForReplace: 'pop',
           headerShown: true,
-          cardStyle: {
-            backgroundColor: colors.background.primary,
-          },
+          cardStyle: {backgroundColor: colors.background.secondary},
           headerStyle: {
             backgroundColor: colors.background.primary,
             height: height / 6,

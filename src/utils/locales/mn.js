@@ -43,6 +43,8 @@ export default {
     name: 'нэр',
     remarks: 'гүйлгээний утга',
     golomt: 'голомт банк',
+    recent_deposits: 'Сүүлийн орлогууд',
+    no_transaction_posted: 'Уучлаарай гүйлгээ бүртгэгдээгүй байна',
   },
   login: {
     phone: 'Утасны дугаараа оруулна уу',

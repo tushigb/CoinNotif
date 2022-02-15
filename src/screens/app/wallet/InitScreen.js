@@ -10,6 +10,8 @@ import {
   ScrollView,
   TouchableOpacity,
   Easing,
+  Image,
+  RefreshControl,
 } from 'react-native';
 import Clipboard from '@react-native-community/clipboard';
 import I18n from '../../../utils/i18n';
@@ -41,10 +43,12 @@ const InitScreen = ({navigation}) => {
 
   const [show, setShow] = useState(false);
   const [remarks, setRemarks] = useState('');
+  const [depLoading, setDepLoading] = useState(false);
+  const [deposits, setDeposits] = useState(null);
 
   useEffect(() => {
-    console.log();
     translate(1);
+    getDeposits();
   }, []);
 
   const formatter = new Intl.NumberFormat('en-US', {
@@ -108,82 +112,162 @@ const InitScreen = ({navigation}) => {
       });
   };
 
+  const getDeposits = () => {
+    setDepLoading(true);
+    getRequest('wallet/deposits')
+      .then(response => {
+        setDeposits(response.data);
+        setDepLoading(false);
+      })
+      .catch(err => {
+        setDeposits([]);
+        setDepLoading(false);
+      });
+  };
+
   let width = Dimensions.get('window').width;
   let height = Dimensions.get('window').height;
   return (
-    <ScrollView style={{flex: 1, paddingHorizontal: 20}}>
+    <>
       <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
-
-      <View style={{marginTop: 40, alignItems: 'center'}}>
-        <Animated.View
-          style={[{transform: [{translateX: firstCardXAnimation}]}]}
-        >
+      <View
+        style={{
+          backgroundColor: colors.background.primary,
+          paddingHorizontal: 20,
+          paddingTop: 20,
+          paddingBottom: 40,
+          borderBottomLeftRadius: 40,
+          borderBottomRightRadius: 40,
+        }}
+      >
+        <View style={{alignItems: 'center'}}>
+          <Animated.View
+            style={[{transform: [{translateX: firstCardXAnimation}]}]}
+          >
+            <Animated.View
+              style={[
+                styles.animationCard,
+                {
+                  transform: [{rotate: firstCard}],
+                  width: width - 40,
+                  backgroundColor: '#fabd42',
+                },
+              ]}
+            />
+          </Animated.View>
           <Animated.View
             style={[
-              styles.animationCard,
               {
-                transform: [{rotate: firstCard}],
-                width: width - 40,
-                backgroundColor: '#fabd42',
+                position: 'absolute',
+                transform: [{translateX: secondCardXAnimation}],
               },
             ]}
-          />
-        </Animated.View>
-        <Animated.View
-          style={[
-            {
+          >
+            <Animated.View
+              style={[
+                styles.animationCard,
+                {
+                  transform: [{rotate: secondCard}],
+                  width: width - 40,
+                  backgroundColor: colors.change.negative,
+                },
+              ]}
+            />
+          </Animated.View>
+          <Animated.View
+            style={{
+              borderRadius: 25,
+              padding: 20,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
               position: 'absolute',
-              transform: [{translateX: secondCardXAnimation}],
-            },
-          ]}
-        >
-          <Animated.View
-            style={[
-              styles.animationCard,
-              {
-                transform: [{rotate: secondCard}],
-                width: width - 40,
-                backgroundColor: colors.change.negative,
-              },
-            ]}
+              width: width - 50,
+              backgroundColor: colors.background.primary,
+              transform: [{translateX: mainCardXAnimation}],
+            }}
+          >
+            <View>
+              <IText light style={{color: '#fabd42'}}>
+                {t('wallet.available_balance')}
+              </IText>
+              <IText
+                lines={1}
+                adjustsFontSizeToFit
+                medium
+                style={{
+                  color: colors.keyPad.label,
+                  fontSize: 30,
+                }}
+              >
+                {formatter.format(walletContext.state.balance).replace('$', '')}
+              </IText>
+            </View>
+            <GreyButton
+              onPress={getRemarks}
+              label={t('common.deposit').toUpperCase()}
+            />
+          </Animated.View>
+        </View>
+      </View>
+      <View style={{paddingHorizontal: 20, marginTop: 10}}>
+        <IText style={{marginTop: 10, fontSize: 24}}>
+          {t('wallet.recent_deposits')}
+        </IText>
+      </View>
+      <ScrollView
+        style={{flex: 1, paddingHorizontal: 20, marginTop: 10, width: width}}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={depLoading}
+            onRefresh={getDeposits}
+            tintColor={colors.text.primary}
           />
-        </Animated.View>
-        <Animated.View
-          style={{
-            borderRadius: 25,
-            padding: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            position: 'absolute',
-            width: width - 50,
-            backgroundColor: colors.background.primary,
-            transform: [{translateX: mainCardXAnimation}],
-          }}
-        >
-          <View>
-            <IText light style={{color: '#fabd42'}}>
-              {t('wallet.available_balance')}
-            </IText>
-            <IText
-              lines={1}
-              adjustsFontSizeToFit
-              medium
+        }
+      >
+        {deposits &&
+          deposits.length > 0 &&
+          deposits.map((item, idx) => {
+            return (
+              <View
+                key={idx}
+                style={{
+                  backgroundColor: colors.background.primary,
+                  borderRadius: 15,
+                  padding: 20,
+                  marginBottom: 20,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <View>
+                  <IText regular>{item.remarks}</IText>
+                  <IText light>{item.date.split('T')[0]}</IText>
+                </View>
+                <IText regular>
+                  {formatter.format(item.amount).replace('$', '₮')}
+                </IText>
+              </View>
+            );
+          })}
+        {deposits && deposits.length === 0 && (
+          <View style={{alignItems: 'center', padding: 20}}>
+            <Image
+              source={require('../../../assets/images/wallet/empty.png')}
               style={{
-                color: colors.keyPad.label,
-                fontSize: 30,
+                height: width / 1.5,
+                width: width / 1.5,
+                resizeMode: 'contain',
               }}
-            >
-              {formatter.format(walletContext.state.balance).replace('$', '')}
+            />
+            <IText light lines={2}>
+              {t('wallet.no_transaction_posted')}
             </IText>
           </View>
-          <GreyButton
-            onPress={getRemarks}
-            label={t('common.deposit').toUpperCase()}
-          />
-        </Animated.View>
-      </View>
-
+        )}
+      </ScrollView>
       <Modal
         isVisible={show}
         backdropOpacity={0.5}
@@ -258,7 +342,7 @@ const InitScreen = ({navigation}) => {
           </View>
         </View>
       </Modal>
-    </ScrollView>
+    </>
   );
 };
 

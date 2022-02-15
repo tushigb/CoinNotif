@@ -43,6 +43,8 @@ export default {
     name: 'name',
     remarks: 'remarks',
     golomt: 'golomt bank',
+    recent_deposits: 'Recent deposits',
+    no_transaction_posted: 'Sorry, there is not transaction posted',
   },
   login: {
     phone: 'Please enter phone number',
