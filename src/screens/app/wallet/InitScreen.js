@@ -116,7 +116,8 @@ const InitScreen = ({navigation}) => {
     setDepLoading(true);
     getRequest('wallet/deposits')
       .then(response => {
-        setDeposits(response.data);
+        setDeposits(response.data.deposits);
+        walletContext.updateBalance({balance: response.data.balance});
         setDepLoading(false);
       })
       .catch(err => {
@@ -200,7 +201,9 @@ const InitScreen = ({navigation}) => {
                   fontSize: 30,
                 }}
               >
-                {formatter.format(walletContext.state.balance).replace('$', '')}
+                {formatter
+                  .format(walletContext.state.balance)
+                  .replace('$', '₮')}
               </IText>
             </View>
             <GreyButton
@@ -246,8 +249,8 @@ const InitScreen = ({navigation}) => {
                   <IText regular>{item.remarks}</IText>
                   <IText light>{item.date.split('T')[0]}</IText>
                 </View>
-                <IText regular>
-                  {formatter.format(item.amount).replace('$', '₮')}
+                <IText regular style={{color: colors.change.positive}}>
+                  +{formatter.format(item.amount).replace('$', '')}₮
                 </IText>
               </View>
             );
