@@ -21,7 +21,7 @@ const App = () => {
     requestUserPermission();
   }, []);
 
-  async function requestUserPermission() {
+  const requestUserPermission = async () => {
     const authStatus = await messaging().requestPermission();
     const enabled =
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
@@ -30,14 +30,7 @@ const App = () => {
     if (enabled) {
       console.log('Authorization status:', authStatus);
     }
-
-    const token = await messaging().getToken();
-    putRequest('user/token', {
-      token: token,
-    })
-      .then(response => {})
-      .catch(err => {});
-  }
+  };
 
   return (
     <AuthProvider>

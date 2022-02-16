@@ -16,12 +16,15 @@ import I18n from '../../utils/i18n';
 
 import Loader from '../../components/Loader';
 
+import {putRequest} from '../../service/Service';
+
 const AppLayout = props => {
   const {state, signin} = useContext(AuthContext);
   const walletContext = useContext(WalletContext);
   const [token, setToken] = useState(null);
 
   useEffect(() => {
+    updateFCMToken();
     messaging().onMessage(async remoteMessage => {
       // walletContext.updateBalance({
       //   balance: parseInt(remoteMessage.notification.body),
@@ -44,6 +47,15 @@ const AppLayout = props => {
       I18n.locale = result;
     });
   }, []);
+
+  const updateFCMToken = async () => {
+    const token = await messaging().getToken();
+    putRequest('user/token', {
+      token: token,
+    })
+      .then(response => {})
+      .catch(err => {});
+  };
 
   return (
     // <AppearanceProvider>
