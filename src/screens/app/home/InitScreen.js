@@ -132,11 +132,15 @@ const InitScreen = ({navigation}) => {
               <View key={idx} style={{alignItems: 'center'}}>
                 <InvoiceTypeCard
                   onPress={label => {
-                    // setSelected(idx);
-                    // ReactNativeHapticFeedback.trigger('impactLight', {
-                    //   enableVibrateFallback: true,
-                    //   ignoreAndroidSystemSettings: false,
-                    // });
+                    scrollRef.current?.scrollTo({
+                      x: width * idx + 1,
+                      animated: true,
+                    });
+                    setSelected(idx);
+                    ReactNativeHapticFeedback.trigger('impactLight', {
+                      enableVibrateFallback: true,
+                      ignoreAndroidSystemSettings: false,
+                    });
                   }}
                   color={colors.darkMode.background}
                   icon="analytics"
