@@ -131,6 +131,7 @@ const InitScreen = ({navigation}) => {
   };
 
   const copy = text => {
+    setShow(false);
     Clipboard.setString(text);
     Toast.show({
       type: 'info',
