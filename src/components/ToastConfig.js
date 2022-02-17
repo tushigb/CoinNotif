@@ -49,8 +49,8 @@ const toastConfig = {
       title={text1}
       label={text2}
       icon={props.icon ? props.icon : 'information-circle-outline'}
-      color="#5482ab"
-      background={'rgba(84, 130, 171, 0.1)'}
+      color="#007ee5"
+      background={'rgba(0, 126, 229, 0.1)'}
     />
   ),
   warning: ({text1, text2, props}) => (

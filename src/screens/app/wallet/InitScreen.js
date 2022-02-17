@@ -133,7 +133,7 @@ const InitScreen = ({navigation}) => {
   const copy = text => {
     Clipboard.setString(text);
     Toast.show({
-      type: 'success',
+      type: 'info',
       text1: t('common.success'),
       text2: text + ' ' + t('common.copied'),
       props: {icon: 'copy-outline'},
