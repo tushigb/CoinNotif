@@ -24,6 +24,8 @@ export default {
     email: 'имэйл',
     deposit: 'орлого',
     copy: 'хуулах',
+    success: 'амжилттай',
+    copied: 'амжилттай хуудагдлаа',
   },
   onboard: {
     skip: 'Алгасах',

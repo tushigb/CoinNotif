@@ -20,6 +20,7 @@ import {Context as AuthContext} from '../../../context/AuthContext';
 import {Context as WalletContext} from '../../../context/WalletContext';
 import FIcon from 'react-native-vector-icons/dist/Feather';
 import Modal from 'react-native-modal';
+import Toast from 'react-native-toast-message';
 
 import IText from '../../../components/IText';
 import GreyButton from '../../../components/button/GreyButton';
@@ -127,6 +128,16 @@ const InitScreen = ({navigation}) => {
         setDeposits([]);
         setDepLoading(false);
       });
+  };
+
+  const copy = text => {
+    Clipboard.setString(text);
+    Toast.show({
+      type: 'success',
+      text1: t('common.success'),
+      text2: text + ' ' + t('common.copied'),
+      props: {icon: 'copy-outline'},
+    });
   };
 
   let width = Dimensions.get('window').width;
@@ -317,7 +328,7 @@ const InitScreen = ({navigation}) => {
             </View>
             <GreyButton
               onPress={() => {
-                Clipboard.setString('3250003674');
+                copy('3250003674');
               }}
               label={t('common.copy').toUpperCase()}
             />
@@ -329,7 +340,7 @@ const InitScreen = ({navigation}) => {
             </View>
             <GreyButton
               onPress={() => {
-                Clipboard.setString('Түшиг Баттөмөр');
+                copy('Түшиг Баттөмөр');
               }}
               label={t('common.copy').toUpperCase()}
             />
@@ -341,7 +352,7 @@ const InitScreen = ({navigation}) => {
             </View>
             <GreyButton
               onPress={() => {
-                Clipboard.setString('CBL:' + remarks);
+                copy('CBL:' + remarks);
               }}
               label={t('common.copy').toUpperCase()}
             />

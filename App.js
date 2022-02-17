@@ -7,7 +7,10 @@ enableScreens();
 import AppLayout from './src/screens/layout/AppLayout';
 import {Provider as AuthProvider} from './src/context/AuthContext';
 import {Provider as WalletProvider} from './src/context/WalletContext';
+import {ThemeProvider} from './src/theme/ThemeProvider';
 import messaging from '@react-native-firebase/messaging';
+import Toast from 'react-native-toast-message';
+import toastConfig from './src/components/ToastConfig';
 
 // import 'intl';
 // import 'intl/locale-data/jsonp/en';
@@ -35,7 +38,10 @@ const App = () => {
   return (
     <AuthProvider>
       <WalletProvider>
-        <AppLayout />
+        <ThemeProvider>
+          <AppLayout />
+          <Toast config={toastConfig} />
+        </ThemeProvider>
       </WalletProvider>
     </AuthProvider>
   );

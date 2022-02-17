@@ -58,14 +58,10 @@ const AppLayout = props => {
   };
 
   return (
-    // <AppearanceProvider>
-    <ThemeProvider>
-      <NavigationContainer>
-        {state.loading && <Loader />}
-        {state.token === null ? <AuthStack /> : <TabNavigation />}
-      </NavigationContainer>
-    </ThemeProvider>
-    // </AppearanceProvider>
+    <NavigationContainer>
+      {state.loading && <Loader />}
+      {state.token === null ? <AuthStack /> : <TabNavigation />}
+    </NavigationContainer>
   );
 };
 

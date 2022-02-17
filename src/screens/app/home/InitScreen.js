@@ -16,6 +16,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {Skeleton} from 'moti/skeleton';
 import {MotiView} from 'moti';
 import {LinearGradient} from 'expo-linear-gradient';
+import Toast from 'react-native-toast-message';
 
 import I18n from '../../../utils/i18n';
 import {useTheme} from '../../../theme/ThemeProvider';

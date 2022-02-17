@@ -24,6 +24,8 @@ export default {
     email: 'email',
     deposit: 'deposit',
     copy: 'copy',
+    success: 'successful',
+    copied: 'successfully copied',
   },
   onboard: {
     skip: 'Skip',
