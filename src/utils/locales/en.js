@@ -25,7 +25,11 @@ export default {
     deposit: 'deposit',
     copy: 'copy',
     success: 'successful',
+    info: 'info',
+    warning: 'warning',
+    error: 'error',
     copied: 'successfully copied',
+    error_info: 'something went wrong',
   },
   onboard: {
     skip: 'Skip',

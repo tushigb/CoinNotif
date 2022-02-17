@@ -16,6 +16,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import Modal from 'react-native-modal';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 import I18n from '../../utils/i18n';
 import {useTheme} from '../../theme/ThemeProvider';
@@ -84,8 +85,14 @@ const LoginScreen = ({navigation}) => {
         .catch(err => {
           setLoading(false);
           setUser({...user, password: ''});
-          if (err.response.data && err.response.data.message)
-            alert(err.response.data.message);
+          if (err.response.data && err.response.data.message) {
+            Toast.show({
+              type: 'warning',
+              text1: t('common.warning'),
+              text2: err.response.data.message,
+              props: {icon: 'lock-closed-outline'},
+            });
+          }
         });
     }
   }, [user.password]);
@@ -150,7 +157,12 @@ const LoginScreen = ({navigation}) => {
           setLoading(false);
         } else {
           setLoading(false);
-          alert(t('login.no_user'));
+          Toast.show({
+            type: 'warning',
+            text1: t('common.warning'),
+            text2: t('login.no_user'),
+            props: {icon: 'lock-closed-outline'},
+          });
         }
       })
       .catch(err => {

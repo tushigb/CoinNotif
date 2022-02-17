@@ -15,6 +15,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import Modal from 'react-native-modal';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 import I18n from '../../utils/i18n';
 import {useTheme} from '../../theme/ThemeProvider';
@@ -93,7 +94,12 @@ const PinScreen = ({navigation, route}) => {
         setConfirm('');
         setPin('');
         setIsConfirm(false);
-        alert(t('register.pin_wrong'));
+        Toast.show({
+          type: 'warning',
+          text1: t('common.warning'),
+          text2: t('register.pin_wrong'),
+          props: {icon: 'lock-closed-outline'},
+        });
       }
     }
   }, [pin]);

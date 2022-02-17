@@ -16,6 +16,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import Modal from 'react-native-modal';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 import I18n from '../../utils/i18n';
 import {useTheme} from '../../theme/ThemeProvider';
@@ -56,7 +57,12 @@ const RegisterScreen = ({navigation, route}) => {
         })
         .catch(err => {
           setUser({...user, password: ''});
-          alert(t('register.opt_wrong'));
+          Toast.show({
+            type: 'warning',
+            text1: t('common.warning'),
+            text2: t('register.opt_wrong'),
+            props: {icon: 'lock-closed-outline'},
+          });
         });
   }, [user.password]);
 
@@ -109,19 +115,34 @@ const RegisterScreen = ({navigation, route}) => {
           if (response.data.exists) sendOTP();
           else {
             setLoading(false);
-            alert(t('login.no_user'));
+            Toast.show({
+              type: 'warning',
+              text1: t('common.warning'),
+              text2: t('login.no_user'),
+              props: {icon: 'lock-closed-outline'},
+            });
           }
         } else {
           if (!response.data.exists) sendOTP();
           else {
             setLoading(false);
-            alert(t('register.already_registered'));
+            Toast.show({
+              type: 'warning',
+              text1: t('common.warning'),
+              text2: t('register.already_registered'),
+              props: {icon: 'lock-closed-outline'},
+            });
           }
         }
       })
       .catch(err => {
         setLoading(false);
-        alert('Something went wrong');
+        Toast.show({
+          type: 'error',
+          text1: t('common.error'),
+          text2: t('common.error_info'),
+          props: {icon: 'lock-closed-outline'},
+        });
       });
   };
 

@@ -25,7 +25,11 @@ export default {
     deposit: 'орлого',
     copy: 'хуулах',
     success: 'амжилттай',
+    info: 'мэдээлэл',
+    warning: 'анхааруулга',
+    error: 'алдаа',
     copied: 'амжилттай хуудагдлаа',
+    error_info: 'системийн алдаа',
   },
   onboard: {
     skip: 'Алгасах',
