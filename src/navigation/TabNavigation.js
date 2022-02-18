@@ -19,9 +19,7 @@ const TabNavigation = ({route}) => {
   const {colors} = useTheme();
   const {state} = useContext(WalletContext);
 
-  useEffect(() => {
-    console.log(state);
-  }, []);
+  useEffect(() => {}, []);
 
   const Tab = createBottomTabNavigator();
   return (

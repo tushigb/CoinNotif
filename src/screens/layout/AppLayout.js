@@ -5,6 +5,7 @@ import {AppearanceProvider} from 'react-native-appearance';
 import {ThemeProvider} from '../../theme/ThemeProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
+import Toast from 'react-native-toast-message';
 
 import {Context as AuthContext} from '../../context/AuthContext';
 import {Context as WalletContext} from '../../context/WalletContext';
@@ -29,6 +30,12 @@ const AppLayout = props => {
       // walletContext.updateBalance({
       //   balance: parseInt(remoteMessage.notification.body),
       // });
+      Toast.show({
+        type: 'info',
+        text1: remoteMessage.notification.title,
+        text2: remoteMessage.notification.body,
+        props: {icon: 'notifications-outline'},
+      });
       walletContext.setCheck(true);
     });
   }, []);
