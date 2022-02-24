@@ -192,7 +192,7 @@ const InitScreen = ({navigation}) => {
           <IText style={{marginTop: 10, fontSize: 24}}>Trade</IText>
           {tradeAssets.map((item, idx) => {
             return (
-              item.lastPrice && (
+              item.lastPrice > 0 && (
                 <CoinCard
                   key={idx}
                   // onPress={() => {
